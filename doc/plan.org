@@ -1,0 +1,19 @@
+#+TITLE: Biquadris Plan
+#+AUTHOR: Mingde Zeng, Qizhao Huang, Xiaoyang Lin
+#+EMAIL: m8zeng@uwaterloo.ca, q89huang@uwaterloo.ca, x229lin@uwaterloo.ca
+* Overview
+** Game Class
+   To conquer the Biquadris project, we start with a =Game= class:
+   - =Player= objects =player1= and =player2=, representing the two players of this game.
+   - Integer =hiScore=, representing the hi score of the entire game.
+** Player Class
+   For the =Player= class,
+   - =Board= object =board=, representing the game board of the particular player.
+   - Integer =score=, representing the current score of the player.
+   - Integer =level=, representing the current level the player has chosen.
+** Board Class
+* Questions
+  - How could you design your system (or modify your existing design) to allow for some generated blocks to disappear from the screen if not cleared before 10 more blocks have fallen?
+  - How could you design your program to accommodate the possibility of introducing additional levels into the system, with minimum recompilation?
+  - How could you design your program to allow for multiple effects to apply simultaneously? What if we invented more kinds of effects? Can you prevent your program from having one =else=-branch for every possible combination?
+  - How could you design your system to accommodate the addition of new command names, or changes to existing command names, with minimal changes to source and minimal recompilation? (We acknowledge, of course, that adding a new command probably means adding a new feature, which can mean adding a non-trivial amount of code.) How difficult would it be to adapt your system to support a command whereby a user could rename existing commands (e.g. something like rename counterclockwise cc)? How might you support a “macro” language, which would allow you to give a name to a sequence of commands? Keep in mind the effect that all of these features would have on the available shortcuts for existing command names.
