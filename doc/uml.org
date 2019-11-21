@@ -1,0 +1,114 @@
+#+TITLE: Biquadris UML
+#+AUTHOR: Mingde Zeng, Qizhao Huang, Xiaoyang Lin
+#+EMAIL: m8zeng@uwaterloo.ca, q89huang@uwaterloo.ca, x229lin@uwaterloo.ca
+#+begin_src plantuml :file ./uml1.png
+   @startuml
+  skinparam classAttributeIconSize 0
+  class Game {
+          + player1: Board
+          + player2: Board
+          + hiScore: Integer
+          + player1Turn: Boolean
+          + textDisplay: TextDisplay
+  }
+
+  class TextDisplay {
+          + player1: Player
+          + player2: Player
+  }
+
+  Game *-- TextDisplay
+
+  class Player {
+          + board: Board
+          + score: Integer
+          + level: Integer
+  }
+
+  Game *-- Player
+
+  class Board {
+          + {abstract} rotate(bool isClockwise): void
+          + {abstract} down(): void
+          + boardDisplay: BoardDisplay
+  }
+
+  Player *-- Board
+
+  class BoardDisplay {
+          + boardString: Vector<Vector<Character>>
+  }
+
+  Board *-- BoardDisplay
+
+  class ConcreteBoard {
+          + allCells: Vector<Vector<Cell>>
+          + thisBlock: Block
+          + nextBlock: Block
+          + rotate(bool isClockwise): void
+          + down(): void
+  }
+
+  Board <|-- ConcreteBoard
+
+  class BoardDecorator {
+          # component: Board
+  }
+
+  class BlindDecorator {
+          + rotate(bool isClockwise): void
+          + down(): void
+  }
+
+  class HeavyDecorator {
+          + rotate(bool isClockwise): void
+          + down(): void
+  }
+
+  class ForceDecorator {
+          + rotate(bool isClockwise): void
+          + down(): void
+  }
+
+  Board <|-- BoardDecorator
+  BoardDecorator <|-- BlindDecorator
+  BoardDecorator <|-- HeavyDecorator
+  BoardDecorator <|-- ForceDecorator
+
+  class Block {
+          + bleft: Coordinate
+          + cells: Vector<Cell>
+          + init(): void
+  }
+
+  Board *-- Block
+
+  class Cell {
+          + pos: Coordinate
+          + type: CellType
+          + squad: Vector<Coordinate>
+  }
+
+  Block *-- Cell
+
+  enum CellType {
+          I
+          J
+          L
+          O
+          S
+          Z
+          T
+          Empty
+  }
+
+  object Coordinate {
+          + row: Integer
+          + col: Integer
+  }
+
+  @enduml
+#+end_src
+#+ATTR_LATEX: :height 20cm
+#+RESULTS:
+[[file:./uml1.png]]
