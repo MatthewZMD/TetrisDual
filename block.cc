@@ -1,9 +1,5 @@
 #include "block.h"
 
-Block::Block(){
-    cells = nullptr;
-}
-
-void Block::init(){
-    cell
+void Block(CellType t, Cell* btnLeft){
+    cells = ;
 }
