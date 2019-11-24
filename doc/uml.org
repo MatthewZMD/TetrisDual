@@ -16,7 +16,7 @@
           + score: Integer
           + level: Level
           + countTurn: Integer
-          + boardDisplay: TextDisplay
+          + textDisplay: TextDisplay
           + {abstract} left(): void
           + {abstract} right(): void
           + {abstract} rotate(bool isClockwise): void
@@ -167,7 +167,7 @@
   Subject *-- State
 
   class Observer{
-          + notify(Subject): void
+          + {abstract} notify(Subject): void
   }
 
   Subject o-- Observer
@@ -191,8 +191,6 @@
   Observer <|-- Cell
 
   Block *-- Cell
-
-  Cell o-- Cell
 
   enum CellType << enumeration >> {
           I
