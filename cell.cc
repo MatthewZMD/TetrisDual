@@ -1,5 +1,7 @@
 #include "cell.h"
 
+Cell::Cell(Coordinate pos): pos { pos } {}
+
 void Cell::restore() {
     blockLevel = 0;
     type = CellType::E;

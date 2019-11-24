@@ -1,13 +1,13 @@
-#ifndef _CELL_H_
-#define _CELL_H_
+#ifndef _BLOCk_H_
+#define _BLOCk_H_
 #include <vector>
+#include <memory>
 #include "cell.h"
 
 class Block {
     public:
-    Block();
-    Cell** cells;
-    void init();
+    Block(CellType type);
+    std::shared_ptr<std::shared_ptr<Cell>> cells;
 };
 
 #endif
