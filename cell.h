@@ -15,7 +15,7 @@ class Cell: public Observer, public Subject {
     Cell(Coordinate pos);
     void restore();
     void set(CellType t, int bl, Coordinate** squad);
-    void notifySubject();
+    void notify(Subject& s) override;
 };
 
 #endif
