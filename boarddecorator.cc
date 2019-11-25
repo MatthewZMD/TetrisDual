@@ -1,17 +1,17 @@
 #include "boarddecorator.h"
 
-using namespace std;
+BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
 
 void BoardDecorator::left(int time) {
-	board->left(int time);
+	board->left(time);
 }
 
 void BoardDecorator::right(int time) {
-	board->right(int time);
+	board->right(time);
 }
 
 void BoardDecorator::rotate(bool isClockwise) {
-	board->rotate(bool isClockwise);
+	board->rotate(isClockwise);
 }
 
 void BoardDecorator::down() {
@@ -26,14 +26,10 @@ void BoardDecorator::levelDown() {
 	board->levelDown();
 }
 
-vector<vector<char>> BoardDecorator::display() {
+std::vector<std::vector<char>> BoardDecorator::display() {
 	board->display();
 }
 
 void BoardDecorator::notify(Subject s) {
 	board->notify(s);
-}
-
-vector<vector<char>> BoardDecorator::gettest() {
-	board->gettest();
 }
