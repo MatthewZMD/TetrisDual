@@ -2,17 +2,17 @@
 
 Level::Level(int level, std::string defaultFileName) : level{level}, defaultFileName{defaultFileName}, readFromFile{false}, nextLine{0} {}
 
-int Level::heavyOffset() {
+int Level::heavyOffset() const {
 	return 0;
 }
 
-bool Level::dropBrownBlock() {
+bool Level::dropBrownBlock() const {
 	return false;
 }
 
 void Level::setReadFromFile(std::string fileName) {
 	readFromFile = true;
-	
+
 	std::ifstream fin;
 	fin.open(fileName.c_str());
 
@@ -57,11 +57,11 @@ void Level::unsetReadFromFile() {
 	nextLine = 0;
 }
 
-void Level::getLevel(int & level) {
-	return this->level;
+int Level::getLevel() const {
+	return level;
 }
 
-CellType Level::genBlockFromFile() const {
+CellType Level::genBlockFromFile() {
 	CellType type = sequence.at(nextLine);
 	nextLine = (nextLine + 1) % sequence.size();
 	return type;

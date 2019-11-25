@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "block.h"
 
 void Block::recaliBtmLft(){
@@ -11,51 +12,18 @@ void Block::recaliBtmLft(){
     btmLft = newBtmLft;
 }
 
-Block::Block(CellType t, std::vector<std::vector<std::shared_ptr<Cell>>> allCells): btmLft { Coordinate{3, 0} } {
-    switch(t){
-        case CellType::I:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 2));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 3));
-            break;
-        case CellType::J:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 2));
-            break;
-        case CellType::L:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 2));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 2));
-            break;
-        case CellType::O:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            break;
-        case CellType::S:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 2));
-            break;
-        case CellType::Z:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 2));
-            break;
-        case CellType::T:
-            cells.emplace_back(allCells.at(btmLft.row).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 1));
-            cells.emplace_back(allCells.at(btmLft.row - 1).at(btmLft.col + 2));
-            break;
-        case CellType::E:
-            break; // Do nothing
+Block::Block(CellType t, int l, std::vector<std::shared_ptr<Cell>> cells): cells { cells }, btmLft { Coordinate { 3, 0 } } {
+    std::vector<Coordinate> sq;
+    for(auto &c : cells){
+        if(!c->isEmpty()){
+            throw "Game Over";
+        }
+        for(auto &ci : cells){
+            if(ci != c){
+                sq.emplace_back(ci->pos);
+            }
+        }
+        c->set(t, l, sq);
+        sq.clear();
     }
 }

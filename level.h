@@ -24,7 +24,7 @@ class Level {
     void unsetReadFromFile();
 
     // getter
-    void getLevel(int & level) const;
+    int getLevel() const;
 
 	protected:
     int level;
@@ -33,7 +33,7 @@ class Level {
     std::vector<CellType> sequence; // for level 3 & 4
     int nextLine; // for level 3 & 4
 
-    CellType genBlockFromFile() const;
+    CellType genBlockFromFile();
 };
 
 #endif

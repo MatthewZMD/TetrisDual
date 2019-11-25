@@ -3,18 +3,27 @@
 #include <vector>
 #include "block.h"
 #include "subject.h"
+#include "level.h"
 
 class Board {
+	protected:
+    std::shared_ptr<Block> thisBlock;
+    CellType nextType;
+    int score;
+    std::shared_ptr<Level> level;
+    int countTurn;
+    std::shared_ptr<TextDisplay> testDisplay;
+    std::vector<std::vector<Cell>> allCells;
     public:
-    virtual void left(int time) = 0;
-    virtual void right(int time) = 0;
-    virtual void rotate(bool isClockwise) = 0;
-    virtual void down() = 0;
-    virtual void drop() = 0;
-    virtual void levelUp() = 0;
-    virtual void levelDown() = 0;
-    virtual Block genBlock() = 0;
-    virtual std::vector<std::vector<char>> display() = 0;
-    virtual void notify(Subject s) = 0;
-    bool isDecorator = 0;
+    virtual void left(int time);
+    virtual void right(int time);
+    virtual void rotate(bool isClockwise);
+    virtual void down();
+    virtual void drop();
+    virtual void levelUp();
+    virtual void levelDown();
+    virtual void genThis();
+    virtual void genNext();
+    virtual std::vector<std::vector<char>> display();
+    virtual void notify(Subject s);
 };

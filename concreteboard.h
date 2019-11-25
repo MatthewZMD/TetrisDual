@@ -1,18 +1,10 @@
-#ifndef CONCRETEBOARD_H
-#define CONCRETEBOARD_H
+#ifndef _CONCRETEBOARD_H_
+#define _CONCRETEBOARD_H_
 #include "board.h"
-#include "level.h"
 
-class ConcreteBoard: public Board {
-	private:
-    std::shared_ptr<Block> thisBlock;
-    std::shared_ptr<Block> nextBlock;
-    int score;
-    std::shared_ptr<Level> level;
-    int countTurn;
-    TextDisplay testDisplay;
-    std::vector<std::vector<Cell>> allCells;
+class ConcreteBoard: public Board, public Subject {
 	public:
+    Block genBlock() override;
     void left(int time) override;
     void right(int time) override;
     void rotate(bool isClockwise) override;
@@ -22,6 +14,5 @@ class ConcreteBoard: public Board {
     void levelDown() override;
     std::vector<std::vector<char>> display() override;
     void notify(Subject s) override;
-    Block genBlock() override;
 };
 #endif
