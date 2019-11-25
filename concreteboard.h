@@ -1,7 +1,17 @@
 #ifndef CONCRETEBOARD_H
 #define CONCRETEBOARD_H
 
+#include "board.h"
+
 class ConcreteBoard: public Board {
+	private:
+		Block thisBlock;
+		Block nextBlock;
+		int score;
+		Level level;
+		int countTurn;
+		TextDisplay testDisplay;
+		std::vector<std::vector<Cell>> allCells;
 	public:
 		void left(int time) override;
 		void right(int time) override;
@@ -13,11 +23,7 @@ class ConcreteBoard: public Board {
 		std::vector<std::vector<char>> display() override;
 		void notify(Subject s) override;
 		std::vector<std::vector<char>> gettest() override;
-		std::vector<std::vector
-		Block thisBlock;
-		Block nextBlock;
-		int score;
-		Level level;
-		int countTurn;
-		TextDisplay testDisplay;
+		Block genBlock() override;
+		
 };
+#endif

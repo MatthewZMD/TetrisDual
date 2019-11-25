@@ -5,15 +5,18 @@
 #include "subject.h"
 
 class Board {
-    virtual void left(int time);
-    virtual void right(int time);
-    virtual void rotate(bool isClockwise);
-    virtual void down();
-    virtual void drop();
-    virtual void levelUp();
-    virtual void levelDown();
-    virtual std::vector<std::vector<char>> display();
-    virtual void notify(Subject s);
-    virtual std::vector<std::vector<char>> gettest();
-    virtual ~Board() = 0;
+    public:
+        virtual void left(int time) = 0;
+        virtual void right(int time) = 0;
+        virtual void rotate(bool isClockwise) = 0;
+        virtual void down() = 0;
+        virtual void drop() = 0;
+        virtual void levelUp() = 0;
+        virtual void levelDown() = 0;
+        virtual Block genBlock() = 0;
+        virtual std::vector<std::vector<char>> display() = 0;
+        virtual void notify(Subject s) = 0;
+        virtual std::vector<std::vector<char>> gettest() = 0;
+        virtual ~Board() = 0;
+        bool isDecorator = 0;
 };

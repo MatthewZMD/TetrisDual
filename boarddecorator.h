@@ -17,6 +17,7 @@ class BoardDecorator: public Board {
 		virtual void levelDown() override;
 		virtual vector<vector<char>> display() override;
 		virtual void notify(Subject s) override;
-		virtual vector<vector<char>> gettest() override;
+		virtual Block genBlock() override;
+		vector<vector<char>> gettest() override;
 };
 #endif
