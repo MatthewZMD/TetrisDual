@@ -5,15 +5,8 @@
 #include "subject.h"
 
 class Board {
-    Block thisBlock;
-    Block nextBlock;
-    int score;
-    Level level;
-    int countTurn;
-    TextDisplay textDisplay;
-
-    virtual void left();
-    virtual void right();
+    virtual void left(int time);
+    virtual void right(int time);
     virtual void rotate(bool isClockwise);
     virtual void down();
     virtual void drop();
@@ -21,6 +14,6 @@ class Board {
     virtual void levelDown();
     virtual std::vector<std::vector<char>> display();
     virtual void notify(Subject s);
-
+    virtual std::vector<std::vector<char>> gettest();
     virtual ~Board() = 0;
 };
