@@ -13,3 +13,4 @@ void Cell::set(CellType t, int bl, Coordinate** s) {
     bl = blockLevel;
     squad = s;
 }
+
