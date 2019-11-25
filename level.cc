@@ -1,7 +1,4 @@
-#include <fstream>
-#include <string>
 #include "level.h"
-#include "celltype.h"
 
 Level::Level(int level, std::string defaultFileName) : level{level}, defaultFileName{defaultFileName}, readFromFile{false}, nextLine{0} {}
 

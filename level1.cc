@@ -1,10 +1,4 @@
-#include <string>
-#include <cstdlib>
-#include "level.h"
-#include "level0.h"
 #include "level1.h"
-#include "level2.h"
-#include "celltype.h"
 
 Level1::Level1(std::string defaultFileName) : Level{1, defaultFileName} {}
 
@@ -29,10 +23,10 @@ CellType Level1::genBlock() const {
 	return types[rand() % 12];
 }
 
-Level Level1::levelDown() const {
-	return Level0{defaultFileName};
+std::shared_ptr<Level> Level1::levelDown() const {
+	return std::shared_ptr<Level>(new Level0{defaultFileName});
 }
 
-Level Level1::levelUp() const {
-	return Level2{defaultFileName};
+std::shared_ptr<Level> Level Level1::levelUp() const {
+	return std::shared_ptr<Level>(new Level2{defaultFileName});
 }
