@@ -5,9 +5,12 @@
 #include "cell.h"
 
 class Block {
+    /* Recalibrate the bottom left Coordinate, run after a block movement */
+    void recaliBtmLft();
     public:
-    Block(CellType type);
-    std::shared_ptr<std::shared_ptr<Cell>> cells;
+    Coordinate btmLft;
+    std::vector<std::shared_ptr<Cell>> cells;
+    Block(CellType t, std::vector<std::vector<std::shared_ptr<Cell>>> allCells);
 };
 
 #endif
