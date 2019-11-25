@@ -1,7 +1,5 @@
 #include "forcedecorator.h"
 
-using namespace std;
-
-ForceDecorator::ForceDecorator(Board* board, CellType giventype): giventype{giventype} {}
+ForceDecorator::ForceDecorator(std::shared_ptr<Board> board, CellType giventype): BoardDecorator { board }, giventype{giventype} {}
 
 Block genBlock() {}
