@@ -1,14 +1,20 @@
 #ifndef LEVEL1_H
 #define LEVEL1_H
 
+#include <memory>
+#include <string>
+#include <cstdlib>
 #include "level.h"
+#include "level0.h"
+#include "level1.h"
+#include "level2.h"
 #include "celltype.h"
 
 class Level1 : public Level {
 	public:
 		Level1(std::string defaultFileName);
 		CellType genBlock() const override;
-		Level levelDown() const override;
+		std::shared_ptr<Level> levelDown() const override;
 		std::shared_ptr<Level> levelUp() const override;
 };
 

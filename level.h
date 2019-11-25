@@ -1,9 +1,10 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 #include <memory>
+#include <fstream>
 #include <vector>
 #include <string>
-#include "state.h"
+#include "celltype.h"
 
 class Level {
 	public:
@@ -24,6 +25,7 @@ class Level {
 
     // getter
     void getLevel(int & level) const;
+
 	protected:
     int level;
     std::string defaultFileName; // filename for level 0

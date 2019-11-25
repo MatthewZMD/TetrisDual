@@ -1,5 +1,3 @@
-#include <string>
-#include "level.h"
 #include "level0.h"
 
 Level0::Level0(std::string defaultFileName) : Level{0, defaultFileName} {
@@ -7,7 +5,7 @@ Level0::Level0(std::string defaultFileName) : Level{0, defaultFileName} {
 }
 
 CellType Level0::genBlock() const {
-	// level 0 must have raedFromFile true
+	// level 0 must have readFromFile true
 	return genBlockFromFile();
 }
 
