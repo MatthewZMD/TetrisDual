@@ -8,6 +8,7 @@ class Game {
     int hiScore;
     int playerTurn;
     Game();
+    void heavy(Board*
 };
 
 #endif

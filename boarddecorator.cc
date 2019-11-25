@@ -10,30 +10,30 @@ void BoardDecorator::right(int time) {
 	board->right(int time);
 }
 
-void rotate(bool isClockwise) {
+void BoardDecorator::rotate(bool isClockwise) {
 	board->rotate(bool isClockwise);
 }
 
-void down() {
+void BoardDecorator::down() {
 	board->down();
 }
 
-void levelUp() {
+void BoardDecorator::levelUp() {
 	board->levelUp();
 }
 
-void levelDown() {
+void BoardDecorator::levelDown() {
 	board->levelDown();
 }
 
-vector<vector<char>> display() {
+vector<vector<char>> BoardDecorator::display() {
 	board->display();
 }
 
-void notify(Subject s) {
+void BoardDecorator::notify(Subject s) {
 	board->notify(s);
 }
 
-vector<vector<char>> gettest() {
+vector<vector<char>> BoardDecorator::gettest() {
 	board->gettest();
 }
