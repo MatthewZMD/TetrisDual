@@ -10,7 +10,7 @@ class Level4 : public Level {
 		Level4(std::string defaultFileName);
 		CellType genBlock() const override;
 		Level levelDown() const override;
-		Level levelUp() const override;
+		std::shared_ptr<Level> levelUp() const override;
 		int heavyOffset() const override;
 		bool dropBrownBlock() const override;
 };

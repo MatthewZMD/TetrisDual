@@ -12,10 +12,4 @@ vector<vector<char>> BlindDecorator::display() {
 	return a;
 }
 
-BlindDecorator::~BlindDecorator() {
-	delete board;
-}
-
-BlindDecorator::BlindDecorator(Board* board): thisBlock(board->thisBlock), nextBlock(board->nextBlock), score(board->score), level(board->level), countTurn(board->countTurn), textDisplay(board->textDisplay) {}
-
-
+BlindDecorator::BlindDecorator(Board* board): BoardDecorator {board} {}

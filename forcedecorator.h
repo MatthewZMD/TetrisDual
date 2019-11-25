@@ -6,9 +6,8 @@
 class ForceDecorator: public BoardDecorator {
 	CellType giventype;
 	public:
-	       ~ForceDecorator();
-	       ForceDecorator(Board* board, CellType giventype);
-		   Block genBlock() override;
+    ForceDecorator(Board* board, CellType giventype);
+    Block genBlock() override;
 };
 
 #endif

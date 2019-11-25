@@ -1,14 +1,6 @@
-enum Status{
-    AllDead, MeDead, Alive
-};
-
-enum CellType {
-    I, J, L, O, S, Z, T, E
-};
-
-enum Direction {
-    Top, Right, Nil, Left, Bottom
-};
+#include "celltype.h"
+#include "status.h"
+#include "direction.h"
 
 struct State {
     Direction direction;
