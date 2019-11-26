@@ -9,20 +9,20 @@ void ConcreteBoard::levelDown(){
 }
 
 void ConcreteBoard::right(int time){
-    bool exist = 0;
+    bool exist = false;
     while (time != 0){
         for (auto &i : thisBlock->cells){
             for (auto &j : thisBlock->cells){
                 if (i->pos.col + 1 == j->pos.col){
-                    exist = 1;
+                    exist = true;
                 }
             }
-            if (exist == 0){
+            if (!exist){
                 if (i->pos.col == 10 || !allCells[i->pos.row][i->pos.col + 1].isEmpty()){
                     break;
                 }
             }
-            exist = 0;
+            exist = false;
         }
         CellType curType = thisBlock->cells[0]->type;
         int curLevel = thisBlock->cells[0]->blockLevel;
@@ -41,20 +41,20 @@ void ConcreteBoard::right(int time){
 }
 
 void ConcreteBoard::left(int time){
-    bool exist = 0;
+    bool exist = false;
     while (time != 0){
         for (auto &i : thisBlock->cells){
             for (auto &j : thisBlock->cells){
                 if (i->pos.col - 1 == j->pos.col){
-                    exist = 1;
+                    exist = true;
                 }
             }
-            if (exist == 0){
+            if (!exist){
                 if (i->pos.col == 0 || !allCells[i->pos.row][i->pos.col - 1].isEmpty()){
                     break;
                 }
             }
-            exist = 0;
+            exist = false;
         }
         CellType curType = thisBlock->cells[0]->type;
         int curLevel = thisBlock->cells[0]->blockLevel;
@@ -76,8 +76,8 @@ void ConcreteBoard::rotate(bool isClockwise){
     int rmLength = 0;
     int newRow = 0;
     int newCol = 0;
-    bool exist = 0;
-    if (isClockwise == 1){
+    bool exist = false;
+    if (isClockwise){
         for (auto &i : thisBlock->cells){
             if (rmLength < i->pos.col - thisBlock->btmLft.col){
                 rmLength = i->pos.col - thisBlock->btmLft.col;
@@ -88,15 +88,15 @@ void ConcreteBoard::rotate(bool isClockwise){
             int newCol = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row;
             for (auto &j : thisBlock->cells) {
                 if (newRow == j->pos.row && newCol == j->pos.col) {
-                    exist = 1;
+                    exist = true;
                 }
             }
-            if (exist = 0) {
+            if (!exist) {
                 if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
                     return;
                 }
             }
-            exist = 0;
+            exist = false;
         }
         CellType curType = thisBlock->cells[0]->type;
         int curLevel = thisBlock->cells[0]->blockLevel;
@@ -107,7 +107,7 @@ void ConcreteBoard::rotate(bool isClockwise){
         }
         thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
         thisBlock->recaliBtmLft();
-    }else{
+    } else {
         for (auto &i : thisBlock->cells){
             if (rmLength < thisBlock->btmLft.row - i->pos.row){
                 rmLength = thisBlock->btmLft.row - i->pos.row;
@@ -118,15 +118,15 @@ void ConcreteBoard::rotate(bool isClockwise){
             int newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
             for (auto &j : thisBlock->cells) {
                 if (newRow == j->pos.row && newCol == j->pos.col) {
-                    exist = 1;
+                    exist = true;
                 }
             }
-            if (exist = 0) {
+            if (!exist) {
                 if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
                     return;
                 }
             }
-            exist = 0;
+            exist = false;
         }
         CellType curType = thisBlock->cells[0]->type;
         int curLevel = thisBlock->cells[0]->blockLevel;
@@ -141,21 +141,21 @@ void ConcreteBoard::rotate(bool isClockwise){
 }
 
 bool ConcreteBoard::down(){
-    bool exist = 0;
+    bool exist = false;
     for (auto &i : thisBlock->cells){
         for (auto &j : thisBlock->cells){
             if (i->pos.row + 1 == j->pos.col)
                 {
-                    exist = 1;
+                    exist = true;
                 }
         }
-        if (exist == 0){
+        if (!exist){
             if (i->pos.row == 17 || !allCells[i->pos.row + 1][i->pos.col].isEmpty())
                 {
                     return false;
                 }
         }
-        exist = 0;
+        exist = false;
     }
     CellType curType = thisBlock->cells[0]->type;
     int curLevel = thisBlock->cells[0]->blockLevel;
