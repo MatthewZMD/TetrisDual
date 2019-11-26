@@ -12,12 +12,12 @@ class BoardDecorator: public Board {
     virtual void left(int time) override;
     virtual void right(int time) override;
     virtual void rotate(bool isClockwise) override;
-    virtual void down() override;
+    virtual bool down() override;
     virtual void drop() override;
     virtual void levelUp() override;
     virtual void levelDown() override;
     virtual std::vector<std::vector<char>> display() override;
-    virtual void notify(Subject s) override;
-    virtual Block genBlock() override;
+    virtual void genThis();
+    virtual void genNext();
 };
 #endif
