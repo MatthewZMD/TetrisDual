@@ -17,7 +17,7 @@ class BoardDecorator: public Board {
     virtual void levelUp() override;
     virtual void levelDown() override;
     virtual std::vector<std::vector<char>> display() override;
-    virtual void genThis();
-    virtual void genNext();
+    virtual void genThis() override;
+    virtual void genNext() override;
 };
 #endif
