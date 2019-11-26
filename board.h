@@ -5,16 +5,18 @@
 #include "subject.h"
 #include "level.h"
 
-class Board {
+class Board: public Subject, public Observer {
 	public:
-    virtual void left(int time);
-    virtual void right(int time);
-    virtual void rotate(bool isClockwise);
-    virtual bool down();
-    virtual void drop();
-    virtual void levelUp();
-    virtual void levelDown();
-    virtual void genThis();
-    virtual void genNext();
-    virtual std::vector<std::vector<char>> display();
+    virtual void left(int time) = 0;
+    virtual void right(int time) = 0;
+    virtual void rotate(bool isClockwise) = 0;
+    virtual bool down() = 0;
+    virtual void drop() = 0;
+    virtual void levelUp() = 0;
+    virtual void levelDown() = 0;
+    virtual void genThis() = 0;
+    virtual void genNext() = 0;
+    virtual std::vector<std::vector<char>> display() = 0;
+    virtual std::shared_ptr<Board> getBoard() = 0;
+    virtual int getBoardNum() const = 0;
 };

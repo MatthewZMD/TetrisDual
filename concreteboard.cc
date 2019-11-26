@@ -1,5 +1,7 @@
 #include "concreteboard.h"
 
+ConcreteBoard::ConcreteBoard(int boardNum): boardNum { boardNum } {}
+
 void ConcreteBoard::levelUp(){
     level = level->levelUp();
 }
@@ -224,4 +226,13 @@ void ConcreteBoard::genThis(){
 
 void ConcreteBoard::genNext(){
     nextType = level->genBlock();
+}
+
+
+std::shared_ptr<Board> ConcreteBoard::getBoard() {
+    return shared_from_this();
+}
+
+int ConcreteBoard::getBoardNum() const {
+    return boardNum;
 }

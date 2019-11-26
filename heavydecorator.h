@@ -8,6 +8,7 @@ class HeavyDecorator: public BoardDecorator {
     void left(int time) override;
     void right(int time) override;
     HeavyDecorator(std::shared_ptr<Board> board);
+    void notify(Subject& s) override;
 };
 
 #endif
