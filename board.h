@@ -10,7 +10,7 @@ class Board {
     virtual void left(int time);
     virtual void right(int time);
     virtual void rotate(bool isClockwise);
-    virtual void down();
+    virtual bool down();
     virtual void drop();
     virtual void levelUp();
     virtual void levelDown();
