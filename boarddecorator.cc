@@ -14,8 +14,8 @@ void BoardDecorator::rotate(bool isClockwise) {
 	board->rotate(isClockwise);
 }
 
-void BoardDecorator::down() {
-	board->down();
+bool BoardDecorator::down() {
+	return board->down();
 }
 
 void BoardDecorator::levelUp() {
@@ -30,6 +30,11 @@ std::vector<std::vector<char>> BoardDecorator::display() {
 	board->display();
 }
 
-void BoardDecorator::notify(Subject s) {
-	board->notify(s);
+
+virtual void genThis() {
+	board->genThis();
+}
+    
+virtual void genNext() {
+	board->genNext();
 }

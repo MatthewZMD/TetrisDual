@@ -14,5 +14,5 @@ std::shared_ptr<Level> Level0::levelDown() const {
 }
 
 std::shared_ptr<Level> Level0::levelUp() const {
-	return std::shared_ptr<Level>(new Level0{defaultFileName});
+	return std::shared_ptr<Level>(new Level1{defaultFileName});
 }
