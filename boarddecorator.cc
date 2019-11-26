@@ -31,10 +31,18 @@ std::vector<std::vector<char>> BoardDecorator::display() {
 }
 
 
-virtual void genThis() {
+void BoardDecorator::genThis() {
 	board->genThis();
 }
-    
-virtual void genNext() {
+
+void BoardDecorator::genNext() {
 	board->genNext();
+}
+
+std::shared_ptr<Board> BoardDecorator::getBoard() {
+    return board->getBoard();
+}
+
+int BoardDecorator::getBoardNum() const {
+    return board->getBoardNum();
 }

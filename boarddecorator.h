@@ -4,9 +4,8 @@
 #include "board.h"
 
 class BoardDecorator: public Board {
-	protected:
-    std::shared_ptr<Board> board;
 	public:
+    std::shared_ptr<Board> board;
     BoardDecorator(std::shared_ptr<Board>board);
     virtual ~BoardDecorator() = default;
     virtual void left(int time) override;
@@ -19,5 +18,7 @@ class BoardDecorator: public Board {
     virtual std::vector<std::vector<char>> display() override;
     virtual void genThis() override;
     virtual void genNext() override;
+    std::shared_ptr<Board> getBoard() override;
+    virtual int getBoardNum() const override;
 };
 #endif
