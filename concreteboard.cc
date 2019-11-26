@@ -56,7 +56,7 @@ void ConcreteBoard::left(int time)
     bool exist = 0;
     while (time != 0)
     {
-         for (auto &i : thisBlock->cells)
+        for (auto &i : thisBlock->cells)
         {
             for (auto &j : thisBlock->cells)
             {
@@ -110,14 +110,17 @@ void ConcreteBoard::rotate(bool isClockwise)
         for (auto &i : thisBlock->cells)
         {
             int new_row = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rm_length;
-            int new_col = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row if (new_col > 10 || !allCells[new_row][new_col].isEmpty())
-            for (auto &j : thisBlock->cells) {
-                if (new_row == j->pos.row && new_col == j->pos.col) {
+            int new_col = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row if (new_col > 10 || !allCells[new_row][new_col].isEmpty()) for (auto &j : thisBlock->cells)
+            {
+                if (new_row == j->pos.row && new_col == j->pos.col)
+                {
                     exist = 1;
                 }
             }
-            if (exist = 0) {
-                if (new_col > 10 || !allCells[new_row][new_col].isEmpty()) {
+            if (exist = 0)
+            {
+                if (new_col > 10 || !allCells[new_row][new_col].isEmpty())
+                {
                     return;
                 }
             }
@@ -147,13 +150,17 @@ void ConcreteBoard::rotate(bool isClockwise)
         {
             int new_row = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col;
             int new_col = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rm_length;
-            for (auto &j : thisBlock->cells) {
-                if (new_row == j->pos.row && new_col == j->pos.col) {
+            for (auto &j : thisBlock->cells)
+            {
+                if (new_row == j->pos.row && new_col == j->pos.col)
+                {
                     exist = 1;
                 }
             }
-            if (exist = 0) {
-                if (new_col > 10 || !allCells[new_row][new_col].isEmpty()) {
+            if (exist = 0)
+            {
+                if (new_col > 10 || !allCells[new_row][new_col].isEmpty())
+                {
                     return;
                 }
             }
@@ -174,45 +181,36 @@ void ConcreteBoard::rotate(bool isClockwise)
 
 bool ConcreteBoard::down()
 {
-    {
     bool exist = 0;
-    while (time != 0)
+    for (auto &i : thisBlock->cells)
     {
-         for (auto &i : thisBlock->cells)
+        for (auto &j : thisBlock->cells)
         {
-            for (auto &j : thisBlock->cells)
+            if (i->pos.row + 1 == j->pos.col)
             {
-                if (i->pos.col - 1 == j->pos.col)
-                {
-                    exist = 1;
-                }
+                exist = 1;
             }
-            if (exist == 0)
-            {
-                if (i->pos.col == 0 || !allCells[i->pos.row][i->pos.col - 1].isEmpty())
-                {
-                    break;
-                }
-            }
-            exist = 0;
         }
-        Celltype cur_type = thisBlock->cells[0].type;
-        int cur_level = thisBlock->cells[0].blockLevel;
-        std::vector<Cell> temp;
-        for (auto &i : thisBlock->cells)
+        if (exist == 0)
         {
-            temp.emplace_back(&(allCells[i->pos.row][i->pos.col - 1]));
-            i->restore();
+            if (i->pos.row == 17 || !allCells[i->pos.row + 1][i->pos.col].isEmpty())
+            {
+                return false;
+            }
         }
-        thisBlock = std::shared_ptr<Block>(new Block{cur_type, cur_level, temp});
-        thisBlock->recaliBtmLft();
-        --time;
+        exist = 0;
     }
-    if (level->getLevel() == 3)
+    Celltype cur_type = thisBlock->cells[0].type;
+    int cur_level = thisBlock->cells[0].blockLevel;
+    std::vector<Cell> temp;
+    for (auto &i : thisBlock->cells)
     {
-        down();
+        temp.emplace_back(&(allCells[i->pos.row + 1][i->pos.col]));
+        i->restore();
     }
-}
+    thisBlock = std::shared_ptr<Block>(new Block{cur_type, cur_level, temp});
+    thisBlock->recaliBtmLft();
+    return true;
 }
 
 void ConcreteBoard::genThis()
