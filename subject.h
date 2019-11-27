@@ -4,6 +4,7 @@
 #include <memory>
 #include "state.h"
 #include "coordinate.h"
+#include "info.h"
 
 class Observer;
 
@@ -20,7 +21,11 @@ class Subject {
     void attach(std::shared_ptr<Observer> o);
     void detach(std::shared_ptr<Observer> o);
     void notifyObservers();
-
+    
+    protected:
+    virtual Info getInfo() const = 0;
+    virtual State getState() const = 0;
+    virtual void setState(State s) = 0;
 };
 
 #endif

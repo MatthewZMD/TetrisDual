@@ -1,4 +1,5 @@
 #include "concreteboard.h"
+#include "cellstate.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
     level = Level0(defaultFileName);
@@ -192,6 +193,40 @@ bool ConcreteBoard::down(){
     thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
     thisBlock->recaliBtmLft();
     return true;
+}
+
+void ConcreteBoard::drop() {
+	// down until impossible
+	while (down());
+
+	// find first full row
+	int firstFullRow = -1;
+	for (int i = 0; i < 15; ++i) {
+		bool fullRow = true;
+		for (int j = 0; j < 11; ++j) {
+			if (allCells.at(i).at(j).isEmpty()) {
+				fullRow = false;
+				break;
+			}
+		}
+		if (fullRow) {
+			firstFullRow = i;
+			break;
+		}
+	}
+
+	if (firstFullRow != -1) {
+		// TO-DO, count removed rows, and so on
+		int countRemovedRows = 0;
+		while (true) {
+			for (int i = 0; i < 11; ++i) {
+				allCells.at(firstFullRow).at(i).setState(CellState{CellStatus::Restore});
+				allCells.at(firstFullRow).at(i).notifyObservers();
+			}
+		}
+	}
+
+	// TODO: need more
 }
 
 void ConcreteBoard::genThis(){

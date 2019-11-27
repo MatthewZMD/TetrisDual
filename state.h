@@ -1,9 +1,6 @@
-#include "celltype.h"
-#include "status.h"
-#include "direction.h"
+#ifndef STATE_H
+#define STATE_H
 
-// TODO: NEEDS REWRITE
-struct State {
-    Direction direction;
-    Status status;
-};
+struct State {};
+
+#endif
