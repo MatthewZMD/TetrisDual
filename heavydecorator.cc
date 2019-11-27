@@ -2,12 +2,16 @@
 
 void HeavyDecorator::left(int time) {
 	board->left(time);
-	board->down();
+	if (board->down() && board->down()) {
+		board->drop();
+	}
 }
 
 void HeavyDecorator::right(int time) {
 	board->right(time);
-	board->down();
+	if (board->down() && board->down()) {
+		board->drop();
+	}
 }
 
 HeavyDecorator::HeavyDecorator(std::shared_ptr<Board> board): BoardDecorator { board } {}

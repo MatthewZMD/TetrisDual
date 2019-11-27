@@ -10,8 +10,8 @@ class Observer;
 class Subject {
     public:
     // TODO: Rewrite the state.h class!!
-    TextInfo textInfo; // TODO: the class data transmission between TextDisplay and Board
-    CellInfo cellInfo; // TODO: the class data transmission bettween ceel with cell and cell with board
+    //TextInfo textInfo; // TODO: the class data transmission between TextDisplay and Board
+    //CellInfo cellInfo; // TODO: the class data transmission bettween ceel with cell and cell with board
 
     // OR we can separate Subject class into dedicated Subject class for CellInfo and TextInfo,
     // otherwise notifyObservers() can be a problem

@@ -11,7 +11,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     std::shared_ptr<Level> level;
     int countTurn;
     std::vector<std::vector<Cell>> allCells;
-    ConcreteBoard(int boardNum);
+    ConcreteBoard(int boardNum, std::string defaultFileName);
     void genThis() override;
     void genNext() override;
     void left(int time) override;

@@ -1,6 +1,29 @@
 #include "concreteboard.h"
 
-ConcreteBoard::ConcreteBoard(int boardNum): boardNum { boardNum } {}
+ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
+    level = Level0(defaultFileName);
+    allCells.clear();
+    std::vector<Cell> temp;
+    for (int i = 0; i < 18; ++i) {
+        for (int j = 0; j < 11; ++j) {
+            Coordinate pos{i, j}
+            temp.emplace_back(Cell(pos));
+        }
+        allCells.emplace_back(temp);
+        temp.clear()
+    }
+    for (int i = 0; i < 18; ++i) {
+        for (int j = 0; j < 11; ++j) {
+            allCells[i][j].attach(shared_from_this());
+            if (i != 0) {
+                allCells[i][j].attach(std::shared_ptr(allCells[i - 1][j]));
+            }
+            if (i != 17) {
+                allCells[i][j].attach(std::shared_ptr(allCells[i + 1][j]));
+            }
+        }
+    }
+}
 
 void ConcreteBoard::levelUp(){
     level = level->levelUp();
