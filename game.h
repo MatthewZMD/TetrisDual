@@ -15,7 +15,7 @@ class Game {
     int hiScore;
     int playerTurn;
     const int playerNum = 2;
-    Game();
+    Game(std::string defaultFileName);
     void heavy(std::shared_ptr<Board> givenBoard);
     void blind(std::shared_ptr<Board> givenBoard);
     void force(std::shared_ptr<Board> givenBoard, CellType giventype);

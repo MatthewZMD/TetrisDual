@@ -2,8 +2,7 @@
 
 Game::Game(): hiScore{0}, playerTurn{0} {
     for(int i = 0; i < playerNum; ++i){
-        boards.emplace_back(std::shared_ptr<Board>(new ConcreteBoard()));
-        displays.emplace_back(std::shared_ptr<TextDisplay>(new TextDisplay()));
+        boards.emplace_back(std::shared_ptr<Board>(new ConcreteBoard(i, defaultFileName)));
         boards.at(i)->attach(displays.at(i));
     }
 }

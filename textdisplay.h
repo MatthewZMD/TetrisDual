@@ -7,7 +7,7 @@
 class TextDisplay: public Observer {
     std::vector<std::vector<std::vector<char>>> boardData; 
     public:
-    TextDisplay();
+    TextDisplay(int playerNum);
     void notify(Subject& s) override;
 };
 #endif
