@@ -282,8 +282,8 @@ void ConcreteBoard::genThis(){
     nextType = CellType::E;
 }
 
-void ConcreteBoard::genNext(){
-    nextType = level->genBlock();
+CellType ConcreteBoard::genNext(){
+    return level->genBlock();
 }
 
 
@@ -293,4 +293,8 @@ std::shared_ptr<Board> ConcreteBoard::getBoard() {
 
 int ConcreteBoard::getBoardNum() const {
     return boardNum;
+}
+
+void ConcreteBoard::setNext(CellType newNext) {
+    nextType = newNext;
 }

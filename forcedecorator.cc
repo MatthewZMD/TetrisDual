@@ -2,4 +2,6 @@
 
 ForceDecorator::ForceDecorator(std::shared_ptr<Board> board, CellType giventype): BoardDecorator { board }, giventype{giventype} {}
 
-Block genBlock() {}
+CellType ForceDecorator::genNext() {
+    return giventype;
+} 
