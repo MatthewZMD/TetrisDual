@@ -27,16 +27,15 @@ void BoardDecorator::levelDown() {
 }
 
 std::vector<std::vector<char>> BoardDecorator::display() {
-	board->display();
+	return board->display();
 }
 
 
 void BoardDecorator::genThis() {
 	board->genThis();
 }
-
-void BoardDecorator::genNext() {
-	board->genNext();
+CellType BoardDecorator::genNext() {
+	return board->genNext();
 }
 
 std::shared_ptr<Board> BoardDecorator::getBoard() {
@@ -45,4 +44,12 @@ std::shared_ptr<Board> BoardDecorator::getBoard() {
 
 int BoardDecorator::getBoardNum() const {
     return board->getBoardNum();
+}
+
+void BoardDecorator::notify(Subject& s) {
+	board->notify(s);
+}
+
+void BoardDecorator::setNext(CellType newNext) {
+	board->setNext(newNext);
 }

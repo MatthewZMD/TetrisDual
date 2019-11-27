@@ -1,4 +1,5 @@
 #include "concreteboard.h"
+#include "cellstate.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
     level = Level0(defaultFileName);
@@ -6,11 +7,11 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
     std::vector<Cell> temp;
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
-            Coordinate pos{i, j}
+            Coordinate pos{i, j};
             temp.emplace_back(Cell(pos));
         }
         allCells.emplace_back(temp);
-        temp.clear()
+        temp.clear();
     }
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
@@ -194,6 +195,40 @@ bool ConcreteBoard::down(){
     return true;
 }
 
+void ConcreteBoard::drop() {
+	// down until impossible
+	while (down());
+
+	// find first full row
+	int firstFullRow = -1;
+	for (int i = 0; i < 15; ++i) {
+		bool fullRow = true;
+		for (int j = 0; j < 11; ++j) {
+			if (allCells.at(i).at(j).isEmpty()) {
+				fullRow = false;
+				break;
+			}
+		}
+		if (fullRow) {
+			firstFullRow = i;
+			break;
+		}
+	}
+
+	if (firstFullRow != -1) {
+		// TO-DO, count removed rows, and so on
+		int countRemovedRows = 0;
+		while (true) {
+			for (int i = 0; i < 11; ++i) {
+				allCells.at(firstFullRow).at(i).setState(CellState{CellStatus::Dead});
+				allCells.at(firstFullRow).at(i).notifyObservers();
+			}
+		}
+	}
+
+	// TODO: need more
+}
+
 void ConcreteBoard::genThis(){
     std::vector<std::shared_ptr<Cell>> cells;
     Coordinate btmLft{3, 0};
@@ -247,8 +282,8 @@ void ConcreteBoard::genThis(){
     nextType = CellType::E;
 }
 
-void ConcreteBoard::genNext(){
-    nextType = level->genBlock();
+CellType ConcreteBoard::genNext(){
+    return level->genBlock();
 }
 
 
@@ -258,4 +293,8 @@ std::shared_ptr<Board> ConcreteBoard::getBoard() {
 
 int ConcreteBoard::getBoardNum() const {
     return boardNum;
+}
+
+void ConcreteBoard::setNext(CellType newNext) {
+    nextType = newNext;
 }

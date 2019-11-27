@@ -6,9 +6,7 @@
 #include <string>
 #include "level.h"
 #include "level1.h"
-#include "level2.h"
 #include "level3.h"
-#include "celltype.h"
 
 class Level2 : public Level {
 	public:

@@ -8,7 +8,6 @@
 #include "level0.h"
 #include "level1.h"
 #include "level2.h"
-#include "celltype.h"
 
 class Level1 : public Level {
 	public:

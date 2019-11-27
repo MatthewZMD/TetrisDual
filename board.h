@@ -15,8 +15,11 @@ class Board: public Subject, public Observer {
     virtual void levelUp() = 0;
     virtual void levelDown() = 0;
     virtual void genThis() = 0;
-    virtual void genNext() = 0;
+    virtual CellType genNext() = 0;
     virtual std::vector<std::vector<char>> display() = 0;
     virtual std::shared_ptr<Board> getBoard() = 0;
     virtual int getBoardNum() const = 0;
+    virtual void setNext(CellType newNext) = 0;
 };
+
+#endif

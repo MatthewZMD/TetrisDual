@@ -17,8 +17,10 @@ class BoardDecorator: public Board {
     virtual void levelDown() override;
     virtual std::vector<std::vector<char>> display() override;
     virtual void genThis() override;
-    virtual void genNext() override;
+    virtual CellType genNext() override;
     std::shared_ptr<Board> getBoard() override;
     virtual int getBoardNum() const override;
+    virtual void notify(Subject& s) override;
+    virtual void setNext(CellType newNext);
 };
 #endif

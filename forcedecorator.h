@@ -6,8 +6,7 @@ class ForceDecorator: public BoardDecorator {
 	CellType giventype;
 	public:
     ForceDecorator(std::shared_ptr<Board> board, CellType giventype);
-    void genNext() override;
-    void notify(Subject& s) override;
+    CellType genNext() override;
 };
 
 #endif
