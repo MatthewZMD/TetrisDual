@@ -4,8 +4,6 @@
 #include <vector>
 #include "subject.h"
 #include "observer.h"
-#include "coordinate.h"
-#include "cell.h"
 #include "celltype.h"
 #include "cellinfo.h"
 #include "cellstate.h"
@@ -19,16 +17,14 @@ class Cell: public Observer, public Subject {
 
     Cell(Coordinate pos);
     void restore();
-    void set(CellType t, int bl, std::vector<Coordinate> squad);
-    void notify(Subject& s);
+    void set(CellType t, int bl, std::vector<Cell*> squad);
+    void notify(Subject& s) override;
     bool isEmpty() const;
 
-    CellInfo getInfo() const;
-    CellState getState() const;
-    void setState(CellState s);
-
-    private:
+    Info& getInfo() override;
+    State& getState() override;
     CellState cellState;
+    CellInfo cellInfo;
 };
 
 #endif

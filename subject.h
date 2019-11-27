@@ -16,16 +16,13 @@ class Subject {
 
     // OR we can separate Subject class into dedicated Subject class for CellInfo and TextInfo,
     // otherwise notifyObservers() can be a problem
- 
+
     std::vector<std::shared_ptr<Observer>> observers;
     void attach(std::shared_ptr<Observer> o);
     void detach(std::shared_ptr<Observer> o);
     void notifyObservers();
-    
-    protected:
-    virtual Info getInfo() const = 0;
-    virtual State getState() const = 0;
-    virtual void setState(State s) = 0;
+    virtual Info& getInfo() = 0;
+    virtual State& getState() = 0;
 };
 
 #endif

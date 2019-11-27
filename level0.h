@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include "level.h"
-#include "celltype.h"
 
 class Level0 : public Level {
 	public:

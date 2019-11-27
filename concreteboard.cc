@@ -7,11 +7,11 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
     std::vector<Cell> temp;
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
-            Coordinate pos{i, j}
+            Coordinate pos{i, j};
             temp.emplace_back(Cell(pos));
         }
         allCells.emplace_back(temp);
-        temp.clear()
+        temp.clear();
     }
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
@@ -220,7 +220,7 @@ void ConcreteBoard::drop() {
 		int countRemovedRows = 0;
 		while (true) {
 			for (int i = 0; i < 11; ++i) {
-				allCells.at(firstFullRow).at(i).setState(CellState{CellStatus::Restore});
+				allCells.at(firstFullRow).at(i).setState(CellState{CellStatus::Dead});
 				allCells.at(firstFullRow).at(i).notifyObservers();
 			}
 		}

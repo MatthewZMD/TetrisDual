@@ -3,38 +3,39 @@
 #include "info.h"
 #include "cellinfo.h"
 
-Cell::Cell(Coordinate pos): pos { pos } {}
+Cell::Cell(Coordinate pos): pos { pos }, cellState { CellState{CellStatus::Alive} }, cellInfo { CellInfo{pos, 0, CellType::E, std::vector<Cell*>{}} } {}
 
 void Cell::restore() {
     blockLevel = 0;
     type = CellType::E;
-    squad.clear(); 
+    squad.clear();
 }
 
-void Cell::set(CellType t, int bl, std::vector<Coordinate> s) {
+void Cell::set(CellType t, int bl, std::vector<Cell*> s) {
     type = t;
     bl = blockLevel;
     squad = s;
 }
 
-void Cell::notify(Subject & s) {
-	if (s.getState().cellStatus == CellStatus::Restore) {
-		if (s.getInfo().pos.row == pos.row - 1) {
-			setState(CellState{CellStatus::Down});
+void Cell::notify(Subject& s) {
+    Cell& c = dynamic_cast<Cell&>(s);
+	if (c.cellState.cellStatus == CellStatus::Dead) {
+		if (c.cellInfo.pos.row == pos.row - 1) {
+			c.cellState = CellState{CellStatus::Down};
 			notifyObservers();
 		}
 	}
 	else {
-		if (s.getInfo().pos.row == pos.row + 1) {
-			blockLevel = s.getInfo().blockLevel;
-			type = s.getInfo().type;
-			squad = s.getInfo().squad;
+		if (c.cellInfo.pos.row == pos.row + 1) {
+			blockLevel = c.cellInfo.blockLevel;
+			type = c.cellInfo.type;
+			squad = c.cellInfo.squad;
 
 			// update squad
-			for (cell : squad) {
-				for (i = 0; i < cell->squad.size(); ++i) {
-					if (cell->squad.at(i)->pos == s.pos) {
-						cell->squad.at(i).pos = pos;
+			for (auto& cell : squad) {
+				for (unsigned i = 0; i < cell->squad.size(); ++i) {
+					if (cell->squad.at(i)->pos == c.pos) {
+						cell->squad.at(i)->pos = pos;
 						break;
 					}
 				}
@@ -47,14 +48,10 @@ bool Cell::isEmpty() const{
     return type == CellType::E;
 }
 
-CellInfo Cell:getInfo() const {
-	return CellInfo{pos, blockLevel, type, squad};
+Info& Cell::getInfo() {
+	return cellInfo;
 }
 
-CellState Cell::getState() const {
+State& Cell::getState() {
 	return cellState;
-}
-
-void Cell::setState(CellState s) {
-	cellState = s;
 }

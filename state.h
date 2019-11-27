@@ -1,6 +1,9 @@
 #ifndef STATE_H
 #define STATE_H
 
-struct State {};
+class State {
+    public:
+    virtual ~State() = 0;
+};
 
 #endif

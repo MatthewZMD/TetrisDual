@@ -27,7 +27,7 @@ void BoardDecorator::levelDown() {
 }
 
 std::vector<std::vector<char>> BoardDecorator::display() {
-	board->display();
+	return board->display();
 }
 
 
