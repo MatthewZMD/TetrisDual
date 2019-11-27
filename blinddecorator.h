@@ -7,7 +7,6 @@ class BlindDecorator: public BoardDecorator{
 	public:
     std::vector<std::vector<char>> display() override;
     BlindDecorator(std::shared_ptr<Board> board);
-    void notify(Subject& s) override;
 };
 
 #endif

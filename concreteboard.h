@@ -13,7 +13,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     std::vector<std::vector<Cell>> allCells;
     ConcreteBoard(int boardNum, std::string defaultFileName);
     void genThis() override;
-    void genNext() override;
+    CellType genNext() override;
     void left(int time) override;
     void right(int time) override;
     void rotate(bool isClockwise) override;
@@ -25,5 +25,6 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     void notify(Subject& s) override;
     std::shared_ptr<Board> getBoard() override;
     int getBoardNum() const override;
+    void setNext(CellType newNext) override;
 };
 #endif
