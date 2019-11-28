@@ -2,7 +2,7 @@
 #define _CELLTYPE_H_
 
 enum CellType {
-    I, J, L, O, S, Z, T, E
+    I, J, L, O, S, Z, T, E, Star
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "info.h"
 
 class Observer;
+class Cell;
 
 class Subject {
     public:

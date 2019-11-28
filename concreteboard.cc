@@ -2,7 +2,7 @@
 #include "cellstate.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
-    level = Level0(defaultFileName);
+    level = std::make_shared<Level0>(defaultFileName);
     allCells.clear();
     std::vector<Cell> temp;
     for (int i = 0; i < 18; ++i) {
@@ -16,11 +16,11 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
             allCells[i][j].attach(this);
-            if (i != 0) {
-                allCells[i][j].attach(&(allCells[i - 1][j]));
-            }
             if (i != 17) {
                 allCells[i][j].attach(&(allCells[i + 1][j]));
+            }
+            if (i != 0) {
+                allCells[i][j].attach(&(allCells[i - 1][j]));
             }
         }
     }
@@ -28,10 +28,16 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
 
 void ConcreteBoard::levelUp(){
     level = level->levelUp();
+    if (level->getLevel() == 3) {
+	countTurn = 0;
+    }
 }
 
 void ConcreteBoard::levelDown(){
     level = level->levelDown();
+    if (level->getLevel() == 4) {
+	countTurn = 0;
+    }
 }
 
 void ConcreteBoard::right(int time){
@@ -61,7 +67,7 @@ void ConcreteBoard::right(int time){
         thisBlock->recaliBtmLft();
         --time;
     }
-    if (level->getLevel() == 3){
+    if (level->heavyOffset()){
         down();
     }
 }
@@ -93,7 +99,7 @@ void ConcreteBoard::left(int time){
         thisBlock->recaliBtmLft();
         --time;
     }
-    if (level->getLevel() == 3){
+    if (level->heavyOffset()){
         down();
     }
 }
@@ -110,8 +116,8 @@ void ConcreteBoard::rotate(bool isClockwise){
             }
         }
         for (auto &i : thisBlock->cells){
-            int newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength;
-            int newCol = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row;
+            newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength;
+            newCol = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row;
             for (auto &j : thisBlock->cells) {
                 if (newRow == j->pos.row && newCol == j->pos.col) {
                     exist = true;
@@ -140,8 +146,8 @@ void ConcreteBoard::rotate(bool isClockwise){
             }
         }
         for (auto &i : thisBlock->cells){
-            int newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col;
-            int newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
+            newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col;
+            newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
             for (auto &j : thisBlock->cells) {
                 if (newRow == j->pos.row && newCol == j->pos.col) {
                     exist = true;
@@ -195,39 +201,64 @@ bool ConcreteBoard::down(){
     return true;
 }
 
+
 void ConcreteBoard::drop() {
 	// down until impossible
 	while (down());
-
-	// find first full row
-	int firstFullRow = -1;
-	for (int i = 0; i < 15; ++i) {
-		bool fullRow = true;
+        // Consider level4 case
+	if (level->dropBrownBlock()) {
+                if (countTurn == 5) {
+			for (int i = 17; i >= 0; --i) {
+				if (allCells[i][5].type == CellType::E) {
+			       		allCells[i][5].type = CellType::Star;
+		        	}
+		        }
+	        } else {
+			++countTurn;
+		}
+        }	
+	bool lineFull = 1;
+	int RemoveLine = 0;
+	for (int i = 17; i >= 0; --i) {
 		for (int j = 0; j < 11; ++j) {
-			if (allCells.at(i).at(j).isEmpty()) {
-				fullRow = false;
+			if (allCells[i][j].isEmpty()) {
+				lineFull = 0;
 				break;
 			}
 		}
-		if (fullRow) {
-			firstFullRow = i;
-			break;
-		}
-	}
-
-	if (firstFullRow != -1) {
-		// TO-DO, count removed rows, and so on
-		int countRemovedRows = 0;
-		while (true) {
-			for (int i = 0; i < 11; ++i) {
-				allCells.at(firstFullRow).at(i).setState(CellState{CellStatus::Dead});
-				allCells.at(firstFullRow).at(i).notifyObservers();
+		if (lineFull == 1) {
+			for (int j = 0; j < 11; ++j) {
+				allCells[i][j].cellState.cellStatus = CellStatus::Dead;
+				if (allCells[i][j].squad.size() == 0) {
+					score += (allCells[i][j].blockLevel + 1) * (allCells[i][j].blockLevel + 1);
+				}
+				allCells[i][j].type = CellType::E;
+				for (auto &k : allCells[i][j].squad) {
+					for (unsigned p = 0; p < k->squad.size(); ++p) {
+						if (k->squad[p]->pos == allCells[i][j].pos) {
+							k->squad.erase(k->squad.begin() + p);
+							break;
+						}
+					}
+				}
+				allCells[i][j].notifyObservers();
 			}
+			++RemoveLine;
+			++i;
+		}
+		lineFull = 1;
+	}
+	if (RemoveLine != 0) {
+		score += (RemoveLine + level->getLevel()) * (RemoveLine + level->getLevel());
+	}
+	for (int j = 0; j < 11; ++j) {
+		if (!allCells[2][j].isEmpty()) {
+			throw (boardNum);
 		}
 	}
-
-	// TODO: need more
 }
+		
+
 
 void ConcreteBoard::genThis(){
     std::vector<std::shared_ptr<Cell>> cells;
