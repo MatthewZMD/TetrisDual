@@ -4,6 +4,8 @@
 #include "block.h"
 #include "subject.h"
 #include "level.h"
+#include "cell.h"
+#include "level0.h"
 
 class Board: public Subject, public Observer {
 	public:

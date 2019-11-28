@@ -15,12 +15,12 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
     }
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
-            allCells[i][j].attach(shared_from_this());
+            allCells[i][j].attach(this);
             if (i != 0) {
-                allCells[i][j].attach(std::shared_ptr(allCells[i - 1][j]));
+                allCells[i][j].attach(&(allCells[i - 1][j]));
             }
             if (i != 17) {
-                allCells[i][j].attach(std::shared_ptr(allCells[i + 1][j]));
+                allCells[i][j].attach(&(allCells[i + 1][j]));
             }
         }
     }
