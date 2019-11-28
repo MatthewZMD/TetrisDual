@@ -2,7 +2,7 @@
 
 Level2::Level2(std::string defaultFileName) : Level{2, defaultFileName} {}
 
-CellType Level2::genBlock() const {
+CellType Level2::genBlock() {
 	if (readFromFile) {
 		return genBlockFromFile();
 	}
@@ -14,7 +14,7 @@ CellType Level2::genBlock() const {
 		CellType::S,
 		CellType::Z,
 		CellType::T
-	}
+	};
 	return types[rand() % 7];
 }
 

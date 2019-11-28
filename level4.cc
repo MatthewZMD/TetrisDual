@@ -1,12 +1,12 @@
 #include "level4.h"
 
-Level4::Level4() : Level{4, defaultFileName} {}
+Level4::Level4(std::string defaultFileName) : Level{4, defaultFileName} {}
 
-CellType Level4::genBlock() const {
+CellType Level4::genBlock() {
 	if (readFromFile) {
 		return genBlockFromFile();
 	}
-	return levelDown().genBlock();
+	return levelDown()->genBlock();
 }
 
 std::shared_ptr<Level> Level4::levelDown() const {

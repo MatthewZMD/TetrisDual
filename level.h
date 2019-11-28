@@ -11,7 +11,7 @@ class Level {
     Level(int level, std::string defaultFileName);
 
     // pure virtual methods
-    virtual CellType genBlock() const = 0;
+    virtual CellType genBlock() = 0;
     virtual std::shared_ptr<Level> levelDown() const = 0;
     virtual std::shared_ptr<Level> levelUp() const = 0;
 

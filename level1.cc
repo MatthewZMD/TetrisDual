@@ -2,7 +2,7 @@
 
 Level1::Level1(std::string defaultFileName) : Level{1, defaultFileName} {}
 
-CellType Level1::genBlock() const {
+CellType Level1::genBlock() {
 	if (readFromFile) {
 		return genBlockFromFile();
 	}
@@ -19,7 +19,7 @@ CellType Level1::genBlock() const {
 		CellType::O,
 		CellType::T,
 		CellType::T
-	}
+	};
 	return types[rand() % 12];
 }
 
@@ -27,6 +27,6 @@ std::shared_ptr<Level> Level1::levelDown() const {
 	return std::shared_ptr<Level>(new Level0{defaultFileName});
 }
 
-std::shared_ptr<Level> Level Level1::levelUp() const {
+std::shared_ptr<Level> Level1::levelUp() const {
 	return std::shared_ptr<Level>(new Level2{defaultFileName});
 }

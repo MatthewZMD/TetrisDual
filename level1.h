@@ -12,7 +12,7 @@
 class Level1 : public Level {
 	public:
 		Level1(std::string defaultFileName);
-		CellType genBlock() const override;
+		CellType genBlock() override;
 		std::shared_ptr<Level> levelDown() const override;
 		std::shared_ptr<Level> levelUp() const override;
 };

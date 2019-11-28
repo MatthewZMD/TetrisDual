@@ -2,7 +2,7 @@
 
 Level3::Level3() : Level{3, defaultFileName} {}
 
-CellType Level3::genBlock() const {
+CellType Level3::genBlock() {
 	if (readFromFile) {
 		return genBlockFromFile();
 	}
