@@ -1,3 +1,5 @@
 /doc/auto/
 /.ccls-cache/
 /.vscode/
+/*.d
+/*.o
