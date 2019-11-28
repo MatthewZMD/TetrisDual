@@ -40,6 +40,9 @@ void Cell::notify(Subject& s) {
 					}
 				}
 			}
+		} else {
+			c.cellState = CellState{CellStatus::Down};
+			notifyObservers();
 		}
 	}
 }
