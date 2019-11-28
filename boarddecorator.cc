@@ -1,6 +1,9 @@
 #include "boarddecorator.h"
 
 BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
+void BoardDecorator::drop() {
+	board->drop();
+}
 
 void BoardDecorator::left(int time) {
 	board->left(time);
