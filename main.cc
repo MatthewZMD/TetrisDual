@@ -5,7 +5,7 @@
 /* Tries to match command cmd with the list cmdList and returns the matched command string.
    If cannot find the match string, or matched more than 1 command, return empty string
  */
-std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, int i = 0){
+std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i = 0){
     if(cmd.size() == 0 && cmdList.size() > 1){
         // Matched more than 1 command
         return "";
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     // Starting level, default to 0
     int startLevel = 0;
     // Configure initial arguments
-    for(int i = 0; i < argc; ++i){
+    for(unsigned i = 0; i < argc; ++i){
         std::string arg = argv[i];
         if(arg == "-text"){
             textOnly = true;

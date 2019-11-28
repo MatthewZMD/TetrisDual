@@ -9,6 +9,7 @@ enum CellStatus {
 class CellState: public State {
     public:
 	CellStatus cellStatus;
+    CellState();
     CellState(CellStatus status);
     ~CellState() override;
 };

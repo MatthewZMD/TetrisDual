@@ -1,6 +1,9 @@
 #include "boarddecorator.h"
 
 BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
+void BoardDecorator::drop() {
+	board->drop();
+}
 
 void BoardDecorator::left(int time) {
 	board->left(time);
@@ -62,3 +65,7 @@ Info& BoardDecorator::getInfo() {
 	return board->getInfo();
 }
 
+// Needless to call this function, unused
+State& BoardDecorator::getState() {
+    return board->getState();
+}
