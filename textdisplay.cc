@@ -13,11 +13,11 @@ TextDisplay::TextDisplay(int playerNum){
         }
         boardData.emplace_back(tempBoard);
         tempBoard.clear();
-        --playerNum
+        --playerNum;
     }
 }
 
 
 void TextDisplay::notify(Subject& s){
-    
+
 }

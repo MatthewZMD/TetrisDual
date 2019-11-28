@@ -1,8 +1,8 @@
 #include "concreteboard.h"
 #include "cellstate.h"
 
-ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
-    level = std::make_shared<Level0>(defaultFileName);
+ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName): score{score}, boardNum { boardNum }, countTurn{0} {
+    level = std::make_shared<Level0>(fileName);
     allCells.clear();
     std::vector<Cell> temp;
     for (int i = 0; i < 18; ++i) {
@@ -29,14 +29,14 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
 void ConcreteBoard::levelUp(){
     level = level->levelUp();
     if (level->getLevel() == 3) {
-	countTurn = 0;
+        countTurn = 0;
     }
 }
 
 void ConcreteBoard::levelDown(){
     level = level->levelDown();
     if (level->getLevel() == 4) {
-	countTurn = 0;
+        countTurn = 0;
     }
 }
 
@@ -205,18 +205,18 @@ bool ConcreteBoard::down(){
 void ConcreteBoard::drop() {
 	// down until impossible
 	while (down());
-        // Consider level4 case
+    // Consider level4 case
 	if (level->dropBrownBlock()) {
-                if (countTurn == 5) {
+        if (countTurn == 5) {
 			for (int i = 17; i >= 0; --i) {
 				if (allCells[i][5].type == CellType::E) {
-			       		allCells[i][5].type = CellType::Star;
-		        	}
-		        }
-	        } else {
+                    allCells[i][5].type = CellType::Star;
+                }
+            }
+        } else {
 			++countTurn;
 		}
-        }	
+    }
 	bool lineFull = 1;
 	int RemoveLine = 0;
 	for (int i = 17; i >= 0; --i) {
@@ -256,8 +256,9 @@ void ConcreteBoard::drop() {
 			throw (boardNum);
 		}
 	}
+	isGG = true;
 }
-		
+
 
 
 void ConcreteBoard::genThis(){
@@ -328,4 +329,8 @@ int ConcreteBoard::getBoardNum() const {
 
 void ConcreteBoard::setNext(CellType newNext) {
     nextType = newNext;
+}
+
+bool ConcreteBoard::isGameOver() const {
+	return isGG;
 }
