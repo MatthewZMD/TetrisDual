@@ -10,6 +10,7 @@
 #include "forcedecorator.h"
 
 class Game {
+    public:
     std::shared_ptr<Board> board1;
     std::shared_ptr<Board> board2;
     std::shared_ptr<TextDisplay> display1;
