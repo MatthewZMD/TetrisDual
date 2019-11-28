@@ -3,11 +3,11 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-//#include "observer.h"
-//#include "subject.h"
+#include "observer.h"
+#include "subject.h"
 #include "celltype.h"
 
-class TextDisplay :public Observer {
+class TextDisplay : public Observer {
 	private:
 		std::vector<int> level;
 		std::vector<int> score;
@@ -15,7 +15,7 @@ class TextDisplay :public Observer {
 		std::vector<CellType> nextType;
 	public:
 		TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColumns);
-		//void notify(Subject & s) override;
+		void notify(Subject & s) override;
 		friend std::ostream& operator<<(std::ostream &out, const TextDisplay & td);
 };
 
