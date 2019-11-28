@@ -16,7 +16,7 @@ class Game {
     std::shared_ptr<TextDisplay> display2;
     int hiScore;
     int playerTurn;
-    Game(std::string fileName1 = "sequence1.txt", std::string fileName2 = "sequence2.txt");
+    Game(std::string fileName1, std::string fileName2, int l);
     void heavy(std::shared_ptr<Board> givenBoard);
     void blind(std::shared_ptr<Board> givenBoard);
     void force(std::shared_ptr<Board> givenBoard, CellType giventype);

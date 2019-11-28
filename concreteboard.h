@@ -12,7 +12,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     int countTurn;
     std::vector<std::vector<Cell>> allCells;
     bool isGG = false;
-    ConcreteBoard(int boardNum, std::string fileName);
+    ConcreteBoard(int boardNum, std::string fileName, int l);
     void genThis() override;
     CellType genNext() override;
     void left(int time) override;
