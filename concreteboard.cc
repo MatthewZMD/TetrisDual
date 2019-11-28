@@ -256,6 +256,7 @@ void ConcreteBoard::drop() {
 			throw (boardNum);
 		}
 	}
+	isGG = true;
 }
 		
 
@@ -328,4 +329,8 @@ int ConcreteBoard::getBoardNum() const {
 
 void ConcreteBoard::setNext(CellType newNext) {
     nextType = newNext;
+}
+
+bool ConcreteBoard::isGameOver() const {
+	return isGG;
 }
