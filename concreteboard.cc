@@ -258,7 +258,7 @@ void ConcreteBoard::drop() {
 	}
 	for (int j = 0; j < 11; ++j) {
 		if (!allCells[2][j].isEmpty()) {
-			throw (boardNum);
+			throw "Game Over";
 		}
 	}
 	isGG = true;
