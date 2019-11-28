@@ -29,14 +29,14 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{s
 void ConcreteBoard::levelUp(){
     level = level->levelUp();
     if (level->getLevel() == 3) {
-	countTurn = 0;
+        countTurn = 0;
     }
 }
 
 void ConcreteBoard::levelDown(){
     level = level->levelDown();
     if (level->getLevel() == 4) {
-	countTurn = 0;
+        countTurn = 0;
     }
 }
 
@@ -205,18 +205,18 @@ bool ConcreteBoard::down(){
 void ConcreteBoard::drop() {
 	// down until impossible
 	while (down());
-        // Consider level4 case
+    // Consider level4 case
 	if (level->dropBrownBlock()) {
-                if (countTurn == 5) {
+        if (countTurn == 5) {
 			for (int i = 17; i >= 0; --i) {
 				if (allCells[i][5].type == CellType::E) {
-			       		allCells[i][5].type = CellType::Star;
-		        	}
-		        }
-	        } else {
+                    allCells[i][5].type = CellType::Star;
+                }
+            }
+        } else {
 			++countTurn;
 		}
-        }	
+    }
 	bool lineFull = 1;
 	int RemoveLine = 0;
 	for (int i = 17; i >= 0; --i) {
@@ -257,7 +257,7 @@ void ConcreteBoard::drop() {
 		}
 	}
 }
-		
+
 
 
 void ConcreteBoard::genThis(){
