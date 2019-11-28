@@ -1,6 +1,6 @@
 #include "level3.h"
 
-Level3::Level3() : Level{3, defaultFileName} {}
+Level3::Level3(std::string defaultFileName) : Level{3, defaultFileName} {}
 
 CellType Level3::genBlock() {
 	if (readFromFile) {

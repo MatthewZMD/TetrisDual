@@ -1,5 +1,6 @@
 #include "textdisplay.h"
-
+#include "board.h"
+#include "boardinfo.h"
 TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColumns){
 	for (int i = 0; i < numberOfPlayers; ++i) {
 		level.emplace_back(0);
@@ -17,17 +18,17 @@ TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColu
 	}
 }
 
-/*
+
 void TextDisplay::notify(Subject & s) {
-	Board & b = dynamic_cast<Board&>(s);
+	/*Board & b = dynamic_cast<Board&>(s);
 	BoardInfo & info = b.getInfo();
 	
 	int player = info.player;
 	level.at(player) = info.level;
 	score.at(player) = info.score;
 	boardData.at(player) = info.boardData;
-	nextType.at(player) = info.nextType;
-}*/
+	nextType.at(player) = info.nextType;*/
+}
 
 std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
 	std::string sp = "      ";
