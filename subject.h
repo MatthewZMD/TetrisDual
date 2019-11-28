@@ -19,9 +19,7 @@ class Subject {
 
     std::vector<std::shared_ptr<Observer>> observers;
     virtual std::vector<std::vector<Cell>> getTestInfo();
-    virtual State
-    void attach(std::shared_ptr<Observer> o);
-    void detach(std::shared_ptr<Observer> o);
+    void attach(Observer* o);
     void notifyObservers();
     virtual Info& getInfo() = 0;
     virtual State& getState() = 0;
