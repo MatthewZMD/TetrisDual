@@ -4,7 +4,7 @@ Level0::Level0(std::string defaultFileName) : Level{0, defaultFileName} {
 	setReadFromFile(defaultFileName);
 }
 
-CellType Level0::genBlock() const {
+CellType Level0::genBlock() {
 	// level 0 must have readFromFile true
 	return genBlockFromFile();
 }
