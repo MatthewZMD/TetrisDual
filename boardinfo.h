@@ -11,6 +11,7 @@ struct BoardInfo : public Info {
 	CellType nextType;
 	BoardInfo(int player, int level, int score, std::vector<std::vector<char>> boardData, CellType nextType);
 	~BoardInfo() override;
+	void f() override;
 };
 
 #endif
