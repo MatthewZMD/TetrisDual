@@ -1,5 +1,6 @@
 #include "concreteboard.h"
 #include "cellstate.h"
+#include "boardinfo.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): score{ 0 }, boardNum { boardNum }, countTurn{ 0 } {
     level = std::shared_ptr<Level>(new Level0(fileName));
@@ -339,7 +340,7 @@ bool ConcreteBoard::isGameOver() const {
 	return isGG;
 }
 
-Info& ConcreteBoard::getInfo() const {
+Info& ConcreteBoard::getInfo()  {
        BoardInfo transInfo(boardNum, level->getLevel(), score, display());
        return transInfo;
 }
