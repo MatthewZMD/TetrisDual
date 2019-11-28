@@ -24,5 +24,6 @@ class BoardDecorator: public Board {
     virtual void setNext(CellType newNext) override;
     bool isGameOver() const override;
     Info& getInfo() override;
+    State& getState() override;    
 };
 #endif

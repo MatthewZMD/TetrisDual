@@ -385,6 +385,8 @@ std::vector<std::vector<char>> ConcreteBoard::display() {
 	}
 	return displayBoard;
 }
-					
-			
 
+// Needless to call this function, unused
+State& ConcreteBoard::getState() {
+    return dummyState;
+}

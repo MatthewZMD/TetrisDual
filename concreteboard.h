@@ -1,8 +1,10 @@
 #ifndef _CONCRETEBOARD_H_
 #define _CONCRETEBOARD_H_
 #include "board.h"
+#include "cellstate.h"
 
 class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
+    CellState dummyState;
     public:
     int boardNum;
     std::shared_ptr<Block> thisBlock;
@@ -28,6 +30,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     int getBoardNum() const override;
     void setNext(CellType newNext) override;
     bool isGameOver() const override;
-    Info& getInfo() override; 
+    Info& getInfo() override;
+    State& getState() override;
 };
 #endif

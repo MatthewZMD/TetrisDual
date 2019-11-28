@@ -13,8 +13,7 @@ struct CellInfo : public Info {
 	CellType type;
 	std::vector<Cell*> squad;
     CellInfo(Coordinate p, int bl, CellType t, std::vector<Cell*> sq);
-    ~CellInfo();
-    void f() override;
+    ~CellInfo() override;
 };
 
 #endif

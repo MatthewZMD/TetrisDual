@@ -53,12 +53,12 @@ bool Cell::isEmpty() const{
 
 Info& Cell::getInfo() {
 	cellInfo.pos = pos;
-	cellInfo.blocklevel = blocklevel;
+	cellInfo.blockLevel = blockLevel;
 	cellInfo.type = type;
 	cellInfo.squad = squad;
 	return cellInfo;
 }
 
-State& Cell::getState() 
-	return State;
+State& Cell::getState(){
+    return cellState;
 }
