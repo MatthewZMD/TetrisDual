@@ -7,7 +7,7 @@
 //#include "subject.h"
 #include "celltype.h"
 
-class TextDisplay/*: public Observer*/ {
+class TextDisplay :public Observer {
 	private:
 		std::vector<int> level;
 		std::vector<int> score;

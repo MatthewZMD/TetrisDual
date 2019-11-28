@@ -341,6 +341,50 @@ bool ConcreteBoard::isGameOver() const {
 }
 
 Info& ConcreteBoard::getInfo()  {
-       BoardInfo transInfo(boardNum, level->getLevel(), score, display());
+       BoardInfo transInfo(boardNum, level->getLevel(), score, display(), nextType);
        return transInfo;
 }
+
+std::vector<std::vector<char>> ConcreteBoard::display() {
+	std::vector<std::vector<char>> displayBoard;
+	std::vector<char> temp;
+	for (int i = 0; i < 18; ++i) {
+		for (int j = 0; j < 11; ++j) {
+			switch(allCells[i][j].type) {
+				case CellType::I:
+					temp.emplace_back('I');
+					break;
+				case CellType::J:
+					temp.emplace_back('J');
+					break;
+				case CellType::L:
+					temp.emplace_back('L');
+					break;
+				case CellType::O:
+					temp.emplace_back('O');
+					break;
+				case CellType::S:
+					temp.emplace_back('S');
+					break;
+				case CellType::Z:
+					temp.emplace_back('Z');
+					break;
+				case CellType::T:
+					temp.emplace_back('T');
+					break;
+				case CellType::E:
+					temp.emplace_back(' ');
+					break;
+				case CellType::Star:
+					temp.emplace_back('*');
+					break;
+			}
+		}
+		displayBoard.emplace_back(temp);
+		temp.clear();
+	}
+	return displayBoard;
+}
+					
+			
+
