@@ -1,5 +1,5 @@
 #include "boardinfo.h"
 
-BoardInfo::BoardInfo(int playerNum, int boardLevel, int boardScore, std::vector<std::vector<char>> boardDisplay):playerNum{playerNum}, boardLevel{boardLevel}, boardScore{boardScore}, boardDisplay{boardDisplay} {}
+BoardInfo::BoardInfo(int player, int level, int score, std::vector<std::vector<char>> boardData) : player{player}, level{level}, score{score}, boardData{boardData}, nextType{nextType} {}
 
-~BoardInfo::BoardInfo() {}
+BoardInfo::~BoardInfo() {}
