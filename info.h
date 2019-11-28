@@ -2,7 +2,7 @@
 #define INFO_H
 
 struct Info {
-    virtual ~Info() = 0;
+    virtual void f() = 0;
 };
 
 #endif

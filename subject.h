@@ -12,7 +12,6 @@ class Cell;
 class Subject {
     public:
     std::vector<Observer*> observers;
-    virtual std::vector<std::vector<Cell>> getTestInfo();
     void attach(Observer* o);
     void notifyObservers();
     virtual Info& getInfo() = 0;
