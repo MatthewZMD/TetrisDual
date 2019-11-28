@@ -23,7 +23,6 @@ class BoardDecorator: public Board {
     virtual void notify(Subject& s) override;
     virtual void setNext(CellType newNext) override;
     bool isGameOver() const override;
-    Info& getInfo() override; // TODO
-    State& getState() override; // TODO
+    Info& getInfo() override;
 };
 #endif

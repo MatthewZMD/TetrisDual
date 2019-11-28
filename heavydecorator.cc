@@ -14,4 +14,7 @@ void HeavyDecorator::right(int time) {
 	}
 }
 
-HeavyDecorator::HeavyDecorator(std::shared_ptr<Board> board): BoardDecorator { board } {}
+HeavyDecorator::HeavyDecorator(std::shared_ptr<Board> board): BoardDecorator { board }{
+	this->observers = board->observers;
+
+}

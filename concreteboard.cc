@@ -334,3 +334,8 @@ void ConcreteBoard::setNext(CellType newNext) {
 bool ConcreteBoard::isGameOver() const {
 	return isGG;
 }
+
+Info& ConcreteBoard::getInfo() const {
+       BoardInfo transInfo(boardNum, level->getLevel(), score, display());
+       return transInfo;
+}

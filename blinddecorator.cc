@@ -10,4 +10,7 @@ std::vector<std::vector<char>> BlindDecorator::display() {
 	return a;
 }
 
-BlindDecorator::BlindDecorator(std::shared_ptr<Board> board): BoardDecorator {board} {}
+BlindDecorator::BlindDecorator(std::shared_ptr<Board> board): BoardDecorator {board} {
+	this->observers = board->observers;
+}
+

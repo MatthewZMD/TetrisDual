@@ -28,7 +28,6 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     int getBoardNum() const override;
     void setNext(CellType newNext) override;
     bool isGameOver() const override;
-    Info& getInfo() override; // TODO
-    State& getState() override; // TODO
+    Info& getInfo() override; 
 };
 #endif

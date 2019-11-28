@@ -24,7 +24,7 @@ class Cell: public Observer, public Subject {
     Info& getInfo() override;
     State& getState() override;
     CellState cellState;
-    CellInfo cellInfo;
+    CellInfo cellInfo;//TODO
 };
 
 #endif
