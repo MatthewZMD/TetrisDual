@@ -1,10 +1,13 @@
 #include "game.h"
 
-Game::Game(): hiScore{0}, playerTurn{0} {
-    for(int i = 0; i < playerNum; ++i){
-        boards.emplace_back(std::shared_ptr<Board>(new ConcreteBoard(i, defaultFileName)));
-        boards.at(i)->attach(displays.at(i));
-    }
+Game::Game(std::string fileName1, std::string fileName2): hiScore{0}, playerTurn{0} {
+    board1 = std::shared_ptr<Board>(new ConcreteBoard(1, fileName1));
+    display1 = std::shared_ptr<TextDisplay>(new TextDisplay(1));
+    board1->attach(display1);
+
+    board2 = std::shared_ptr<Board>(new ConcreteBoard(2, fileName2));
+    display2 = std::shared_ptr<TextDisplay>(new TextDisplay(2));
+    board2->attach(display2);
 }
 
 void Game::heavy(std::shared_ptr<Board> givenBoard) {

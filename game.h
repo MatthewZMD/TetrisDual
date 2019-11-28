@@ -10,12 +10,13 @@
 #include "forcedecorator.h"
 
 class Game {
-    std::vector<std::shared_ptr<Board>> boards;
-    std::vector<std::shared_ptr<TextDisplay>> displays;
+    std::shared_ptr<Board> board1;
+    std::shared_ptr<Board> board2;
+    std::shared_ptr<TextDisplay> display1;
+    std::shared_ptr<TextDisplay> display2;
     int hiScore;
     int playerTurn;
-    const int playerNum = 2;
-    Game(std::string defaultFileName);
+    Game(std::string fileName1 = "sequence1.txt", std::string fileName2 = "sequence2.txt");
     void heavy(std::shared_ptr<Board> givenBoard);
     void blind(std::shared_ptr<Board> givenBoard);
     void force(std::shared_ptr<Board> givenBoard, CellType giventype);

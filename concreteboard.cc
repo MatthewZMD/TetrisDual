@@ -1,8 +1,8 @@
 #include "concreteboard.h"
 #include "cellstate.h"
 
-ConcreteBoard::ConcreteBoard(int boardNum, std::string defaultFileName): score{score}, boardNum { boardNum }, countTurn{0} {
-    level = std::make_shared<Level0>(defaultFileName);
+ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName): score{score}, boardNum { boardNum }, countTurn{0} {
+    level = std::make_shared<Level0>(fileName);
     allCells.clear();
     std::vector<Cell> temp;
     for (int i = 0; i < 18; ++i) {
