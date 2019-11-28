@@ -16,7 +16,7 @@ class Subject {
     void attach(Observer* o);
     void notifyObservers();
     virtual Info& getInfo() = 0;
-    virtual State& getState() = 0;
+    virtual State& getState();
 };
 
 #endif
