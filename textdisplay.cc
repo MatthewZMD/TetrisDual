@@ -18,6 +18,4 @@ TextDisplay::TextDisplay(int playerNum){
 }
 
 
-void TextDisplay::notify(Subject& s){
-
-}
+void TextDisplay::notify(Subject& s){}

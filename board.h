@@ -23,6 +23,8 @@ class Board: public Subject, public Observer {
     virtual int getBoardNum() const = 0;
     virtual void setNext(CellType newNext) = 0;
     virtual bool isGameOver() const = 0;
+    virtual Info& getInfo() = 0;
+
 };
 
 #endif

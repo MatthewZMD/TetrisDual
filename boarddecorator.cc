@@ -58,3 +58,7 @@ bool BoardDecorator::isGameOver() const {
 	return board->isGameOver();
 }
 
+Info& BoardDecorator::getInfo() const {
+	return board->getInfo();
+}
+
