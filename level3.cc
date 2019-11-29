@@ -19,11 +19,11 @@ CellType Level3::genBlock() {
 }
 
 std::shared_ptr<Level> Level3::levelDown() const {
-	return std::shared_ptr<Level>(new Level2{defaultFileName});
+	return std::make_shared<Level2>(defaultFileName);
 }
 
 std::shared_ptr<Level> Level3::levelUp() const {
-	return std::shared_ptr<Level>(new Level4{defaultFileName});
+	return std::make_shared<Level4>(defaultFileName);
 }
 
 int Level3::heavyOffset() const {

@@ -3,7 +3,7 @@
 #include "boardinfo.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): boardNum { boardNum }, score{ 0 }, countTurn{ 0 }, boardInfo{} {
-    level = std::shared_ptr<Level>(new Level0(fileName));
+    level = std::make_shared<Level0>(fileName);
     while(l > 0){
         level = level->levelUp();
         --l;
@@ -70,7 +70,7 @@ void ConcreteBoard::right(int time){
             temp.emplace_back(&(allCells[i->pos.row][i->pos.col + 1]));
             i->restore();
         }
-        thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
+        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
         thisBlock->recaliBtmLft();
         --time;
     }
@@ -103,7 +103,7 @@ void ConcreteBoard::left(int time){
             temp.emplace_back(&(allCells[i->pos.row][i->pos.col - 1]));
             i->restore();
         }
-        thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
+        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
         thisBlock->recaliBtmLft();
         --time;
     }
@@ -146,7 +146,7 @@ void ConcreteBoard::rotate(bool isClockwise){
             temp.emplace_back(&(allCells[thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength][thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row]));
             i->restore();
         }
-        thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
+        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
         thisBlock->recaliBtmLft();
     } else {
         for (auto &i : thisBlock->cells){
@@ -176,7 +176,7 @@ void ConcreteBoard::rotate(bool isClockwise){
             temp.emplace_back(&(allCells[thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col][thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength]));
             i->restore();
         }
-        thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
+        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
         thisBlock->recaliBtmLft();
     }
     notifyObservers();
@@ -206,7 +206,7 @@ bool ConcreteBoard::down(){
         temp.emplace_back(&(allCells[i->pos.row + 1][i->pos.col]));
         i->restore();
     }
-    thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
+    thisBlock = std::make_shared<Block>(curType, curLevel, temp);
     thisBlock->recaliBtmLft();
     notifyObservers();
     return true;

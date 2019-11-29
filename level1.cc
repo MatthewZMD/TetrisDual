@@ -24,9 +24,9 @@ CellType Level1::genBlock() {
 }
 
 std::shared_ptr<Level> Level1::levelDown() const {
-	return std::shared_ptr<Level>(new Level0{defaultFileName});
+	return std::make_shared<Level0>(defaultFileName);
 }
 
 std::shared_ptr<Level> Level1::levelUp() const {
-	return std::shared_ptr<Level>(new Level2{defaultFileName});
+	return std::make_shared<Level2>(defaultFileName);
 }
