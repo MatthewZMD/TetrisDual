@@ -1,6 +1,6 @@
 #include <iostream>
+#include <sstream>
 #include "game.h"
-
 
 /* Tries to match command cmd with the list cmdList and returns the matched command string.
    If cannot find the match string, or matched more than 1 command, return empty string
@@ -24,6 +24,21 @@ std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string
         return newList.at(0);
     } else {
         return cmdInterpreter(cmd.substr(1), newList, i + 1);
+    }
+}
+
+/* The references of step and cmd, extract the number of multipliers from cmd  and assign it to step. */
+void cmdExtract(int& step, std::string& cmd){
+    step = 1;
+    int lastDiIndex = -1;
+    for(unsigned i = 0; i < cmd.size(); i++){
+        if(cmd.at(i) >= '0' && cmd.at(i) <= '9'){
+            lastDiIndex = i;
+        }
+    }
+    if(lastDiIndex >= 0){
+        step = std::stoi(cmd);
+        cmd = cmd.substr(lastDiIndex + 1);
     }
 }
 
@@ -64,14 +79,23 @@ int main(int argc, char* argv[]) {
 
     std::cout << *(g->display) << std::endl;
 
+    // Command
     std::string cmd;
 
+    // Used for multiplier
     int step;
 
     while(true){
         try{
-            step = 1;
-            std::cin >> cmd;
+            // Read command
+            std::getline(std::cin, cmd);
+
+            std::cout << cmd << std::endl;
+
+            // Extract numbers from cmd
+            cmdExtract(step, cmd);
+
+            // Interpret the command
             cmd = cmdInterpreter(cmd, cmdList);
 
             if (cmd == "left") {
