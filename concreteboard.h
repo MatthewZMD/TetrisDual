@@ -14,7 +14,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     std::shared_ptr<Level> level;
     int countTurn;
     std::vector<std::vector<Cell>> allCells;
-    bool isGG = false;
+    bool turnGG = false;
     ConcreteBoard(int boardNum, std::string fileName, int l);
     BoardInfo boardInfo;
     void genThis() override;
@@ -30,7 +30,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     std::shared_ptr<Board> getBoard() override;
     int getBoardNum() const override;
     void setNext(CellType newNext) override;
-    bool isGameOver() const override;
+    bool isTurnOver() const override;
     Info& getInfo() override;
 };
 #endif

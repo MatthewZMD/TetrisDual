@@ -2,7 +2,7 @@
 #include "cellstate.h"
 #include "boardinfo.h"
 
-ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): score{ 0 }, boardNum { boardNum }, countTurn{ 0 }, boardInfo{} {
+ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): boardNum { boardNum }, score{ 0 }, countTurn{ 0 }, boardInfo{} {
     level = std::shared_ptr<Level>(new Level0(fileName));
     while(l >= 0){
         level = level->levelUp();
@@ -260,7 +260,7 @@ void ConcreteBoard::drop() {
 			throw "Game Over";
 		}
 	}
-	isGG = true;
+	turnGG = true;
 }
 
 void ConcreteBoard::genThis(){
@@ -335,8 +335,8 @@ void ConcreteBoard::setNext(CellType newNext) {
     nextType = newNext;
 }
 
-bool ConcreteBoard::isGameOver() const {
-	return isGG;
+bool ConcreteBoard::isTurnOver() const {
+	return turnGG;
 }
 
 Info& ConcreteBoard::getInfo()  {
