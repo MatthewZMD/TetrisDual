@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
                 g->right(step);
             }
             else if (cmd == "down") {
-                g->down();
+                g->down(step);
             }
             else if (cmd == "clockwise") {
                 g->rotate(true);

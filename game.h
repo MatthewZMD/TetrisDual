@@ -26,7 +26,7 @@ class Game {
 
     void left(int n);
     void right(int n);
-    void down();
+    void down(int n);
     void rotate(bool isClockwise);
     void drop();
 

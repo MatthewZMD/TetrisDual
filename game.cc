@@ -89,12 +89,14 @@ void Game::right(int n) {
     }
 }
 
-void Game::down() {
-    if (playerTurn == 0) {
-        board1->down();
-    }
-    else if (playerTurn == 1) {
-        board2->down();
+void Game::down(int n) {
+    for(int i = 0; i < n; ++i){
+        if (playerTurn == 0) {
+            board1->down();
+        }
+        else if (playerTurn == 1) {
+            board2->down();
+        }
     }
 }
 
