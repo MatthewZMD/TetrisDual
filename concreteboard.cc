@@ -47,7 +47,7 @@ void ConcreteBoard::levelDown(){
     }
 }
 
-void ConcreteBoard::right(int time){
+int ConcreteBoard::right(int time){
     bool exist = false;
     bool isValidMove = true;
     while (time != 0){
@@ -83,9 +83,10 @@ void ConcreteBoard::right(int time){
         down();
     }
     notifyObservers();
+    return 0;
 }
 
-void ConcreteBoard::left(int time){
+int ConcreteBoard::left(int time){
     bool exist = false;
     bool isValidMove = true;
     while (time != 0){
@@ -121,6 +122,7 @@ void ConcreteBoard::left(int time){
         down();
     }
     notifyObservers();
+    return 0;
 }
 
 void ConcreteBoard::rotate(bool isClockwise){
@@ -165,7 +167,7 @@ void ConcreteBoard::rotate(bool isClockwise){
             }
         }
         for (auto &i : thisBlock->cells){
-            newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col;
+            newRow = thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col;
             newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
             for (auto &j : thisBlock->cells) {
                 if (newRow == j->pos.row && newCol == j->pos.col) {
@@ -183,7 +185,7 @@ void ConcreteBoard::rotate(bool isClockwise){
         int curLevel = thisBlock->cells[0]->blockLevel;
         std::vector<Cell*> temp;
         for (auto &i : thisBlock->cells){
-            temp.emplace_back(&(allCells[thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col][thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength]));
+            temp.emplace_back(&(allCells[thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col][thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength]));
             i->restore();
         }
         thisBlock = std::make_shared<Block>(curType, curLevel, temp);
@@ -223,7 +225,7 @@ bool ConcreteBoard::down(){
 }
 
 
-void ConcreteBoard::drop() {
+int ConcreteBoard::drop() {
 	// down until impossible
 	while (down());
     // Consider level4 case
@@ -279,6 +281,7 @@ void ConcreteBoard::drop() {
 	}
 	turnGG = true;
 	notifyObservers();
+	return RemoveLine;
 }
 
 void ConcreteBoard::genThis(){
@@ -407,4 +410,8 @@ std::vector<std::vector<char>> ConcreteBoard::display() {
 		temp.clear();
 	}
 	return displayBoard;
+}
+
+void ConcreteBoard::setTurnOver() {
+	turnGG = false;
 }

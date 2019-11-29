@@ -19,11 +19,11 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     BoardInfo boardInfo;
     void genThis() override;
     CellType genNext() override;
-    void left(int time) override;
-    void right(int time) override;
+    int left(int time) override;
+    int right(int time) override;
     void rotate(bool isClockwise) override;
     bool down() override;
-    void drop() override;
+    int drop() override;
     void levelUp() override;
     void levelDown() override;
     std::vector<std::vector<char>> display() override;
@@ -32,5 +32,6 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     void setNext(CellType newNext) override;
     bool isTurnOver() const override;
     Info& getInfo() override;
+    void setTurnOver() override;
 };
 #endif

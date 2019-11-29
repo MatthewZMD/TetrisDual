@@ -63,9 +63,10 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Game> g = std::make_shared<Game>(fileName1, fileName2, startLevel);
     g->board1->setNext(g->board1->genNext());
     std::string cmd;
-    int step = 1;//step need to be 
+    int step = 1;//step need to be
+    g->board2->rotate(false);
     std::cout << *(g->display) << std::endl;
-    g->board1->rotate(true);
+    g->board2->rotate(true); 
     std::cout << *(g->display) << std::endl;
     bool isRunning = true;
     while(isRunning){
