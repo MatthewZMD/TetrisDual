@@ -1,18 +1,29 @@
+#include <memory>
 #include <iostream>
-#include <sstream>
+#include <fstream>
 #include "game.h"
+
+const std::vector<std::string> cmdList = {"left", "right", "down", "clockwise", "counterclockwise",
+        "drop", "levelup", "leveldown", "norandom", "random", "sequence", "restart",
+        "I", "J", "L", "O", "S", "Z", "T"};
+
+// declarations
+std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i = 0);
+void cmdExtract(int& step, std::string& cmd);
+void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game> g);
+bool cmdInterface(std::istream& in, std::shared_ptr<Game> g);
 
 /* Tries to match command cmd with the list cmdList and returns the matched command string.
    If cannot find the match string, or matched more than 1 command, return empty string
  */
-std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i = 0){
+std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i){
     if(cmd.size() == 0 && cmdList.size() > 1){
         // Matched more than 1 command
         return "";
     }
     std::vector<std::string> newList;
     // Loop through the command
-    for(long unsigned int l = 0; l < cmdList.size(); ++l){
+    for(unsigned l = 0; l < cmdList.size(); ++l){
         if(cmdList.at(l).size() > i && cmd.at(0) == cmdList.at(l).at(i)){
             newList.emplace_back(cmdList.at(l));
         }
@@ -27,7 +38,7 @@ std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string
     }
 }
 
-/* The references of step and cmd, extract the number of multipliers from cmd  and assign it to step. */
+/* The references of step and cmd, extract the number of multipliers from cmd and assign it to step. */
 void cmdExtract(int& step, std::string& cmd){
     step = 1;
     int lastDiIndex = -1;
@@ -35,11 +46,92 @@ void cmdExtract(int& step, std::string& cmd){
         if(cmd.at(i) >= '0' && cmd.at(i) <= '9'){
             lastDiIndex = i;
         }
+        else {
+            break;
+        }
     }
     if(lastDiIndex >= 0){
         step = std::stoi(cmd);
         cmd = cmd.substr(lastDiIndex + 1);
     }
+}
+
+void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game> g) {
+    if (cmd == "left") {
+        g->left(step);
+    }
+    else if (cmd == "right") {
+        g->right(step);
+    }
+    else if (cmd == "down") {
+        g->down(step);
+    }
+    else if (cmd == "clockwise") {
+        g->rotate(true);
+    }
+    else if (cmd == "counterclockwise") {
+        g->rotate(false);
+    }
+    else if (cmd == "drop") {
+        g->drop();
+    }
+    else if (cmd == "levelup") {
+        //
+    }
+    else if (cmd == "leveldown") {
+        //
+    }
+    else if (cmd == "norandom") {
+        std::string file;
+        in >> file;
+        //
+    }
+    else if (cmd == "random") {
+        //
+    }
+    else if (cmd == "sequence") {
+        std::string file;
+        in >> file;
+        
+        std::ifstream fin;
+        fin.open(file.c_str());
+
+        while(cmdInterface(fin, g));
+
+        fin.close();
+    }
+    else if (cmd == "restart") {
+        //
+    }
+    else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" || cmd == "S" || cmd == "Z" || cmd == "T") {
+        //
+    }
+}
+
+/* Main interface for analyzing and executing command cmd, also display the boards after */
+bool cmdInterface(std::istream& in, std::shared_ptr<Game> g) {
+    std::string cmd;
+    if(in >> cmd){
+        // Used for multiplier
+        int step;
+
+        // Extract numbers from cmd
+        cmdExtract(step, cmd);
+
+        // Interpret the command
+        cmd = cmdInterpreter(cmd, cmdList);
+
+        if (cmd == "") {
+            std::cout << cmd << " is not a valid command or it matches multiple commands!" << std::endl;
+        }
+        else {
+            execFunc(in, step, cmd, g);
+            std::cout << *(g->display) << std::endl;
+        }
+
+        return true;
+    }
+    return false;
 }
 
 /* Main Program */
@@ -71,53 +163,14 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    const std::vector<std::string> cmdList = {"left", "right", "down", "clockwise", "counterclockwise",
-        "drop", "levelup", "leveldown", "norandom", "random", "sequence", "restart",
-        "I", "J", "L", "O", "S", "Z", "T"};
-
     std::shared_ptr<Game> g = std::make_shared<Game>(fileName1, fileName2, startLevel);
 
     std::cout << *(g->display) << std::endl;
 
-    // Command
-    std::string cmd;
-
-    // Used for multiplier
-    int step;
-
-    std::string file;
-
     while(true){
         try{
             // Read command
-            std::getline(std::cin, cmd);
-
-            // Extract numbers from cmd
-            cmdExtract(step, cmd);
-
-            // Interpret the command
-            cmd = cmdInterpreter(cmd, cmdList);
-
-            if (cmd == "left") {
-                g->left(step);
-            }
-            else if (cmd == "right") {
-                g->right(step);
-            }
-            else if (cmd == "down") {
-                g->down(step);
-            }
-            else if (cmd == "clockwise") {
-                g->rotate(true);
-            }
-            else if (cmd == "counterclockwise") {
-                g->rotate(false);
-            }
-            else if (cmd == "drop") {
-                g->drop();
-            }
-
-            std::cout << *(g->display) << std::endl;
+            cmdInterface(std::cin, g);
         } catch (const char* s){
             // Game Over
             std::cout << s << std::endl;
@@ -128,4 +181,5 @@ int main(int argc, char* argv[]) {
     // Game finished
     std::cout << "Player " << g->playerTurn << " has won!" << std::endl;
 
+    return 0;
 }
