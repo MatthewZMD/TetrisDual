@@ -11,7 +11,6 @@ class CellState: public State {
 	CellStatus cellStatus;
     CellState();
     CellState(CellStatus status);
-    ~CellState() override;
 };
 
 #endif
