@@ -2,7 +2,7 @@
 #include "block.h"
 
 void Block::recaliBtmLft(){
-    Coordinate newBtmLft = Coordinate{200, 0};
+    Coordinate newBtmLft = Coordinate{0, 200};
     Coordinate cellPos;
     for(unsigned i = 0; i < cells.size(); ++i) {
         cellPos = cells.at(i)->pos;

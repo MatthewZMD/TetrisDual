@@ -53,7 +53,7 @@ int ConcreteBoard::right(int time){
     while (time != 0){
         for (auto &i : thisBlock->cells){
             for (auto &j : thisBlock->cells){
-                if (i->pos.col + 1 == j->pos.col){
+                if (i->pos.col + 1 == j->pos.col && i->pos.row == j->pos.row){
                     exist = true;
                 }
             }
@@ -92,7 +92,7 @@ int ConcreteBoard::left(int time){
     while (time != 0){
         for (auto &i : thisBlock->cells){
             for (auto &j : thisBlock->cells){
-                if (i->pos.col - 1 == j->pos.col){
+                if (i->pos.col - 1 == j->pos.col && i->pos.row == j->pos.row){
                     exist = true;
                 }
             }
@@ -198,7 +198,7 @@ bool ConcreteBoard::down(){
     bool exist = false;
     for (auto &i : thisBlock->cells){
         for (auto &j : thisBlock->cells){
-            if (i->pos.row + 1 == j->pos.col)
+            if (i->pos.row + 1 == j->pos.row && i->pos.col == j->pos.col)
                 {
                     exist = true;
                 }
