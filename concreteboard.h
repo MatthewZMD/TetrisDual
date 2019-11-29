@@ -2,6 +2,7 @@
 #define _CONCRETEBOARD_H_
 #include "board.h"
 #include "cellstate.h"
+#include "boardinfo.h"
 
 class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     CellState dummyState;
@@ -15,6 +16,7 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     std::vector<std::vector<Cell>> allCells;
     bool isGG = false;
     ConcreteBoard(int boardNum, std::string fileName, int l);
+    BoardInfo boardInfo;
     void genThis() override;
     CellType genNext() override;
     void left(int time) override;
