@@ -61,16 +61,20 @@ int main(int argc, char* argv[]) {
         "I", "J", "L", "O", "S", "Z", "T"};
 
     std::shared_ptr<Game> g = std::make_shared<Game>(fileName1, fileName2, startLevel);
-
-    std::cout << *(g->display) << std::endl;
-
+    g->board1->setNext(g->board1->genNext());
     std::string cmd;
+    int step = 1;//step need to be 
+    std::cout << *(g->display) << std::endl;
+    g->board1->left(1);
+    std::cout << *(g->display) << std::endl;
     bool isRunning = true;
     while(isRunning){
         try{
-            std::cin >> cmd;
+            std::cin >> cmd;//TODO
             cmd = cmdInterpreter(cmd, cmdList);
-            std::cout << cmd << std::endl;
+	    
+			    
+            
         } catch (const std::string s){
             // Game Over
             std::cout << s << std::endl;

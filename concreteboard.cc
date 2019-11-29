@@ -323,6 +323,7 @@ void ConcreteBoard::genThis(){
             break; // Do nothing
     }
     thisBlock = std::make_shared<Block>(nextType, level->getLevel(), cells);
+
     nextType = CellType::E;
 }
 
@@ -341,6 +342,7 @@ int ConcreteBoard::getBoardNum() const {
 
 void ConcreteBoard::setNext(CellType newNext) {
     nextType = newNext;
+    notifyObservers();
 }
 
 bool ConcreteBoard::isTurnOver() const {
