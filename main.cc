@@ -85,12 +85,12 @@ int main(int argc, char* argv[]) {
     // Used for multiplier
     int step;
 
+    std::string file;
+
     while(true){
         try{
             // Read command
             std::getline(std::cin, cmd);
-
-            std::cout << cmd << std::endl;
 
             // Extract numbers from cmd
             cmdExtract(step, cmd);
