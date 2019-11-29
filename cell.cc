@@ -16,18 +16,20 @@ void Cell::set(CellType t, int bl, std::vector<Cell*> s) {
 }
 
 void Cell::notify(Subject& s) {
-    Cell& c = dynamic_cast<Cell&>(s);
+    Cell & c = dynamic_cast<Cell&>(s);
+    CellInfo & info = dynamic_cast<CellInfo&>(c.getInfo());
+
 	if (c.cellState.cellStatus == CellStatus::Dead) {
-		if (c.cellInfo.pos.row == pos.row - 1) {
+		if (info.pos.row == pos.row + 1) {
 			c.cellState = CellState{CellStatus::Down};
 			notifyObservers();
 		}
 	}
 	else {
-		if (c.cellInfo.pos.row == pos.row + 1) {
-			blockLevel = c.cellInfo.blockLevel;
-			type = c.cellInfo.type;
-			squad = c.cellInfo.squad;
+		if (info.pos.row == pos.row - 1) {
+			blockLevel = info.blockLevel;
+			type = info.type;
+			squad = info.squad;
 
 			// update squad
 			for (auto& cell : squad) {
