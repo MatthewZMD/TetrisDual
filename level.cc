@@ -1,10 +1,9 @@
 #include "level.h"
-#include <iostream>
 
 Level::Level(int level, std::string defaultFileName) : level{level}, defaultFileName{defaultFileName}, readFromFile{false}, nextLine{0} {}
 
 int Level::heavyOffset() const {
-	return 0;
+    return 0;
 }
 
 bool Level::dropBrownBlock() const {
@@ -46,12 +45,9 @@ void Level::setReadFromFile(std::string fileName) {
 		}
 		sequence.emplace_back(type);
 	}
-
 	nextLine = 0;
 
 	fin.close();
-
-std::cout << "size = " << sequence.size() << std::endl;
 }
 
 void Level::unsetReadFromFile() {
@@ -65,10 +61,7 @@ int Level::getLevel() const {
 }
 
 CellType Level::genBlockFromFile() {
-std::cout << "test 1" << std::endl;
-std::cout << sequence.size() << std::endl;
 	CellType type = sequence.at(nextLine);
-std::cout << "test 2" << std::endl;
 	nextLine = (nextLine + 1) % sequence.size();
 	return type;
 }
