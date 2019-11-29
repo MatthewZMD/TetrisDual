@@ -1,16 +1,16 @@
 #include "boarddecorator.h"
 
 BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
-void BoardDecorator::drop() {
-	board->drop();
+int BoardDecorator::drop() {
+	return board->drop();
 }
 
-void BoardDecorator::left(int time) {
-	board->left(time);
+int BoardDecorator::left(int time) {
+	return board->left(time);
 }
 
-void BoardDecorator::right(int time) {
-	board->right(time);
+int BoardDecorator::right(int time) {
+	return board->right(time);
 }
 
 void BoardDecorator::rotate(bool isClockwise) {
@@ -59,4 +59,8 @@ bool BoardDecorator::isTurnOver() const {
 
 Info& BoardDecorator::getInfo() {
 	return board->getInfo();
+}
+
+void BoardDecorator::setTurnOver() {
+	board->setTurnOver();
 }

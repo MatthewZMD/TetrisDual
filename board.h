@@ -9,11 +9,11 @@
 
 class Board: public Subject {
 	public:
-    virtual void left(int time) = 0;
-    virtual void right(int time) = 0;
+    virtual int left(int time) = 0;
+    virtual int right(int time) = 0;
     virtual void rotate(bool isClockwise) = 0;
     virtual bool down() = 0;
-    virtual void drop() = 0;
+    virtual int drop() = 0;
     virtual void levelUp() = 0;
     virtual void levelDown() = 0;
     virtual void genThis() = 0;
@@ -24,6 +24,7 @@ class Board: public Subject {
     virtual void setNext(CellType newNext) = 0;
     virtual bool isTurnOver() const = 0;
     virtual Info& getInfo() = 0;
+    virtual void setTurnOver() = 0;
 };
 
 #endif

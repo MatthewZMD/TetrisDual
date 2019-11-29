@@ -8,11 +8,11 @@ class BoardDecorator: public Board {
     std::shared_ptr<Board> board;
     BoardDecorator(std::shared_ptr<Board>board);
     virtual ~BoardDecorator() = default;
-    virtual void left(int time) override;
-    virtual void right(int time) override;
+    virtual int left(int time) override;
+    virtual int right(int time) override;
     virtual void rotate(bool isClockwise) override;
     virtual bool down() override;
-    virtual void drop() override;
+    virtual int drop() override;
     virtual void levelUp() override;
     virtual void levelDown() override;
     virtual std::vector<std::vector<char>> display() override;
@@ -23,5 +23,6 @@ class BoardDecorator: public Board {
     virtual void setNext(CellType newNext) override;
     bool isTurnOver() const override;
     Info& getInfo() override;
+    void setTurnOver() override;
 };
 #endif
