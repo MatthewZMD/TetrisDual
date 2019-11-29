@@ -13,7 +13,7 @@ TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColu
 				boardData.at(i).at(r).emplace_back(' ');
 			}
 		}
-
+        
 		nextType.emplace_back(CellType::E);
 	}
 }
