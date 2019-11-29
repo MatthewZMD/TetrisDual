@@ -13,7 +13,7 @@ class Game {
     public:
     std::shared_ptr<Board> board1;
     std::shared_ptr<Board> board2;
-    TextDisplay* display;
+    std::shared_ptr<TextDisplay> display;
     int hiScore;
     int playerTurn;
     Game(std::string fileName1, std::string fileName2, int l);

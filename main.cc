@@ -62,6 +62,8 @@ int main(int argc, char* argv[]) {
 
     std::shared_ptr<Game> g = std::make_shared<Game>(fileName1, fileName2, startLevel);
 
+    std::cout << *(g->display) << std::endl;
+
     std::string cmd;
     bool isRunning = true;
     while(isRunning){

@@ -1,10 +1,11 @@
 #include "concreteboard.h"
 #include "cellstate.h"
 #include "boardinfo.h"
+#include <iostream>
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): boardNum { boardNum }, score{ 0 }, countTurn{ 0 }, boardInfo{} {
     level = std::shared_ptr<Level>(new Level0(fileName));
-    while(l >= 0){
+    while(l > 0){
         level = level->levelUp();
         --l;
     }
@@ -28,6 +29,11 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): boardNu
             }
         }
     }
+
+    nextType = level->genBlock();
+    std::cout << "shawn nb" << std::endl;
+    genThis();
+    std::cout << "shawn sb" << std::endl;
 }
 
 void ConcreteBoard::levelUp(){
@@ -319,7 +325,7 @@ void ConcreteBoard::genThis(){
         case CellType::E:
             break; // Do nothing
     }
-    thisBlock = std::shared_ptr<Block>(new Block{nextType, level->getLevel(), cells});
+    thisBlock = std::make_shared<Block>(nextType, level->getLevel(), cells);
     nextType = CellType::E;
 }
 
@@ -391,5 +397,6 @@ std::vector<std::vector<char>> ConcreteBoard::display() {
 		displayBoard.emplace_back(temp);
 		temp.clear();
 	}
+        std::cout << "here" << std::endl;
 	return displayBoard;
 }
