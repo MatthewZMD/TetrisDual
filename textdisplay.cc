@@ -14,7 +14,7 @@ TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColu
 			}
 		}
 
-		nextType.emplace_back(CellType::T);
+		nextType.emplace_back(CellType::E);
 	}
 }
 
