@@ -61,28 +61,47 @@ int main(int argc, char* argv[]) {
         "I", "J", "L", "O", "S", "Z", "T"};
 
     std::shared_ptr<Game> g = std::make_shared<Game>(fileName1, fileName2, startLevel);
-    g->board1->setNext(g->board1->genNext());
+
+    std::cout << *(g->display) << std::endl;
+
     std::string cmd;
-    int step = 1;//step need to be
-    g->board2->drop();
-    std::cout << *(g->display) << std::endl;
-    g->board2->drop(); 
-    std::cout << *(g->display) << std::endl;
-    bool isRunning = true;
-    while(isRunning){
+
+    int step;
+
+    while(true){
         try{
-            std::cin >> cmd;//TODO
+            step = 1;
+            std::cin >> cmd;
             cmd = cmdInterpreter(cmd, cmdList);
-	    
-			    
-            
-        } catch (const std::string s){
+
+            if (cmd == "left") {
+                g->left(step);
+            }
+            else if (cmd == "right") {
+                g->right(step);
+            }
+            else if (cmd == "down") {
+                g->down();
+            }
+            else if (cmd == "clockwise") {
+                g->rotate(true);
+            }
+            else if (cmd == "counterclockwise") {
+                g->rotate(false);
+            }
+            else if (cmd == "drop") {
+                g->drop();
+            }
+
+            std::cout << *(g->display) << std::endl;
+        } catch (const char* s){
             // Game Over
             std::cout << s << std::endl;
-            isRunning = false;
+            break;
         }
     }
+
     // Game finished
-    std::cout << g->playerTurn << " has lost!" << std::endl;
+    std::cout << "Player " << g->playerTurn << " has won!" << std::endl;
 
 }
