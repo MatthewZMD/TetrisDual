@@ -3,7 +3,7 @@
 
 class State {
     public:
-    virtual ~State() = 0;
+    virtual ~State();
 };
 
 #endif
