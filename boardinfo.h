@@ -10,8 +10,9 @@ struct BoardInfo : public Info {
 	int score;
 	std::vector<std::vector<char>> boardData;
 	CellType nextType;
+	BoardInfo();
 	BoardInfo(int player, int level, int score, std::vector<std::vector<char>> boardData, CellType nextType);
-	~BoardInfo() override;
+	~BoardInfo();
 };
 
 #endif

@@ -18,57 +18,59 @@ TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColu
 	}
 }
 
-
 void TextDisplay::notify(Subject & s) {
-	/*Board & b = dynamic_cast<Board&>(s);
-	BoardInfo & info = b.getInfo();
-	
-	int player = info.player;
-	level.at(player) = info.level;
-	score.at(player) = info.score;
-	boardData.at(player) = info.boardData;
-	nextType.at(player) = info.nextType;*/
+	Board & b = dynamic_cast<Board&>(s);
+	BoardInfo &bi = dynamic_cast<BoardInfo&>(b.getInfo());
+
+	int player = bi.player;
+	level.at(player) = bi.level;
+	score.at(player) = bi.score;
+	boardData.at(player) = bi.boardData;
+	nextType.at(player) = bi.nextType;
 }
 
 std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
-	std::string sp = "      ";
+	int cSpace = 6;
+	int numberOfPlayers = (int)td.boardData.size();
+	int numberOfRows = (int)td.boardData.at(0).size();
+	int numberOfColumns = (int)td.boardData.at(0).at(0).size();
 
 	// level
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
-		out << "Level:" << std::setw(5) << td.level.at(i);
+		out << "Level:" << std::setw(numberOfColumns - 6) << td.level.at(i);
 	}
 	out << std::endl;
 
 	// score
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
-		out << "Score:" << std::setw(5) << td.score.at(i);
+		out << "Score:" << std::setw(numberOfColumns - 6) << td.score.at(i);
 	}
 	out << std::endl;
 
 	// separator
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
-		for (unsigned j = 0; j < td.boardData.at(i).at(0).size(); ++j) {
+		for (int j = 0; j < numberOfColumns; ++j) {
 			out << "-";
 		}
 	}
 	out << std::endl;
 
 	// board data
-	for (unsigned r = 0; r < td.boardData.at(0).size(); ++r) {
-		for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int r = 0; r < numberOfRows; ++r) {
+		for (int i = 0; i < numberOfPlayers; ++i) {
 			if (i > 0) {
-				out << sp;
+				out << std::setw(cSpace) << "";
 			}
-			for (unsigned c = 0; c < td.boardData.at(i).at(r).size(); ++c) {
+			for (int c = 0; c < numberOfColumns; ++c) {
 				out << td.boardData.at(i).at(r).at(c);
 			}
 		}
@@ -76,29 +78,29 @@ std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
 	}
 
 	// separator
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
-		for (unsigned j = 0; j < td.boardData.at(i).at(0).size(); ++j) {
+		for (int j = 0; j < numberOfColumns; ++j) {
 			out << "-";
 		}
 	}
 	out << std::endl;
 
 	// next block
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
-		out << std::left << std::setw(td.boardData.at(0).at(0).size()) << "Next:";
+		out << std::left << std::setw(numberOfColumns) << "Next:";
 	}
 	out << std::endl;
 
 	// next type
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
 
 		std::string str;
@@ -127,13 +129,13 @@ std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
 			str = "";
 		}
 
-		out << std::left << std::setw(td.boardData.at(0).at(0).size()) << str;
+		out << std::left << std::setw(numberOfColumns) << str;
 	}
 	out << std::endl;
 
-	for (unsigned i = 0; i < td.boardData.size(); ++i) {
+	for (int i = 0; i < numberOfPlayers; ++i) {
 		if (i > 0) {
-			out << sp;
+			out << std::setw(cSpace) << "";
 		}
 
 		std::string str;
@@ -162,7 +164,7 @@ std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
 			str = "";
 		}
 
-		out << std::left << std::setw(td.boardData.at(0).at(0).size()) << str;
+		out << std::left << std::setw(numberOfColumns) << str;
 	}
 	out << std::endl;
 

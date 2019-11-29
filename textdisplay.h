@@ -6,6 +6,9 @@
 #include "observer.h"
 #include "subject.h"
 #include "celltype.h"
+#include "info.h"
+#include "boardinfo.h"
+#include "board.h"
 
 class TextDisplay : public Observer {
 	private:
