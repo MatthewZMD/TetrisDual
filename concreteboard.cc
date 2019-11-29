@@ -74,6 +74,7 @@ void ConcreteBoard::right(int time){
     if (level->heavyOffset()){
         down();
     }
+    notifyObservers();
 }
 
 void ConcreteBoard::left(int time){
@@ -106,6 +107,7 @@ void ConcreteBoard::left(int time){
     if (level->heavyOffset()){
         down();
     }
+    notifyObservers();
 }
 
 void ConcreteBoard::rotate(bool isClockwise){
@@ -174,6 +176,7 @@ void ConcreteBoard::rotate(bool isClockwise){
         thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
         thisBlock->recaliBtmLft();
     }
+    notifyObservers();
 }
 
 bool ConcreteBoard::down(){
@@ -202,6 +205,7 @@ bool ConcreteBoard::down(){
     }
     thisBlock = std::shared_ptr<Block>(new Block{curType, curLevel, temp});
     thisBlock->recaliBtmLft();
+    notifyObservers();
     return true;
 }
 
@@ -261,6 +265,7 @@ void ConcreteBoard::drop() {
 		}
 	}
 	turnGG = true;
+	notifyObservers();
 }
 
 void ConcreteBoard::genThis(){
