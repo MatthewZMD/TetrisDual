@@ -64,9 +64,9 @@ int main(int argc, char* argv[]) {
     g->board1->setNext(g->board1->genNext());
     std::string cmd;
     int step = 1;//step need to be
-    g->board2->rotate(false);
+    g->board2->drop();
     std::cout << *(g->display) << std::endl;
-    g->board2->rotate(true); 
+    g->board2->drop(); 
     std::cout << *(g->display) << std::endl;
     bool isRunning = true;
     while(isRunning){
