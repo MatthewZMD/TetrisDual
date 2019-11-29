@@ -38,6 +38,7 @@ void ConcreteBoard::levelUp(){
     if (level->getLevel() == 3) {
         countTurn = 0;
     }
+    notifyObservers();
 }
 
 void ConcreteBoard::levelDown(){
@@ -45,6 +46,7 @@ void ConcreteBoard::levelDown(){
     if (level->getLevel() == 4) {
         countTurn = 0;
     }
+    notifyObservers();
 }
 
 int ConcreteBoard::right(int time){
