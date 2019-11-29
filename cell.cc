@@ -35,7 +35,7 @@ void Cell::notify(Subject& s) {
 			for (auto& cell : squad) {
 				for (unsigned i = 0; i < cell->squad.size(); ++i) {
 					if (cell->squad.at(i)->pos == c.pos) {
-						cell->squad.at(i)->pos = pos;
+						cell->squad.at(i) = this;
 						break;
 					}
 				}
