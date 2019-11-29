@@ -58,7 +58,3 @@ Info& Cell::getInfo() {
 	cellInfo.squad = squad;
 	return cellInfo;
 }
-
-State& Cell::getState(){
-    return cellState;
-}

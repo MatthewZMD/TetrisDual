@@ -22,9 +22,6 @@ class Cell: public Observer, public Subject {
     void notify(Subject& s) override;
     bool isEmpty() const;
     Info& getInfo() override;
-    State& getState() override;
-    CellInfo cellInfo;
-    CellState cellState;
 };
 
 #endif

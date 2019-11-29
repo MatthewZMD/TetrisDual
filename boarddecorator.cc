@@ -60,8 +60,3 @@ bool BoardDecorator::isGameOver() const {
 Info& BoardDecorator::getInfo() {
 	return board->getInfo();
 }
-
-// Needless to call this function, unused
-State& BoardDecorator::getState() {
-    return board->getState();
-}
