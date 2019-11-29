@@ -7,7 +7,7 @@
 #include "cell.h"
 #include "level0.h"
 
-class Board: public Subject, public Observer {
+class Board: public Subject {
 	public:
     virtual void left(int time) = 0;
     virtual void right(int time) = 0;

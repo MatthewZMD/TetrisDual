@@ -12,7 +12,7 @@ std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string
     }
     std::vector<std::string> newList;
     // Loop through the command
-    for(int l = 0; l < cmdList.size(); ++l){
+    for(long unsigned int l = 0; l < cmdList.size(); ++l){
         if(cmdList.at(l).size() > i && cmd.at(0) == cmdList.at(l).at(i)){
             newList.emplace_back(cmdList.at(l));
         }
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     // Starting level, default to 0
     int startLevel = 0;
     // Configure initial arguments
-    for(unsigned i = 0; i < argc; ++i){
+    for(int i = 0; i < argc; ++i){
         std::string arg = argv[i];
         if(arg == "-text"){
             textOnly = true;

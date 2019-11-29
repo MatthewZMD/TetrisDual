@@ -3,7 +3,7 @@
 #include "info.h"
 #include "cellinfo.h"
 
-Cell::Cell(Coordinate pos): pos { pos }, cellState { CellState{CellStatus::Alive} }, cellInfo { CellInfo{pos, 0, CellType::E, std::vector<Cell*>{}} } {}
+Cell::Cell(Coordinate pos): pos { pos }, blockLevel { 0 }, cellState { CellState{CellStatus::Alive} }, cellInfo { CellInfo{pos, 0, CellType::E, std::vector<Cell*>{}} } {}
 
 void Cell::restore() {
     blockLevel = 0;

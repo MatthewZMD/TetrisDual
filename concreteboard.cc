@@ -20,7 +20,6 @@ ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): score{ 
     }
     for (int i = 0; i < 18; ++i) {
         for (int j = 0; j < 11; ++j) {
-            allCells[i][j].attach(this);
             if (i != 17) {
                 allCells[i][j].attach(&(allCells[i + 1][j]));
             }
@@ -264,8 +263,6 @@ void ConcreteBoard::drop() {
 	isGG = true;
 }
 
-
-
 void ConcreteBoard::genThis(){
     std::vector<std::shared_ptr<Cell>> cells;
     Coordinate btmLft{3, 0};
@@ -311,6 +308,8 @@ void ConcreteBoard::genThis(){
             cells.emplace_back(&(allCells.at(btmLft.row - 1).at(btmLft.col)));
             cells.emplace_back(&(allCells.at(btmLft.row - 1).at(btmLft.col + 1)));
             cells.emplace_back(&(allCells.at(btmLft.row - 1).at(btmLft.col + 2)));
+            break;
+        case CellType::Star:
             break;
         case CellType::E:
             break; // Do nothing

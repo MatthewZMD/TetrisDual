@@ -20,7 +20,6 @@ class BoardDecorator: public Board {
     virtual CellType genNext() override;
     std::shared_ptr<Board> getBoard() override;
     virtual int getBoardNum() const override;
-    virtual void notify(Subject& s) override;
     virtual void setNext(CellType newNext) override;
     bool isGameOver() const override;
     Info& getInfo() override;

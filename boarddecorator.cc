@@ -49,10 +49,6 @@ int BoardDecorator::getBoardNum() const {
     return board->getBoardNum();
 }
 
-void BoardDecorator::notify(Subject& s) {
-	board->notify(s);
-}
-
 void BoardDecorator::setNext(CellType newNext) {
 	board->setNext(newNext);
 }

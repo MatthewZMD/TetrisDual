@@ -25,12 +25,10 @@ class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
     void levelUp() override;
     void levelDown() override;
     std::vector<std::vector<char>> display() override;
-    void notify(Subject& s) override;
     std::shared_ptr<Board> getBoard() override;
     int getBoardNum() const override;
     void setNext(CellType newNext) override;
     bool isGameOver() const override;
     Info& getInfo() override;
-    State& getState() override;
 };
 #endif
