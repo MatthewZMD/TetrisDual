@@ -12,7 +12,7 @@ void Block::recaliBtmLft(){
     btmLft = newBtmLft;
 }
 
-Block::Block(CellType t, int l, std::vector<std::shared_ptr<Cell>> cells): cells { cells }, btmLft { Coordinate { 3, 0 } } {
+Block::Block(CellType t, int l, std::vector<Cell*> cells): cells { cells }, btmLft { Coordinate { 3, 0 } } {
     std::vector<Cell*> sq;
     for(auto &c : cells){
         if(!c->isEmpty()){
@@ -20,7 +20,7 @@ Block::Block(CellType t, int l, std::vector<std::shared_ptr<Cell>> cells): cells
         }
         for(auto &ci : cells){
             if(ci != c){
-                sq.emplace_back(ci.get());
+                sq.emplace_back(ci);
             }
         }
         c->set(t, l, sq);

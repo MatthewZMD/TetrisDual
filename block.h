@@ -8,9 +8,9 @@ class Block {
     public:
     /* Recalibrate the bottom left Coordinate, run after a block movement */
     void recaliBtmLft();
-    std::vector<std::shared_ptr<Cell>> cells;
+    std::vector<Cell*> cells;
     Coordinate btmLft;
-    Block(CellType t, int l, std::vector<std::shared_ptr<Cell>> cells);
+    Block(CellType t, int l, std::vector<Cell*> cells);
 };
 
 #endif

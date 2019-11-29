@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     std::string cmd;
     int step = 1;//step need to be 
     std::cout << *(g->display) << std::endl;
-    g->board1->left(1);
+    g->board1->rotate(true);
     std::cout << *(g->display) << std::endl;
     bool isRunning = true;
     while(isRunning){
