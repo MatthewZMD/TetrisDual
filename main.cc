@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
         try{
             std::cin >> cmd;
             cmd = cmdInterpreter(cmd, cmdList);
+            std::cout << cmd << std::endl;
         } catch (const std::string s){
             // Game Over
             std::cout << s << std::endl;

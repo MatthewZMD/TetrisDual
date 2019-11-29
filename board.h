@@ -22,7 +22,7 @@ class Board: public Subject {
     virtual std::shared_ptr<Board> getBoard() = 0;
     virtual int getBoardNum() const = 0;
     virtual void setNext(CellType newNext) = 0;
-    virtual bool isGameOver() const = 0;
+    virtual bool isTurnOver() const = 0;
     virtual Info& getInfo() = 0;
 };
 

@@ -53,8 +53,8 @@ void BoardDecorator::setNext(CellType newNext) {
 	board->setNext(newNext);
 }
 
-bool BoardDecorator::isGameOver() const {
-	return board->isGameOver();
+bool BoardDecorator::isTurnOver() const {
+	return board->isTurnOver();
 }
 
 Info& BoardDecorator::getInfo() {
