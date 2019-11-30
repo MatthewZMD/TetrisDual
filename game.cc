@@ -25,9 +25,11 @@ void Game::heavy() {
 void Game::blind() {
     if (playerTurn == 1) {
         board1 = std::make_shared<BlindDecorator>(board1);
+        board1->notifyObservers();
     }
     else if (playerTurn == 0) {
         board2 = std::make_shared<BlindDecorator>(board2);
+        board2->notifyObservers();
     }
 }
 
@@ -45,7 +47,7 @@ void Game::recover() {
         board1 = board1->getBoard();
     }
     else if (playerTurn == 1) {
-        board2 = board1->getBoard();
+        board2 = board2->getBoard();
     }
 }
 
@@ -270,7 +272,7 @@ void Game::execAction(std::istream & in) {
         in >> t;
 
         CellType type = CellType::E;
-        
+
         if (cmd == "I") {
             type = CellType::I;
         }
