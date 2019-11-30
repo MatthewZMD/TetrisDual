@@ -221,25 +221,24 @@ void Game::replaceBlock(std::string cmd) {
         type = CellType::J;
     }
     else if (cmd == "L") {
-        type = CellType::J;
+        type = CellType::L;
     }
     else if (cmd == "O") {
-        type = CellType::J;
+        type = CellType::O;
     }
     else if (cmd == "S") {
-        type = CellType::J;
+        type = CellType::S;
     }
     else if (cmd == "Z") {
-        type = CellType::J;
+        type = CellType::Z;
     }
     else if (cmd == "T") {
-        type = CellType::J;
+        type = CellType::T;
     }
 
     if (playerTurn == 0) {
         board1->replaceBlock(type);
-    }
-    else {
+    } else {
         board2->replaceBlock(type);
     }
 }
