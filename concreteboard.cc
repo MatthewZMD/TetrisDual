@@ -437,6 +437,10 @@ void ConcreteBoard::random() {
 }
 
 void ConcreteBoard::replaceBlock(CellType newType) {
+    for(auto& c: thisBlock->cells){
+        c->restore();
+    }
+    thisBlock->cells.clear();
 	CellType temp = nextType;
 	nextType = newType;
 	genThis();
