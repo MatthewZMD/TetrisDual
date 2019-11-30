@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Game finished
-    std::cout << "Player " << g->playerTurn << " has won!" << std::endl;
+    std::cout << "Player " << g->playerTurn << " has lost!" << std::endl;
 
     return 0;
 }

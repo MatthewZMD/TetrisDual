@@ -241,15 +241,16 @@ int ConcreteBoard::drop() {
 	while (down(1));
     // Consider level4 case
 	if (level->dropBrownBlock()) {
+	++countTurn;	
         if (countTurn == 5) {
 			for (int i = 17; i >= 0; --i) {
 				if (allCells[i][5].type == CellType::E) {
                     allCells[i][5].type = CellType::Star;
+		    break;
                 }
             }
-        } else {
-			++countTurn;
-		}
+			countTurn = 0;
+        }
     }
 	bool lineFull = 1;
 	int RemoveLine = 0;
@@ -284,6 +285,8 @@ int ConcreteBoard::drop() {
 	}
 	if (RemoveLine != 0) {
 		score += (RemoveLine + level->getLevel()) * (RemoveLine + level->getLevel());
+		countTurn = 0;
+
 	}
 	for (int j = 0; j < 11; ++j) {
 		if (!allCells[2][j].isEmpty()) {
