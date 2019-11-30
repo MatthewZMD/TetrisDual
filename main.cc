@@ -58,22 +58,22 @@ void cmdExtract(int& step, std::string& cmd){
 
 void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game> g) {
     if (cmd == "left") {
-        g->left(step);
+        g->left(in, step);
     }
     else if (cmd == "right") {
-        g->right(step);
+        g->right(in, step);
     }
     else if (cmd == "down") {
         g->down(step);
     }
     else if (cmd == "clockwise") {
-        g->rotate(true);
+        g->rotate(true, step);
     }
     else if (cmd == "counterclockwise") {
-        g->rotate(false);
+        g->rotate(false, step);
     }
     else if (cmd == "drop") {
-        g->drop();
+        g->drop(in);
     }
     else if (cmd == "levelup") {
         g->levelup(step);
@@ -84,10 +84,10 @@ void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game>
     else if (cmd == "norandom") {
         std::string file;
         in >> file;
-        //
+        g->norandom(in);
     }
     else if (cmd == "random") {
-        //
+        g->random();
     }
     else if (cmd == "sequence") {
         std::string file;
@@ -104,7 +104,7 @@ void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game>
         //
     }
     else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" || cmd == "S" || cmd == "Z" || cmd == "T") {
-        //
+        g->replaceBlock(cmd);
     }
 }
 
