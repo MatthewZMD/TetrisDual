@@ -13,34 +13,55 @@ Game::Game(std::string fileName1, std::string fileName2, int l): hiScore{0}, pla
     board1->setNext(board1->genNext());
 }
 
-void Game::heavy(std::shared_ptr<Board> givenBoard) {
-    givenBoard = std::make_shared<HeavyDecorator>(givenBoard);
+void Game::heavy() {
+    if (playerTurn == 1) {
+        board1 = std::make_shared<HeavyDecorator>(board1);
+    }
+    else if (playerTurn == 0) {
+        board2 = std::make_shared<HeavyDecorator>(board2);
+    }
 }
 
-void Game::blind(std::shared_ptr<Board> givenBoard) {
-    givenBoard = std::make_shared<BlindDecorator>(givenBoard);
+void Game::blind() {
+    if (playerTurn == 1) {
+        board1 = std::make_shared<BlindDecorator>(board1);
+    }
+    else if (playerTurn == 0) {
+        board2 = std::make_shared<BlindDecorator>(board2);
+    }
 }
 
-void Game::force(std::shared_ptr<Board> givenBoard, CellType giventype) {
-    givenBoard = std::make_shared<ForceDecorator>(givenBoard, giventype);
+void Game::force(CellType type) {
+    if (playerTurn == 1) {
+        board1 = std::make_shared<ForceDecorator>(board1, type);
+    }
+    else if (playerTurn == 0) {
+        board2 = std::make_shared<ForceDecorator>(board2, type);
+    }
 }
 
-void Game::recover(std::shared_ptr<Board> givenBoard) {
-    givenBoard = givenBoard->getBoard();
+void Game::recover() {
+    if (playerTurn == 0) {
+        board1 = board1->getBoard();
+    }
+    else if (playerTurn == 1) {
+        board2 = board1->getBoard();
+    }
 }
 
-void Game::left(int n) {
+void Game::left(std::istream & in, int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         numberOfRowsRemoved = board1->left(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board1->isTurnOver()) {
             board1->setTurnOver();
+            recover();
             switchTurn();
         }
     }
@@ -49,28 +70,30 @@ void Game::left(int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board2->isTurnOver()) {
             board2->setTurnOver();
+            recover();
             switchTurn();
         }
     }
 }
 
-void Game::right(int n) {
+void Game::right(std::istream & in, int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         numberOfRowsRemoved = board1->right(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board1->isTurnOver()) {
             board1->setTurnOver();
+            recover();
             switchTurn();
         }
     }
@@ -79,48 +102,48 @@ void Game::right(int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board2->isTurnOver()) {
             board2->setTurnOver();
+            recover();
             switchTurn();
         }
     }
 }
 
 void Game::down(int n) {
-    for(int i = 0; i < n; ++i){
-        if (playerTurn == 0) {
-            board1->down();
-        }
-        else if (playerTurn == 1) {
-            board2->down();
-        }
-    }
-}
-
-void Game::rotate(bool isClockwise) {
     if (playerTurn == 0) {
-        board1->rotate(isClockwise);
+        board1->down(n);
     }
     else if (playerTurn == 1) {
-        board2->rotate(isClockwise);
+        board2->down(n);
     }
 }
 
-void Game::drop() {
+void Game::rotate(bool isClockwise, int n) {
+    if (playerTurn == 0) {
+        board1->rotate(isClockwise, n);
+    }
+    else if (playerTurn == 1) {
+        board2->rotate(isClockwise, n);
+    }
+}
+
+void Game::drop(std::istream & in) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         numberOfRowsRemoved = board1->drop();
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board1->isTurnOver()) {
             board1->setTurnOver();
+            recover();
             switchTurn();
         }
     }
@@ -129,11 +152,12 @@ void Game::drop() {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            //
+            execAction(in);
         }
 
         if (board2->isTurnOver()) {
             board2->setTurnOver();
+            recover();
             switchTurn();
         }
     }
@@ -165,16 +189,57 @@ void Game::leveldown(int n) {
     }
 }
 
-void Game::norandom() {
-    //
+void Game::norandom(std::istream & in) {
+    std::string file;
+    in >> file;
+    if (playerTurn == 0) {
+        board1->noRandom(file);
+    }
+    else if (playerTurn == 1) {
+        board2->noRandom(file);
+    }
 }
 
 void Game::random() {
-    //
+    if (playerTurn == 0) {
+        board1->random();
+    }
+    else if (playerTurn == 1) {
+        board2->random();
+    }
 }
 
 void Game::replaceBlock(std::string cmd) {
-    //
+    CellType type = CellType::E;
+
+    if (cmd == "I") {
+        type = CellType::I;
+    }
+    else if (cmd == "J") {
+        type = CellType::J;
+    }
+    else if (cmd == "L") {
+        type = CellType::J;
+    }
+    else if (cmd == "O") {
+        type = CellType::J;
+    }
+    else if (cmd == "S") {
+        type = CellType::J;
+    }
+    else if (cmd == "Z") {
+        type = CellType::J;
+    }
+    else if (cmd == "T") {
+        type = CellType::J;
+    }
+
+    if (playerTurn == 0) {
+        board1->replaceBlock(type);
+    }
+    else {
+        board2->replaceBlock(type);
+    }
 }
 
 void Game::switchTurn() {
@@ -187,5 +252,47 @@ void Game::switchTurn() {
         board2->genThis();
         board1->setNext(board1->genNext());
         playerTurn = 0;
+    }
+}
+
+// Read one special action from istream in and execute the action
+void Game::execAction(std::istream & in) {
+    std::string cmd;
+    in >> cmd;
+    if (cmd == "blind") {
+        blind();
+    }
+    else if (cmd == "heavy") {
+        heavy();
+    }
+    else if (cmd == "force") {
+        std::string t;
+        in >> t;
+
+        CellType type = CellType::E;
+        
+        if (cmd == "I") {
+            type = CellType::I;
+        }
+        else if (cmd == "J") {
+            type = CellType::J;
+        }
+        else if (cmd == "L") {
+            type = CellType::J;
+        }
+        else if (cmd == "O") {
+            type = CellType::J;
+        }
+        else if (cmd == "S") {
+            type = CellType::J;
+        }
+        else if (cmd == "Z") {
+            type = CellType::J;
+        }
+        else if (cmd == "T") {
+            type = CellType::J;
+        }
+
+        force(type);
     }
 }
