@@ -1,13 +1,14 @@
 #ifndef _BOARD_H_
 #define _BOARD_H_
 #include <vector>
+#include <memory>
 #include "block.h"
 #include "subject.h"
 #include "level.h"
 #include "cell.h"
 #include "level0.h"
 
-class Board: public Subject {
+class Board: public std::enable_shared_from_this<Board>, public Subject {
 	public:
     virtual int left(int time) = 0;
     virtual int right(int time) = 0;

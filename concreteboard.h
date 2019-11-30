@@ -4,7 +4,7 @@
 #include "cellstate.h"
 #include "boardinfo.h"
 
-class ConcreteBoard: std::enable_shared_from_this<ConcreteBoard>, public Board{
+class ConcreteBoard: public Board{
     CellState dummyState;
     public:
     int boardNum;
