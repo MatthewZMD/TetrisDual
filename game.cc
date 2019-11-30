@@ -36,9 +36,11 @@ void Game::blind() {
 void Game::force(CellType type) {
     if (playerTurn == 1) {
         board1 = std::make_shared<ForceDecorator>(board1, type);
+	board1->notifyObservers();
     }
     else if (playerTurn == 0) {
         board2 = std::make_shared<ForceDecorator>(board2, type);
+	board2->notifyObservers();
     }
 }
 

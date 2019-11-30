@@ -445,4 +445,5 @@ void ConcreteBoard::replaceBlock(CellType newType) {
 	nextType = newType;
 	genThis();
 	nextType = temp;
+	notifyObservers();
 }
