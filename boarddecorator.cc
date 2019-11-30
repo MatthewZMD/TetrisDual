@@ -1,4 +1,6 @@
 #include "boarddecorator.h"
+#include "boardinfo.h"
+
 
 BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
 int BoardDecorator::drop() {
@@ -58,7 +60,9 @@ bool BoardDecorator::isTurnOver() const {
 }
 
 Info& BoardDecorator::getInfo() {
-	return board->getInfo();
+	BoardInfo& info = dynamic_cast<BoardInfo&>(board->getInfo());
+	info.boardData = display();
+	return info;
 }
 
 void BoardDecorator::setTurnOver() {

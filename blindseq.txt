@@ -53,5 +53,3 @@ drop
     drop
     clo
     10ri
-    drop
-    blind
