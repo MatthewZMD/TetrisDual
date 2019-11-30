@@ -340,6 +340,7 @@ void ConcreteBoard::genThis(){
     thisBlock = std::make_shared<Block>(nextType, level->getLevel(), cells);
 
     nextType = CellType::E;
+    notifyObservers();
 }
 
 CellType ConcreteBoard::genNext(){
