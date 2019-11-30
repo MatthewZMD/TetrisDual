@@ -76,10 +76,10 @@ void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game>
         g->drop();
     }
     else if (cmd == "levelup") {
-        //
+        g->levelup(step);
     }
     else if (cmd == "leveldown") {
-        //
+        g->leveldown(step);
     }
     else if (cmd == "norandom") {
         std::string file;
