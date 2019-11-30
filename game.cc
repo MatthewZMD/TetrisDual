@@ -274,26 +274,26 @@ void Game::execAction(std::istream & in) {
 
         CellType type = CellType::E;
 
-        if (cmd == "I") {
+        if (t == "I") {
             type = CellType::I;
         }
-        else if (cmd == "J") {
+        else if (t == "J") {
             type = CellType::J;
         }
-        else if (cmd == "L") {
-            type = CellType::J;
+        else if (t == "L") {
+            type = CellType::L;
         }
-        else if (cmd == "O") {
-            type = CellType::J;
+        else if (t == "O") {
+            type = CellType::O;
         }
-        else if (cmd == "S") {
-            type = CellType::J;
+        else if (t == "S") {
+            type = CellType::S;
         }
-        else if (cmd == "Z") {
-            type = CellType::J;
+        else if (t == "Z") {
+            type = CellType::Z;
         }
-        else if (cmd == "T") {
-            type = CellType::J;
+        else if (t == "T") {
+            type = CellType::T;
         }
 
         force(type);
