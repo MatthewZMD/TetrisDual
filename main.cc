@@ -92,7 +92,7 @@ void execFunc(std::istream& in, int step, std::string cmd, std::shared_ptr<Game>
     else if (cmd == "sequence") {
         std::string file;
         in >> file;
-        
+
         std::ifstream fin;
         fin.open(file.c_str());
 
@@ -122,7 +122,7 @@ bool cmdInterface(std::istream& in, std::shared_ptr<Game> g) {
         cmd = cmdInterpreter(cmd, cmdList);
 
         if (cmd == "") {
-            std::cout << cmd << " is not a valid command or it matches multiple commands!" << std::endl;
+            std::cout << "This is not a valid command or it matches multiple commands!" << std::endl;
         }
         else {
             execFunc(in, step, cmd, g);
