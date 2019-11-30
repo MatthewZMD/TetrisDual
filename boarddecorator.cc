@@ -13,12 +13,12 @@ int BoardDecorator::right(int time) {
 	return board->right(time);
 }
 
-void BoardDecorator::rotate(bool isClockwise) {
-	board->rotate(isClockwise);
+void BoardDecorator::rotate(bool isClockwise, int time) {
+	board->rotate(isClockwise, time);
 }
 
-bool BoardDecorator::down() {
-	return board->down();
+bool BoardDecorator::down(int time) {
+	return board->down(time);
 }
 
 void BoardDecorator::levelUp() {
@@ -63,4 +63,16 @@ Info& BoardDecorator::getInfo() {
 
 void BoardDecorator::setTurnOver() {
 	board->setTurnOver();
+}
+
+void BoardDecorator::noRandom(std::string fileName) {
+	board->noRandom(fileName);
+}
+
+void BoardDecorator::random() {
+	board->random();
+}
+
+void BoardDecorator::replaceBlock(CellType newType) {
+	board->replaceBlock(newType);
 }
