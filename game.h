@@ -2,6 +2,7 @@
 #define _GAME_H_
 #include <vector>
 #include <memory>
+#include <string>
 #include "board.h"
 #include "celltype.h"
 #include "concreteboard.h"
@@ -29,6 +30,11 @@ class Game {
     void down(int n);
     void rotate(bool isClockwise);
     void drop();
+    void levelup(int n);
+    void leveldown(int n);
+    void norandom();
+    void random();
+    void replaceBlock(std::string cmd);
 
     private:
     void switchTurn();

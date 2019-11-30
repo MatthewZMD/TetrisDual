@@ -139,6 +139,44 @@ void Game::drop() {
     }
 }
 
+void Game::levelup(int n) {
+    if (playerTurn == 0) {
+        for (int i = 0; i < n; ++i) {
+            board1->levelUp();
+        }
+    }
+    else {
+        for (int i = 0; i < n; ++i) {
+            board2->levelUp();
+        }
+    }
+}
+
+void Game::leveldown(int n) {
+    if (playerTurn == 0) {
+        for (int i = 0; i < n; ++i) {
+            board1->levelDown();
+        }
+    }
+    else {
+        for (int i = 0; i < n; ++i) {
+            board2->levelDown();
+        }
+    }
+}
+
+void Game::norandom() {
+    //
+}
+
+void Game::random() {
+    //
+}
+
+void Game::replaceBlock(std::string cmd) {
+    //
+}
+
 void Game::switchTurn() {
     if (playerTurn == 0) {
         board1->genThis();
