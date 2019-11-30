@@ -82,7 +82,7 @@ int ConcreteBoard::right(int time){
 	}
     }
     if (level->heavyOffset()){
-        down();
+        down(1);
     }
     notifyObservers();
     return 0;
@@ -121,17 +121,18 @@ int ConcreteBoard::left(int time){
 	}
     }
     if (level->heavyOffset()){
-        down();
+        down(1);
     }
     notifyObservers();
     return 0;
 }
 
-void ConcreteBoard::rotate(bool isClockwise){
+void ConcreteBoard::rotate(bool isClockwise, int time){
     int rmLength = 0;
     int newRow = 0;
     int newCol = 0;
     bool exist = false;
+    while (time != 0) {
     if (isClockwise){
         for (auto &i : thisBlock->cells){
             if (rmLength < i->pos.col - thisBlock->btmLft.col){
@@ -193,10 +194,16 @@ void ConcreteBoard::rotate(bool isClockwise){
         thisBlock = std::make_shared<Block>(curType, curLevel, temp);
         thisBlock->recaliBtmLft();
     }
+    --time;
+    }
+    if (level->heavyOffset()) {
+	    down(1);
+    }
     notifyObservers();
 }
 
-bool ConcreteBoard::down(){
+bool ConcreteBoard::down(int time){
+    while (time != 0) {
     bool exist = false;
     for (auto &i : thisBlock->cells){
         for (auto &j : thisBlock->cells){
@@ -222,14 +229,16 @@ bool ConcreteBoard::down(){
     }
     thisBlock = std::make_shared<Block>(curType, curLevel, temp);
     thisBlock->recaliBtmLft();
+    --time;
     notifyObservers();
+    }
     return true;
 }
 
 
 int ConcreteBoard::drop() {
 	// down until impossible
-	while (down());
+	while (down(1));
     // Consider level4 case
 	if (level->dropBrownBlock()) {
         if (countTurn == 5) {
@@ -417,4 +426,19 @@ std::vector<std::vector<char>> ConcreteBoard::display() {
 
 void ConcreteBoard::setTurnOver() {
 	turnGG = false;
+}
+
+void ConcreteBoard::noRandom(std::string fileName) {
+	level->setReadFromFile(fileName);
+}
+
+void ConcreteBoard::random() {
+	level->unsetReadFromFile();
+}
+
+void ConcreteBoard::replaceBlock(CellType newType) {
+	CellType temp = nextType;
+	nextType = newType;
+	genThis();
+	nextType = temp;
 }

@@ -10,8 +10,8 @@ class BoardDecorator: public Board {
     virtual ~BoardDecorator() = default;
     virtual int left(int time) override;
     virtual int right(int time) override;
-    virtual void rotate(bool isClockwise) override;
-    virtual bool down() override;
+    virtual void rotate(bool isClockwise, int time) override;
+    virtual bool down(int time) override;
     virtual int drop() override;
     virtual void levelUp() override;
     virtual void levelDown() override;
@@ -24,5 +24,8 @@ class BoardDecorator: public Board {
     bool isTurnOver() const override;
     Info& getInfo() override;
     void setTurnOver() override;
+    void noRandom(std::string filename) override;
+    void random() override;
+    void replaceBlock(CellType newType) override;
 };
 #endif
