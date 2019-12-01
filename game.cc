@@ -264,8 +264,8 @@ void Game::switchTurn() {
     else if (playerTurn == 1) {
         board2->genThis();
         board1->setNext(board1->genNext());
-        if(board2->countD > 0){
-            board2->drop(board2->countD - 1);
+        if(board1->countD > 0){
+            board1->drop(board1->countD - 1);
         } else {
             playerTurn = 0;
         }
