@@ -5,7 +5,7 @@ OBJECTS = main.o interface.o blinddecorator.o block.o boarddecorator.o board.o b
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC} -lX11
 
 .PHONY: clean
 
