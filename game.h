@@ -33,7 +33,7 @@ class Game {
     void right(std::istream & in, int n);
     void down(int n);
     void rotate(bool isClockwise, int n);
-    void drop(std::istream & in);
+    void drop(std::istream & in, int n);
     void levelup(int n);
     void leveldown(int n);
     void norandom(std::string file);

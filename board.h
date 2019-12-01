@@ -10,11 +10,12 @@
 
 class Board: public std::enable_shared_from_this<Board>, public Subject {
 	public:
+    int countD;
     virtual int left(int time) = 0;
     virtual int right(int time) = 0;
     virtual void rotate(bool isClockwise, int time) = 0;
     virtual bool down(int time) = 0;
-    virtual int drop() = 0;
+    virtual int drop(int time) = 0;
     virtual void levelUp() = 0;
     virtual void levelDown() = 0;
     virtual void genThis() = 0;
