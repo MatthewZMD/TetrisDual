@@ -66,20 +66,20 @@ int ConcreteBoard::right(int time){
             }
             exist = false;
         }
-	if (isValidMove) {
-        CellType curType = thisBlock->cells[0]->type;
-        int curLevel = thisBlock->cells[0]->blockLevel;
-        std::vector<Cell*> temp;
-        for (auto &i : thisBlock->cells){
-            temp.emplace_back(&(allCells[i->pos.row][i->pos.col + 1]));
-            i->restore();
+        if (isValidMove) {
+            CellType curType = thisBlock->cells[0]->type;
+            int curLevel = thisBlock->cells[0]->blockLevel;
+            std::vector<Cell*> temp;
+            for (auto &i : thisBlock->cells){
+                temp.emplace_back(&(allCells[i->pos.row][i->pos.col + 1]));
+                i->restore();
+            }
+            thisBlock = std::make_shared<Block>(curType, curLevel, temp);
+            thisBlock->recaliBtmLft();
+            --time;
+        } else {
+            break;
         }
-        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
-        thisBlock->recaliBtmLft();
-        --time;
-	} else {
-		break;
-	}
     }
     if (level->heavyOffset()){
         down(1);
@@ -105,20 +105,20 @@ int ConcreteBoard::left(int time){
             }
             exist = false;
         }
-	if (isValidMove) {
-        CellType curType = thisBlock->cells[0]->type;
-        int curLevel = thisBlock->cells[0]->blockLevel;
-        std::vector<Cell*> temp;
-        for (auto &i : thisBlock->cells){
-            temp.emplace_back(&(allCells[i->pos.row][i->pos.col - 1]));
-            i->restore();
+        if (isValidMove) {
+            CellType curType = thisBlock->cells[0]->type;
+            int curLevel = thisBlock->cells[0]->blockLevel;
+            std::vector<Cell*> temp;
+            for (auto &i : thisBlock->cells){
+                temp.emplace_back(&(allCells[i->pos.row][i->pos.col - 1]));
+                i->restore();
+            }
+            thisBlock = std::make_shared<Block>(curType, curLevel, temp);
+            thisBlock->recaliBtmLft();
+            --time;
+        } else {
+            break;
         }
-        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
-        thisBlock->recaliBtmLft();
-        --time;
-	} else {
-		break;
-	}
     }
     if (level->heavyOffset()){
         down(1);
@@ -133,68 +133,68 @@ void ConcreteBoard::rotate(bool isClockwise, int time){
     int newCol = 0;
     bool exist = false;
     while (time != 0) {
-    if (isClockwise){
-        for (auto &i : thisBlock->cells){
-            if (rmLength < i->pos.col - thisBlock->btmLft.col){
-                rmLength = i->pos.col - thisBlock->btmLft.col;
-            }
-        }
-        for (auto &i : thisBlock->cells){
-            newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength;
-            newCol = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row;
-            for (auto &j : thisBlock->cells) {
-                if (newRow == j->pos.row && newCol == j->pos.col) {
-                    exist = true;
+        if (isClockwise){
+            for (auto &i : thisBlock->cells){
+                if (rmLength < i->pos.col - thisBlock->btmLft.col){
+                    rmLength = i->pos.col - thisBlock->btmLft.col;
                 }
             }
-            if (!exist) {
-                if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
-                    return;
+            for (auto &i : thisBlock->cells){
+                newRow = thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength;
+                newCol = thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row;
+                for (auto &j : thisBlock->cells) {
+                    if (newRow == j->pos.row && newCol == j->pos.col) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
+                        return;
+                    }
+                }
+                exist = false;
+            }
+            CellType curType = thisBlock->cells[0]->type;
+            int curLevel = thisBlock->cells[0]->blockLevel;
+            std::vector<Cell*> temp;
+            for (auto &i : thisBlock->cells){
+                temp.emplace_back(&(allCells[thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength][thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row]));
+                i->restore();
+            }
+            thisBlock = std::make_shared<Block>(curType, curLevel, temp);
+            thisBlock->recaliBtmLft();
+        } else {
+            for (auto &i : thisBlock->cells){
+                if (rmLength < thisBlock->btmLft.row - i->pos.row){
+                    rmLength = thisBlock->btmLft.row - i->pos.row;
                 }
             }
-            exist = false;
-        }
-        CellType curType = thisBlock->cells[0]->type;
-        int curLevel = thisBlock->cells[0]->blockLevel;
-        std::vector<Cell*> temp;
-        for (auto &i : thisBlock->cells){
-            temp.emplace_back(&(allCells[thisBlock->btmLft.row + i->pos.col - thisBlock->btmLft.col - rmLength][thisBlock->btmLft.col + thisBlock->btmLft.row - i->pos.row]));
-            i->restore();
-        }
-        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
-        thisBlock->recaliBtmLft();
-    } else {
-        for (auto &i : thisBlock->cells){
-            if (rmLength < thisBlock->btmLft.row - i->pos.row){
-                rmLength = thisBlock->btmLft.row - i->pos.row;
-            }
-        }
-        for (auto &i : thisBlock->cells){
-            newRow = thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col;
-            newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
-            for (auto &j : thisBlock->cells) {
-                if (newRow == j->pos.row && newCol == j->pos.col) {
-                    exist = true;
+            for (auto &i : thisBlock->cells){
+                newRow = thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col;
+                newCol = thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength;
+                for (auto &j : thisBlock->cells) {
+                    if (newRow == j->pos.row && newCol == j->pos.col) {
+                        exist = true;
+                    }
                 }
-            }
-            if (!exist) {
-                if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
-                    return;
+                if (!exist) {
+                    if (newCol > 10 || !allCells[newRow][newCol].isEmpty()) {
+                        return;
+                    }
                 }
+                exist = false;
             }
-            exist = false;
+            CellType curType = thisBlock->cells[0]->type;
+            int curLevel = thisBlock->cells[0]->blockLevel;
+            std::vector<Cell*> temp;
+            for (auto &i : thisBlock->cells){
+                temp.emplace_back(&(allCells[thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col][thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength]));
+                i->restore();
+            }
+            thisBlock = std::make_shared<Block>(curType, curLevel, temp);
+            thisBlock->recaliBtmLft();
         }
-        CellType curType = thisBlock->cells[0]->type;
-        int curLevel = thisBlock->cells[0]->blockLevel;
-        std::vector<Cell*> temp;
-        for (auto &i : thisBlock->cells){
-            temp.emplace_back(&(allCells[thisBlock->btmLft.row - i->pos.col + thisBlock->btmLft.col][thisBlock->btmLft.col - thisBlock->btmLft.row + i->pos.row + rmLength]));
-            i->restore();
-        }
-        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
-        thisBlock->recaliBtmLft();
-    }
-    --time;
+        --time;
     }
     if (level->heavyOffset()) {
 	    down(1);
@@ -204,49 +204,50 @@ void ConcreteBoard::rotate(bool isClockwise, int time){
 
 bool ConcreteBoard::down(int time){
     while (time != 0) {
-    bool exist = false;
-    for (auto &i : thisBlock->cells){
-        for (auto &j : thisBlock->cells){
-            if (i->pos.row + 1 == j->pos.row && i->pos.col == j->pos.col)
-                {
-                    exist = true;
-                }
+        bool exist = false;
+        for (auto &i : thisBlock->cells){
+            for (auto &j : thisBlock->cells){
+                if (i->pos.row + 1 == j->pos.row && i->pos.col == j->pos.col)
+                    {
+                        exist = true;
+                    }
+            }
+            if (!exist){
+                if (i->pos.row == 17 || !allCells[i->pos.row + 1][i->pos.col].isEmpty())
+                    {
+                        return false;
+                    }
+            }
+            exist = false;
         }
-        if (!exist){
-            if (i->pos.row == 17 || !allCells[i->pos.row + 1][i->pos.col].isEmpty())
-                {
-                    return false;
-                }
+        CellType curType = thisBlock->cells[0]->type;
+        int curLevel = thisBlock->cells[0]->blockLevel;
+        std::vector<Cell*> temp;
+        for (auto &i : thisBlock->cells){
+            temp.emplace_back(&(allCells[i->pos.row + 1][i->pos.col]));
+            i->restore();
         }
-        exist = false;
-    }
-    CellType curType = thisBlock->cells[0]->type;
-    int curLevel = thisBlock->cells[0]->blockLevel;
-    std::vector<Cell*> temp;
-    for (auto &i : thisBlock->cells){
-        temp.emplace_back(&(allCells[i->pos.row + 1][i->pos.col]));
-        i->restore();
-    }
-    thisBlock = std::make_shared<Block>(curType, curLevel, temp);
-    thisBlock->recaliBtmLft();
-    --time;
-    notifyObservers();
+        thisBlock = std::make_shared<Block>(curType, curLevel, temp);
+        thisBlock->recaliBtmLft();
+        --time;
+        notifyObservers();
     }
     return true;
 }
 
 
-int ConcreteBoard::drop() {
+int ConcreteBoard::drop(int time) {
+    countD = time;
 	// down until impossible
 	while (down(1));
     // Consider level4 case
 	if (level->dropBrownBlock()) {
-	++countTurn;	
+        ++countTurn;
         if (countTurn == 5) {
 			for (int i = 17; i >= 0; --i) {
 				if (allCells[i][5].type == CellType::E) {
                     allCells[i][5].type = CellType::Star;
-		    break;
+                    break;
                 }
             }
 			countTurn = 0;
@@ -378,12 +379,12 @@ bool ConcreteBoard::isTurnOver() const {
 }
 
 Info& ConcreteBoard::getInfo()  {
-       boardInfo.player = boardNum;
-       boardInfo.level = level->getLevel();
-       boardInfo.score = score;
-       boardInfo.boardData = display();
-       boardInfo.nextType = nextType;
-       return boardInfo;
+    boardInfo.player = boardNum;
+    boardInfo.level = level->getLevel();
+    boardInfo.score = score;
+    boardInfo.boardData = display();
+    boardInfo.nextType = nextType;
+    return boardInfo;
 }
 
 std::vector<std::vector<char>> ConcreteBoard::display() {

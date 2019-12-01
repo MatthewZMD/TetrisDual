@@ -143,10 +143,10 @@ void Game::rotate(bool isClockwise, int n) {
     }
 }
 
-void Game::drop(std::istream & in) {
+void Game::drop(std::istream & in, int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
-        numberOfRowsRemoved = board1->drop();
+        numberOfRowsRemoved = board1->drop(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
@@ -160,7 +160,7 @@ void Game::drop(std::istream & in) {
         }
     }
     else if (playerTurn == 1) {
-        numberOfRowsRemoved = board2->drop();
+        numberOfRowsRemoved = board2->drop(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
@@ -256,11 +256,17 @@ void Game::switchTurn() {
         board1->genThis();
         board2->setNext(board2->genNext());
         playerTurn = 1;
+        if(board2->countD > 0){
+            board2->drop(board2->countD - 1);
+        }
     }
     else if (playerTurn == 1) {
         board2->genThis();
         board1->setNext(board1->genNext());
         playerTurn = 0;
+        if(board2->countD > 0){
+            board2->drop(board2->countD - 1);
+        }
     }
 }
 

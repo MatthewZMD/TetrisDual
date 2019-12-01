@@ -12,7 +12,7 @@ class BoardDecorator: public Board {
     virtual int right(int time) override;
     virtual void rotate(bool isClockwise, int time) override;
     virtual bool down(int time) override;
-    virtual int drop() override;
+    virtual int drop(int time) override;
     virtual void levelUp() override;
     virtual void levelDown() override;
     virtual std::vector<std::vector<char>> display() override;

@@ -63,7 +63,7 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
         g->rotate(false, step);
     }
     else if (cmd == "drop") {
-        g->drop(in);
+        g->drop(in, step);
     }
     else if (cmd == "levelup") {
         g->levelup(step);
