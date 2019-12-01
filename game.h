@@ -40,6 +40,8 @@ class Game {
     void random();
     void replaceBlock(std::string cmd);
 
+    bool isAutoDrop() const;
+
     private:
     void execAction(std::istream &in);
     void switchTurn();

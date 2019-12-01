@@ -102,6 +102,12 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
 
 /* Main interface for analyzing and executing command cmd, also display the boards after */
 bool Interface::cmdInterface(std::istream& in) {
+    if (g->isAutoDrop()) {
+        execFunc(in, 1, "drop");
+        std::cout << *(g->display) << std::endl;
+        return true;
+    }
+
     std::string cmd;
     if(in >> cmd){
         // Used for multiplier

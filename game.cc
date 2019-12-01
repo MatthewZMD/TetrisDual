@@ -253,6 +253,15 @@ void Game::replaceBlock(std::string cmd) {
     }
 }
 
+bool isAutoDrop() const {
+    if (playerTurn == 0) {
+        return board1->countD > 0;
+    }
+    else if (playerTurn == 1) {
+        return board2->countD > 0;
+    }
+}
+
 void Game::switchTurn() {
     if (playerTurn == 0) {
         board1->genThis();
