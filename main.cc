@@ -48,6 +48,9 @@ int main(int argc, char* argv[]) {
     }
     // Game finished
     std::cout << "Player " << i->g->playerTurn + 1 << " has lost!" << std::endl;
+    if(g->hiScore){
+        i->g->board1->score
+    }
 
     return 0;
 }
