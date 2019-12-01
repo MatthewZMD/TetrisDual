@@ -10,7 +10,7 @@
 
 class Board: public std::enable_shared_from_this<Board>, public Subject {
 	public:
-    int countD;
+    int countD = 0;
     virtual int left(int time) = 0;
     virtual int right(int time) = 0;
     virtual void rotate(bool isClockwise, int time) = 0;

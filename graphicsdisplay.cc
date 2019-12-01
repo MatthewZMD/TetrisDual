@@ -36,7 +36,7 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
 				} else if (current == 'T') {
                     xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Green);
 				} else if (current == '*') {
-                    xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Black);
+                    xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Brown);
 					xw.drawString(24 + 20 * j, 115 + 20 * i, "*", Xwindow::White);
 				} else if (current == '?') {
                     xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Black);
@@ -130,7 +130,7 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
                 } else if (current == 'T') {
                     xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Green);
                 } else if (current == '*') {
-                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Black);
+                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Brown);
                     xw.drawString(294 + 20 * j, 115 + 20 * i, "*", Xwindow::White);
                 } else if (current == '?') {
                     xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Black);

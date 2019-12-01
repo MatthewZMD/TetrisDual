@@ -170,8 +170,8 @@ void Game::drop(std::istream & in, int n) {
     else if (playerTurn == 1) {
         if(n > 1){
             board2->countD = n - 1;
-        } else if (board1->countD > 0){
-            --board1->countD;
+        } else if (board2->countD > 0){
+            --board2->countD;
         }
 
         numberOfRowsRemoved = board2->drop();
