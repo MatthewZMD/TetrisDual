@@ -12,9 +12,9 @@ class Interface{
     void cmdExtract(int& step, std::string& cmd);
     void execFunc(std::istream& in, int step, std::string cmd);
     public:
-    std::shared_ptr<Game> g;
     std::string file1, file2;
     int startLevel;
+    std::shared_ptr<Game> g;
     Interface(std::string fileName1, std::string fileName2, int l);
     bool cmdInterface(std::istream& in);
 
