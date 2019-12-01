@@ -1,6 +1,6 @@
 #include "interface.h"
 
-Interface::Interface(std::string fileName1, std::string fileName2, int l): file1 { fileName1 }, file2 { fileName2 }, startLevel { l }, g { std::make_shared<Game>(fileName1, fileName2, startLevel) } {}
+Interface::Interface(std::string fileName1, std::string fileName2, int l, bool isTextOnly): file1 { fileName1 }, file2 { fileName2 }, startLevel { l }, isTextOnly { isTextOnly }, g { std::make_shared<Game>(fileName1, fileName2, startLevel, isTextOnly) } {}
 
 
 /* Tries to match command cmd with the list cmdList and returns the matched command string.
@@ -92,7 +92,7 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
     }
     else if (cmd == "restart") {
         std::cout << "Restarting..." << std::endl;
-        g = std::make_shared<Game>(file1, file2, startLevel);
+        g = std::make_shared<Game>(file1, file2, startLevel, isTextOnly);
         std::cout << *(g->display) << std::endl;
     }
     else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" || cmd == "S" || cmd == "Z" || cmd == "T") {
