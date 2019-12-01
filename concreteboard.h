@@ -23,7 +23,7 @@ class ConcreteBoard: public Board{
     int right(int time) override;
     void rotate(bool isClockwise, int time) override;
     bool down(int time) override;
-    int drop(int time) override;
+    int drop() override;
     void levelUp() override;
     void levelDown() override;
     std::vector<std::vector<char>> display() override;

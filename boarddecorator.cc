@@ -3,8 +3,8 @@
 
 
 BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
-int BoardDecorator::drop(int time) {
-	return board->drop(time);
+int BoardDecorator::drop() {
+	return board->drop();
 	notifyObservers();
 
 }
