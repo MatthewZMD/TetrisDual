@@ -237,9 +237,6 @@ bool ConcreteBoard::down(int time){
 
 
 int ConcreteBoard::drop() {
-    if(countD == 0){
-        countD = time;
-    }
 	// down until impossible
 	while (down(1));
     // Consider level4 case
