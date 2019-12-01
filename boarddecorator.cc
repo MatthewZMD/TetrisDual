@@ -31,7 +31,7 @@ void BoardDecorator::rotate(bool isClockwise, int time) {
 }
 
 bool BoardDecorator::down(int time) {
-	bool result = board->down();
+	bool result = board->down(time);
 	notifyObservers();
 	return result;
 }
