@@ -3,6 +3,7 @@
 #include "boardinfo.h"
 
 ConcreteBoard::ConcreteBoard(int boardNum, std::string fileName, int l): boardNum { boardNum }, score{ 0 }, countTurn{ 0 }, boardInfo{} {
+    countD = 0;
     level = std::make_shared<Level0>(fileName);
     while(l > 0){
         level = level->levelUp();

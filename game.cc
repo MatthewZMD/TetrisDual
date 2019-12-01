@@ -1,16 +1,18 @@
 #include "game.h"
 
-Game::Game(std::string fileName1, std::string fileName2, int l): hiScore{0}, playerTurn{0} {
-    init(fileName1, fileName2, l);
+Game::Game(std::string fileName1, std::string fileName2, int l, bool isTextOnly): hiScore{0}, playerTurn{0} {
+    init(fileName1, fileName2, l, isTextOnly);
 }
 
-void Game::init(std::string fileName1, std::string fileName2, int l){
+void Game::init(std::string fileName1, std::string fileName2, int l, bool isTextOnly){
     playerTurn = 0;
     display = std::make_shared<TextDisplay>(2, 18, 11);
     window = std::make_shared<GraphicsDisplay>(590, 520);
     board1 = std::make_shared<ConcreteBoard>(0, fileName1, l);
     board1->attach(display.get());
-    board1->attach(window.get());
+    if(!isTextOnly){
+        board1->attach(window.get());
+    }
     board2 = std::make_shared<ConcreteBoard>(1, fileName2, l);
     board2->attach(display.get());
     board2->attach(window.get());
@@ -146,7 +148,12 @@ void Game::rotate(bool isClockwise, int n) {
 void Game::drop(std::istream & in, int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
-        board1->countD = n;
+        if(n > 1){
+            board1->countD = n - 1;
+        } else if (board1->countD > 0) {
+            --board1->countD;
+        }
+
         numberOfRowsRemoved = board1->drop();
 
         // special actions
@@ -161,7 +168,12 @@ void Game::drop(std::istream & in, int n) {
         }
     }
     else if (playerTurn == 1) {
-        board2->countD = n;
+        if(n > 1){
+            board2->countD = n - 1;
+        } else if (board2->countD > 0){
+            --board2->countD;
+        }
+
         numberOfRowsRemoved = board2->drop();
 
         // special actions
@@ -251,6 +263,15 @@ void Game::replaceBlock(std::string cmd) {
     } else {
         board2->replaceBlock(type);
     }
+}
+
+bool Game::isAutoDrop() const {
+    if (playerTurn == 0) {
+        return board1->countD > 0;
+    } else if (playerTurn == 1) {
+        return board2->countD > 0;
+    }
+    return false;
 }
 
 void Game::switchTurn() {

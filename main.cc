@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    std::shared_ptr<Interface> i = std::make_shared<Interface>(fileName1, fileName2, startLevel);
+    std::shared_ptr<Interface> i = std::make_shared<Interface>(fileName1, fileName2, startLevel, textOnly);
 
     std::cout << *(i->g->display) << std::endl;
 

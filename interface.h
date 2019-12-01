@@ -14,8 +14,9 @@ class Interface{
     public:
     std::string file1, file2;
     int startLevel;
+    bool isTextOnly;
     std::shared_ptr<Game> g;
-    Interface(std::string fileName1, std::string fileName2, int l);
+    Interface(std::string fileName1, std::string fileName2, int l, bool isTextOnly);
     bool cmdInterface(std::istream& in);
 
 };
