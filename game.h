@@ -20,6 +20,7 @@ class Game {
     int hiScore;
     int playerTurn;
     Game(std::string fileName1, std::string fileName2, int l);
+    void init(std::string fileName1, std::string fileName2, int l);
 
     void heavy();
     void blind();
@@ -33,7 +34,7 @@ class Game {
     void drop(std::istream & in);
     void levelup(int n);
     void leveldown(int n);
-    void norandom(std::istream & in);
+    void norandom(std::string file);
     void random();
     void replaceBlock(std::string cmd);
 
