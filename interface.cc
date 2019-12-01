@@ -92,6 +92,8 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
     }
     else if (cmd == "restart") {
         std::cout << "Restarting..." << std::endl;
+        g = std::make_shared<Game>(file1, file2, startLevel);
+        std::cout << *(g->display) << std::endl;
     }
     else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" || cmd == "S" || cmd == "Z" || cmd == "T") {
         g->replaceBlock(cmd);
