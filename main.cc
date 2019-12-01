@@ -48,9 +48,9 @@ int main(int argc, char* argv[]) {
     }
     // Game finished
     std::cout << "Player " << i->g->playerTurn + 1 << " has lost!" << std::endl;
-    if(g->hiScore){
-        i->g->board1->score
+    int thisHi = i->g->display->getScore(0) > i->g->display->getScore(1) ? i->g->display->getScore(0) : i->g->display->getScore(1);
+    if(i->g->hiScore < thisHi){
+        i->g->hiScore = thisHi;
+        std::cout << "Congratulations! HiScore is now " << thisHi << std::endl;
     }
-
-    return 0;
 }
