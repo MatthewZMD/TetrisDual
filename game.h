@@ -11,12 +11,14 @@
 #include "heavydecorator.h"
 #include "blinddecorator.h"
 #include "forcedecorator.h"
+#include "graphicsdisplay.h"
 
 class Game {
     public:
     std::shared_ptr<Board> board1;
     std::shared_ptr<Board> board2;
     std::shared_ptr<TextDisplay> display;
+    std::shared_ptr<GraphicsDisplay> window;
     int hiScore;
     int playerTurn;
     Game(std::string fileName1, std::string fileName2, int l);

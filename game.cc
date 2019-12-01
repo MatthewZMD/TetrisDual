@@ -2,10 +2,13 @@
 
 Game::Game(std::string fileName1, std::string fileName2, int l): hiScore{0}, playerTurn{0} {
     display = std::make_shared<TextDisplay>(2, 18, 11);
+    window = std::make_shared<GraphicsDisplay>(520, 590);
     board1 = std::make_shared<ConcreteBoard>(0, fileName1, l);
     board1->attach(display.get());
+    board1->attach(window.get());
     board2 = std::make_shared<ConcreteBoard>(1, fileName2, l);
     board2->attach(display.get());
+    board2->attach(window.get());
     board1->notifyObservers();
     board2->notifyObservers();
 
