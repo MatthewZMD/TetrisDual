@@ -14,6 +14,8 @@ int main() {
 
   w.drawBigString(50, 100, "ABCD", Xwindow::Black);
 
+  w.fillRectangle(50, 40, 3, 3, Xwindow::Blue);
+
   w.drawString(50, 150, "Hello!", Xwindow::Blue);
 
   Xwindow w2(199, 199);
