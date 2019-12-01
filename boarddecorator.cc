@@ -7,19 +7,22 @@ BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {
 }
 
 int BoardDecorator::drop() {
-	return board->drop();
+	int result = board->drop();
 	notifyObservers();
+	return result;
 
 }
 
 int BoardDecorator::left(int time) {
-	return board->left(time);
+	int result = board->left(time);
 	notifyObservers();
+	return result;
 }
 
 int BoardDecorator::right(int time) {
-	return board->right(time);
+	int result = board->right(time);
 	notifyObservers();
+	return result;
 }
 
 void BoardDecorator::rotate(bool isClockwise, int time) {
@@ -28,8 +31,9 @@ void BoardDecorator::rotate(bool isClockwise, int time) {
 }
 
 bool BoardDecorator::down(int time) {
-	return board->down(time);
+	bool result = board->down();
 	notifyObservers();
+	return result;
 }
 
 void BoardDecorator::levelUp() {
