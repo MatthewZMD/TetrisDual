@@ -265,7 +265,7 @@ int ConcreteBoard::drop() {
 		if (lineFull == 1) {
 			for (int j = 0; j < 11; ++j) {
 				allCells[i][j].cellState.cellStatus = CellStatus::Dead;
-				if (allCells[i][j].squad.size() == 0) {
+				if (allCells[i][j].squad.size() == 0 && allCells[i][j].type != CellType::Star) {
 					score += (allCells[i][j].blockLevel + 1) * (allCells[i][j].blockLevel + 1);
 				}
 				allCells[i][j].type = CellType::E;

@@ -11,7 +11,7 @@ void Cell::restore() {
 
 void Cell::set(CellType t, int bl, std::vector<Cell*> s) {
     type = t;
-    bl = blockLevel;
+    blockLevel = bl;
     squad = s;
 }
 
