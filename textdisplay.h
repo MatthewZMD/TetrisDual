@@ -12,14 +12,15 @@
 
 class TextDisplay : public Observer {
 	private:
-		std::vector<int> level;
-		std::vector<int> score;
-		std::vector<std::vector<std::vector<char>>> boardData;
-		std::vector<CellType> nextType;
+    std::vector<int> level;
+    std::vector<int> score;
+    std::vector<std::vector<std::vector<char>>> boardData;
+    std::vector<CellType> nextType;
 	public:
-		TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColumns);
-		void notify(Subject & s) override;
-		friend std::ostream& operator<<(std::ostream &out, const TextDisplay & td);
+    int getScore(int player) const;
+    TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColumns);
+    void notify(Subject & s) override;
+    friend std::ostream& operator<<(std::ostream &out, const TextDisplay & td);
 };
 
 #endif

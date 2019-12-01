@@ -13,7 +13,7 @@ TextDisplay::TextDisplay(int numberOfPlayers, int numberOfRows, int numberOfColu
 				boardData.at(i).at(r).emplace_back(' ');
 			}
 		}
-        
+
 		nextType.emplace_back(CellType::E);
 	}
 }
@@ -169,4 +169,8 @@ std::ostream& operator<<(std::ostream &out, const TextDisplay &td) {
 	out << std::endl;
 
 	return out;
+}
+
+int TextDisplay::getScore(int player) const{
+    return score.at(player);
 }
