@@ -2,7 +2,10 @@
 #include "boardinfo.h"
 
 
-BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
+BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {
+    countD = board->countD;
+}
+
 int BoardDecorator::drop() {
 	return board->drop();
 	notifyObservers();
