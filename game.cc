@@ -63,14 +63,14 @@ void Game::recover() {
     }
 }
 
-void Game::left(std::istream & in, int n) {
+bool Game::left(int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         numberOfRowsRemoved = board1->left(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board1->isTurnOver()) {
@@ -84,7 +84,7 @@ void Game::left(std::istream & in, int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board2->isTurnOver()) {
@@ -93,16 +93,17 @@ void Game::left(std::istream & in, int n) {
             switchTurn();
         }
     }
+    return false;
 }
 
-void Game::right(std::istream & in, int n) {
+bool Game::right(int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         numberOfRowsRemoved = board1->right(n);
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board1->isTurnOver()) {
@@ -116,7 +117,7 @@ void Game::right(std::istream & in, int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board2->isTurnOver()) {
@@ -125,6 +126,7 @@ void Game::right(std::istream & in, int n) {
             switchTurn();
         }
     }
+    return false;
 }
 
 void Game::down(int n) {
@@ -145,7 +147,7 @@ void Game::rotate(bool isClockwise, int n) {
     }
 }
 
-void Game::drop(std::istream & in, int n) {
+bool Game::drop(int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         if(n > 1){
@@ -158,7 +160,7 @@ void Game::drop(std::istream & in, int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board1->isTurnOver()) {
@@ -178,7 +180,7 @@ void Game::drop(std::istream & in, int n) {
 
         // special actions
         if (numberOfRowsRemoved >= 2) {
-            execAction(in);
+            return true;
         }
 
         if (board2->isTurnOver()) {
@@ -187,6 +189,7 @@ void Game::drop(std::istream & in, int n) {
             switchTurn();
         }
     }
+    return false;
 }
 
 void Game::levelup(int n) {
@@ -284,48 +287,5 @@ void Game::switchTurn() {
         board2->genThis();
         board1->setNext(board1->genNext());
         playerTurn = 0;
-    }
-}
-
-// Read one special action from istream in and execute the action
-void Game::execAction(std::istream & in) {
-    std::string cmd;
-    in >> cmd;
-    cmdInterpreter(cmd, spList);
-    if (cmd == "blind") {
-        blind();
-    }
-    else if (cmd == "heavy") {
-        heavy();
-    }
-    else if (cmd == "force") {
-        std::string t;
-        in >> t;
-
-        CellType type = CellType::E;
-
-        if (t == "I") {
-            type = CellType::I;
-        }
-        else if (t == "J") {
-            type = CellType::J;
-        }
-        else if (t == "L") {
-            type = CellType::L;
-        }
-        else if (t == "O") {
-            type = CellType::O;
-        }
-        else if (t == "S") {
-            type = CellType::S;
-        }
-        else if (t == "Z") {
-            type = CellType::Z;
-        }
-        else if (t == "T") {
-            type = CellType::T;
-        }
-
-        force(type);
     }
 }
