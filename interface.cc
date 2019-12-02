@@ -2,7 +2,11 @@
 
 Interface::Interface(std::string fileName1, std::string fileName2, int l, bool isTextOnly): file1 { fileName1 }, file2 { fileName2 }, startLevel { l }, isTextOnly { isTextOnly }, g { std::make_shared<Game>(fileName1, fileName2, startLevel, isTextOnly) } {}
 
-std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i){
+
+/* Tries to match command cmd with the list cmdList and returns the matched command string.
+   If cannot find the match string, or matched more than 1 command, return empty string
+ */
+std::string Interface::cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i){
     if(cmd.size() == 0 && cmdList.size() > 1){
         // Matched more than 1 command
         return "";
@@ -24,6 +28,7 @@ std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string
     }
 }
 
+/* The references of step and cmd, extract the number of multipliers from cmd and assign it to step. */
 void Interface::cmdExtract(int& step, std::string& cmd){
     step = 1;
     int lastDiIndex = -1;
@@ -95,6 +100,7 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
     }
 }
 
+/* Main interface for analyzing and executing command cmd, also display the boards after */
 bool Interface::cmdInterface(std::istream& in) {
     if (g->isAutoDrop()) {
         execFunc(in, 1, "drop");
