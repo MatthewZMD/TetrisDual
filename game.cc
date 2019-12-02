@@ -291,6 +291,7 @@ void Game::switchTurn() {
 void Game::execAction(std::istream & in) {
     std::string cmd;
     in >> cmd;
+    cmdInterpreter(cmd, spList);
     if (cmd == "blind") {
         blind();
     }

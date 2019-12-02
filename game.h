@@ -12,8 +12,10 @@
 #include "blinddecorator.h"
 #include "forcedecorator.h"
 #include "graphicsdisplay.h"
+#include "interface.h"
 
 class Game {
+    const std::vector<std::string> spList = {"force", "heavy", "blind"};
     public:
     std::shared_ptr<Board> board1;
     std::shared_ptr<Board> board2;
