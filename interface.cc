@@ -2,7 +2,7 @@
 
 Interface::Interface(std::string fileName1, std::string fileName2, int l, bool isTextOnly): file1 { fileName1 }, file2 { fileName2 }, startLevel { l }, isTextOnly { isTextOnly }, g { std::make_shared<Game>(fileName1, fileName2, startLevel, isTextOnly) } {}
 
-std::string Interface::cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i){
+std::string cmdInterpreter(const std::string& cmd, const std::vector<std::string>& cmdList, unsigned i){
     if(cmd.size() == 0 && cmdList.size() > 1){
         // Matched more than 1 command
         return "";
@@ -43,14 +43,10 @@ void Interface::cmdExtract(int& step, std::string& cmd){
 
 void Interface::execFunc(std::istream& in, int step, std::string cmd) {
     if (cmd == "left") {
-        if(g->left(step)){
-            execAction(in);
-        }
+        g->left(in, step);
     }
     else if (cmd == "right") {
-        if(g->right(step)){
-            execAction(in);
-        }
+        g->right(in, step);
     }
     else if (cmd == "down") {
         g->down(step);
@@ -62,9 +58,7 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
         g->rotate(false, step);
     }
     else if (cmd == "drop") {
-        if(g->drop(step)){
-            execAction(in);
-        }
+        g->drop(in, step);
     }
     else if (cmd == "levelup") {
         g->levelup(step);
@@ -98,47 +92,6 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
     }
     else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" || cmd == "S" || cmd == "Z" || cmd == "T") {
         g->replaceBlock(cmd);
-    }
-}
-
-void Interface::execAction(std::istream & in) {
-    std::string cmd;
-    in >> cmd;
-    cmdInterpreter(cmd, spList);
-    if (cmd == "blind") {
-        g->blind();
-    }
-    else if (cmd == "heavy") {
-        g->heavy();
-    }
-    else if (cmd == "force") {
-        std::string t;
-        in >> t;
-
-        CellType type = CellType::E;
-
-        if (t == "I") {
-            type = CellType::I;
-        }
-        else if (t == "J") {
-            type = CellType::J;
-        }
-        else if (t == "L") {
-            type = CellType::L;
-        }
-        else if (t == "O") {
-            type = CellType::O;
-        }
-        else if (t == "S") {
-            type = CellType::S;
-        }
-        else if (t == "Z") {
-            type = CellType::Z;
-        }
-        else if (t == "T") {
-            type = CellType::T;
-        }
-        g->force(type);
     }
 }
 

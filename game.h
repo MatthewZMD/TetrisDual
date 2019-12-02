@@ -1,5 +1,6 @@
 #ifndef _GAME_H_
 #define _GAME_H_
+#include <iostream>
 #include <vector>
 #include <memory>
 #include <string>
@@ -11,8 +12,10 @@
 #include "blinddecorator.h"
 #include "forcedecorator.h"
 #include "graphicsdisplay.h"
+#include "interface.h"
 
 class Game {
+    const std::vector<std::string> spList = {"force", "heavy", "blind"};
     public:
     std::shared_ptr<Board> board1;
     std::shared_ptr<Board> board2;
@@ -28,11 +31,11 @@ class Game {
     void force(CellType type);
     void recover();
 
-    bool left(int n);
-    bool right(int n);
+    void left(std::istream & in, int n);
+    void right(std::istream & in, int n);
     void down(int n);
     void rotate(bool isClockwise, int n);
-    bool drop(int n);
+    void drop(std::istream & in, int n);
     void levelup(int n);
     void leveldown(int n);
     void norandom(std::string file);
@@ -42,6 +45,7 @@ class Game {
     bool isAutoDrop() const;
 
     private:
+    void execAction(std::istream &in);
     void switchTurn();
 };
 
