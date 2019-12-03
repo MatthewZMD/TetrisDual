@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
         }
         if(arg == "-seed"){
             // Configure seed for RNG
-            srand(std::atoi(argv[++i]));
+            srand(std::stoi(argv[++i]));
         }
         if(arg == "-scriptfile1"){
             fileName1 = argv[++i];
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
             fileName2 = argv[++i];
         }
         if(arg == "-startlevel"){
-            startLevel = std::atoi(argv[++i]);
+            startLevel = std::stoi(argv[++i]);
         }
     }
 
