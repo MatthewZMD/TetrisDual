@@ -7,7 +7,6 @@
 class ConcreteBoard: public Board{
     CellState dummyState;
     int countD;
-    public:
     int boardNum;
     std::shared_ptr<Block> thisBlock;
     CellType nextType;
@@ -16,8 +15,9 @@ class ConcreteBoard: public Board{
     int countTurn;
     std::vector<std::vector<Cell>> allCells;
     bool turnGG = false;
-    ConcreteBoard(int boardNum, std::string fileName, int l);
     BoardInfo boardInfo;
+	public:
+    ConcreteBoard(int boardNum, std::string fileName, int l);
     void genThis() override;
     CellType genNext() override;
     int left(int time) override;
