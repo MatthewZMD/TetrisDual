@@ -27,5 +27,7 @@ class BoardDecorator: public Board {
     void noRandom(std::string filename) override;
     void random() override;
     void replaceBlock(CellType newType) override;
+    int getCountD() const override;
+    void setCountD(int cd) override;
 };
 #endif

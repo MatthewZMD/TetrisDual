@@ -451,3 +451,11 @@ void ConcreteBoard::replaceBlock(CellType newType) {
 	nextType = temp;
 	notifyObservers();
 }
+
+int ConcreteBoard::getCountD() const{
+    return countD;
+}
+
+void ConcreteBoard::setCountD(int cd){
+    countD = cd;
+}

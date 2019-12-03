@@ -6,6 +6,7 @@
 
 class ConcreteBoard: public Board{
     CellState dummyState;
+    int countD;
     public:
     int boardNum;
     std::shared_ptr<Block> thisBlock;
@@ -36,5 +37,7 @@ class ConcreteBoard: public Board{
     void noRandom(std::string fileName) override;
     void random() override;
     void replaceBlock(CellType NewType) override;
+    int getCountD() const override;
+    void setCountD(int cd) override;
 };
 #endif

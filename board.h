@@ -10,7 +10,6 @@
 
 class Board: public std::enable_shared_from_this<Board>, public Subject {
 	public:
-    int countD = 0;
     virtual int left(int time) = 0;
     virtual int right(int time) = 0;
     virtual void rotate(bool isClockwise, int time) = 0;
@@ -30,6 +29,8 @@ class Board: public std::enable_shared_from_this<Board>, public Subject {
     virtual void noRandom(std::string fileName) = 0;
     virtual void random() = 0;
     virtual void replaceBlock (CellType newType) = 0;
+    virtual int getCountD() const = 0;
+    virtual void setCountD(int cd) = 0;
 };
 
 #endif

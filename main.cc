@@ -51,6 +51,6 @@ int main(int argc, char* argv[]) {
     int thisHi = i->g->display->getScore(0) > i->g->display->getScore(1) ? i->g->display->getScore(0) : i->g->display->getScore(1);
     if(i->g->hiScore < thisHi){
         i->g->hiScore = thisHi;
-        std::cout << "Congratulations! HiScore is now " << thisHi << std::endl;
+        std::cout << "Congratulations! You have achieved the most useless high score you can ever get: " << thisHi << std::endl;
     }
 }

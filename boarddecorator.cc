@@ -2,9 +2,7 @@
 #include "boardinfo.h"
 
 
-BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {
-    countD = board->countD;
-}
+BoardDecorator::BoardDecorator(std::shared_ptr<Board>board): board { board } {}
 
 int BoardDecorator::drop() {
 	int result = board->drop();
@@ -97,4 +95,13 @@ void BoardDecorator::random() {
 void BoardDecorator::replaceBlock(CellType newType) {
 	board->replaceBlock(newType);
 	notifyObservers();
+}
+
+
+int BoardDecorator::getCountD() const{
+    return board->getCountD();
+}
+
+void BoardDecorator::setCountD(int cd){
+    board->setCountD(cd);
 }

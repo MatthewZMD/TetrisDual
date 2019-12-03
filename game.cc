@@ -7,7 +7,9 @@ Game::Game(std::string fileName1, std::string fileName2, int l, bool isTextOnly)
 void Game::init(std::string fileName1, std::string fileName2, int l, bool isTextOnly){
     playerTurn = 0;
     display = std::make_shared<TextDisplay>(2, 18, 11);
-    window = std::make_shared<GraphicsDisplay>(590, 520);
+    if(!isTextOnly){
+        window = std::make_shared<GraphicsDisplay>(590, 520);
+    }
     board1 = std::make_shared<ConcreteBoard>(0, fileName1, l);
     board1->attach(display.get());
     if(!isTextOnly){
@@ -15,7 +17,9 @@ void Game::init(std::string fileName1, std::string fileName2, int l, bool isText
     }
     board2 = std::make_shared<ConcreteBoard>(1, fileName2, l);
     board2->attach(display.get());
-    board2->attach(window.get());
+    if(!isTextOnly){
+        board2->attach(window.get());
+    }
     board1->notifyObservers();
     board2->notifyObservers();
 
@@ -149,9 +153,9 @@ void Game::drop(std::istream & in, int n) {
     int numberOfRowsRemoved = 0;
     if (playerTurn == 0) {
         if(n > 1){
-            board1->countD = n - 1;
-        } else if (board1->countD > 0) {
-            --board1->countD;
+            board1->setCountD(n - 1);
+        } else if (board1->getCountD() > 0) {
+            board1->setCountD(board1->getCountD() - 1);
         }
 
         numberOfRowsRemoved = board1->drop();
@@ -169,9 +173,9 @@ void Game::drop(std::istream & in, int n) {
     }
     else if (playerTurn == 1) {
         if(n > 1){
-            board2->countD = n - 1;
-        } else if (board2->countD > 0){
-            --board2->countD;
+            board2->setCountD(n - 1);
+        } else if (board2->getCountD() > 0){
+            board2->setCountD(board2->getCountD() - 1);
         }
 
         numberOfRowsRemoved = board2->drop();
@@ -267,9 +271,9 @@ void Game::replaceBlock(std::string cmd) {
 
 bool Game::isAutoDrop() const {
     if (playerTurn == 0) {
-        return board1->countD > 0;
+        return board1->getCountD() > 0;
     } else if (playerTurn == 1) {
-        return board2->countD > 0;
+        return board2->getCountD() > 0;
     }
     return false;
 }
@@ -289,6 +293,7 @@ void Game::switchTurn() {
 
 // Read one special action from istream in and execute the action
 void Game::execAction(std::istream & in) {
+    std::cout << "Please unleash your special powers: ";
     std::string cmd;
     in >> cmd;
     if (cmd == "blind") {
@@ -326,5 +331,8 @@ void Game::execAction(std::istream & in) {
         }
 
         force(type);
+    } else {
+        std::cout << "What are you talking about?" << std::endl;
+        execAction(in);
     }
 }

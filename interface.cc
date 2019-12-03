@@ -91,7 +91,7 @@ void Interface::execFunc(std::istream& in, int step, std::string cmd) {
         fin.close();
     }
     else if (cmd == "restart") {
-        std::cout << "Restarting..." << std::endl;
+        std::cout << "Restarting your life..." << std::endl;
         g = std::make_shared<Game>(file1, file2, startLevel, isTextOnly);
         std::cout << *(g->display) << std::endl;
     }
@@ -120,7 +120,7 @@ bool Interface::cmdInterface(std::istream& in) {
         cmd = cmdInterpreter(cmd, cmdList);
 
         if (cmd == "") {
-            std::cout << "This is not a valid command or it matches multiple commands!" << std::endl;
+            std::cout << "What are you talking about?" << std::endl;
         }
         else {
             execFunc(in, step, cmd);

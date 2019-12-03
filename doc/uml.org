@@ -4,231 +4,344 @@
 #+begin_src plantuml :file ./uml1.png
   @startuml
   skinparam classAttributeIconSize 0
-  class Game {
-          + boards: Vector<Board>
-          + hiScore: Integer
-          + playerTurn: Integer
+
+  BoardDecorator <|-- BlindDecorator
+  class BlindDecorator {
+          + display(): vector<vector<char>>
   }
 
-  class Board {
-          + thisBlock: Block
-          + nextBlock: Block
-          + score: Integer
-          + level: Level
-          + countTurn: Integer
-          + textDisplay: TextDisplay
-          + {abstract} left(): void
-          + {abstract} right(): void
-          + {abstract} rotate(bool isClockwise): void
-          + {abstract} down(): void
-          + {abstract} drop(): void
+  class Block {
+          + recaliBtmLft(): void
+          + cells: vector<Cell>
+          + btmLft: Coordinate
+  }
+
+  Block o-- Cell
+
+  Board <|-- BoardDecorator
+
+  BoardDecorator o-- Board
+
+  class BoardDecorator {
+          + board: Board
+          + {abstract} left(int time): int
+          + {abstract} right(int time): int
+          + {abstract} rotate(bool isClockwise, int time): void
+          + {abstract} down(int time): bool
+          + {abstract} drop(): int
           + {abstract} levelUp(): void
           + {abstract} levelDown(): void
-          + {abstract} display(): Vector<Vector<Character>>
-          + notify(Subject): void
+          + {abstract} display(): vector<vector<char>>
+          + {abstract} genThis(): void
+          + {abstract} genNext(): CellType
+          + getBoard(): Board
+          + {abstract} getBoardNum(): int
+          + {abstract} setNext(CellType newNext): void
+          + isTurnOver(): bool
+          + getInfo(): Info
+          + setTurnOver(): void
+          + noRandom(string filename): void
+          + random(): void
+          + replaceBlock(CellType newType): void
   }
-
-  Observer <|-- Board
 
   Subject <|-- Board
 
-  Game *-- Board
-
-  class ConcreteBoard {
-          + allCells: Vector<Vector<Cell>>
-          + left(): void
-          + right(): void
-          + rotate(bool isClockwise): void
-          + down(): void
-          + drop(): void
-          + levelUp(): void
-          + levelDown(): void
-          + display(): Vector<Vector<Character>>
+  class Board {
+          + countD: int
+          + {abstract} left(int time): int
+          + {abstract} right(int time): int
+          + {abstract} rotate(bool isClockwise, int time): void
+          + {abstract} down(int time): bool
+          + {abstract} drop(): int
+          + {abstract} levelUp(): void
+          + {abstract} levelDown(): void
+          + {abstract} genThis(): void
+          + {abstract} genNext(): CellType
+          + {abstract} display(): vector<vector<char>>
+          + {abstract} getBoard(): Board
+          + {abstract} getBoardNum(): int
+          + {abstract} setNext(CellType newNext): void
+          + {abstract} isTurnOver(): bool
+          + {abstract} getInfo(): Info
+          + {abstract} setTurnOver(): void
+          + {abstract} noRandom(string fileName): void
+          + {abstract} random(): void
+          + {abstract} replaceBlock (CellType newType): void
   }
 
-  class TextDisplay {
-          + boardString: Vector<Vector<Character>>
+  Info <|-- BoardInfo
+
+  class BoardInfo {
+          + player: int
+          + level: int
+          + score: int
+          + boardData: vector<vector<char>>
+          + nextType: CellType
+  }
+
+  Observer <|-- Cell
+  Subject <|-- Cell
+  Cell *-- CellInfo
+  Cell *-- CellState
+  Cell *-- Coordinate
+  Cell o-- CellType
+  Cell o-- Cell
+
+  class Cell {
+          - cellInfo: CellInfo
+          + pos: Coordinate
+          + blockLevel: int
+          + type: CellType
+          + squad: vector<Cell>
+          + cellState: CellState
+          + restore(): void
+          + set(CellType t, int bl, vector<Cell> squad): void
+          + notify(Subject s): void
+          + isEmpty(): bool
+          + getInfo(): Info
+  }
+
+  Info <|-- CellInfo
+
+  CellInfo o-- Coordinate
+  CellInfo o-- CellType
+  CellInfo o-- Cell
+
+  class CellInfo {
+          + pos: Coordinate
+          + blockLevel: int
+          + type: CellType
+          + squad: vector<Cell>
+  }
+
+  enum CellStatus {
+          Dead, Down, Alive
+  }
+
+  State <|-- CellState
+
+  CellState *-- CellStatus
+
+  class CellState {
+          + cellStatus: CellStatus
+  }
+
+
+  enum CellType {
+          I, J, L, O, S, Z, T, E, Star
+  }
+
+  Board <|-- ConcreteBoard
+
+  ConcreteBoard *-- CellState
+  ConcreteBoard *-- Block
+  ConcreteBoard o-- CellType
+  ConcreteBoard *-- Level
+  ConcreteBoard *-- Cell
+  ConcreteBoard *-- BoardInfo
+
+  class ConcreteBoard{
+          - dummyState: CellState
+          + boardNum: int
+          + thisBlock: Block
+          + nextType: CellType
+          + score: int
+          + level: Level
+          + countTurn: int
+          + allCells: vector<vector<Cell>>
+          + turnGG: bool
+          + boardInfo: BoardInfo
+          + genThis(): void
+          + genNext(): CellType
+          + left(int time): int
+          + right(int time): int
+          + rotate(bool isClockwise, int time): void
+          + down(int time): bool
+          + drop(): int
+          + levelUp(): void
+          + levelDown(): void
+          + display(): vector<vector<char>>
+          + getBoard(): Board
+          + getBoardNum(): int
+          + setNext(CellType newNext): void
+          + isTurnOver(): bool
+          + getInfo(): Info
+          + setTurnOver(): void
+          + noRandom(string fileName): void
+          + random(): void
+          + replaceBlock(CellType NewType): void
+  }
+
+  class Coordinate {
+          row: int
+          col: int
+          operator==( Coordinate o): bool
+  }
+
+  BoardDecorator <|-- ForceDecorator
+  BoardDecorator o-- CellType
+  class ForceDecorator  {
+          + giventype: CellType
+  }
+
+
+  Game *-- Board
+  Game *-- TextDisplay
+  Game *-- GraphicsDisplay
+  class Game {
+          + board1: Board
+          + board2: Board
+          + display: TextDisplay
+          + window: GraphicsDisplay
+          + hiScore: int
+          + playerTurn: int
+          - execAction(istream in): void
+          - switchTurn(): void
+          + init(string fileName1, string fileName2, int l, bool isTextOnly): void
+          + heavy(): void
+          + blind(): void
+          + force(CellType type): void
+          + recover(): void
+          + left(istream  in, int n): void
+          + right(istream  in, int n): void
+          + down(int n): void
+          + rotate(bool isClockwise, int n): void
+          + drop(istream  in, int n): void
+          + levelup(int n): void
+          + leveldown(int n): void
+          + norandom(string file): void
+          + random(): void
+          + replaceBlock(string cmd): void
+          + isAutoDrop() : bool
+  }
+
+  Observer <|-- GraphicsDisplay
+
+  GraphicsDisplay *-- Xwindow
+
+  class GraphicsDisplay {
+          - length: int
+          - width: int
+          - xw: Xwindow
+          + notify(Subject s): void
+  }
+
+  BoardDecorator <|-- HeavyDecorator
+
+  class HeavyDecorator {
+          + left(int time): int
+          + right(int time): int
+  }
+
+  class Info
+
+  Interface *-- Game
+
+  class Interface{
+          + file1: string
+          + file2: string
+          + startLevel: int
+          + isTextOnly: bool
+          + g: Game
+          - cmdList: vector<string>
+          - cmdInterpreter( string cmd,  vector<string> cmdList, unsigned i = 0): string
+          - cmdExtract(int step, string cmd): void
+          - execFunc(istream in, int step, string cmd): void
+          + cmdInterface(istream in): bool
+  }
+
+  Level <|-- Level0
+
+  class Level0 {
+          + genBlock(): CellType
+          + levelDown(): Level
+          + levelUp(): Level
+  }
+
+  Level <|-- Level1
+
+  class Level1 {
+          + genBlock() : CellType
+          + levelDown(): Level
+          + levelUp(): Level
+  }
+
+  Level <|-- Level2
+
+  class Level2 {
+          + genBlock(): CellType
+          + levelDown(): Level
+          + levelUp(): Level
+  }
+
+  Level <|-- Level3
+
+  class Level3 {
+          + genBlock() : CellType
+          + levelDown(): Level
+          + levelUp(): Level
+          + heavyOffset(): int
+  }
+
+  Level <|-- Level4
+
+  class Level4 {
+          + genBlock(): CellType
+          + levelDown(): Level
+          + levelUp(): Level
+          + heavyOffset(): int
+          + dropBrownBlock(): bool
+  }
+
+  Level o-- CellType
+
+  class Level {
+          + {abstract} genBlock(): CellType
+          + {abstract} levelDown(): Level
+          + {abstract} levelUp(): Level
+          + {abstract} heavyOffset(): int
+          + {abstract} dropBrownBlock(): bool
+          + setReadFromFile(string fileName): void
+          + unsetReadFromFile(): void
+          + getLevel(): int
+          # level: int
+          # defaultFileName: string
+          # readFromFile: bool
+          # sequence: CellType
+          # nextLine: int
+          # genBlockFromFile(): CellType
+  }
+
+  class Observer {
+      + {abstract} notify(Subject s): void
+  }
+
+  class State
+
+  Subject o-- Observer
+
+  class Subject {
+          + observers: vector<Observer>
+          + attach(Observer* o): void
+          + notifyObservers(): void
+          + {abstract} getInfo(): Info
   }
 
   Observer <|-- TextDisplay
 
-  TextDisplay o-- Board
+  TextDisplay *-- CellType
 
-  Board *-- TextDisplay
-
-  Board <|-- ConcreteBoard
-
-  class BoardDecorator {
-          # component: Board
+  class TextDisplay{
+      - level: vector<int>
+      - score: vector<int>
+      - boardData: vector<vector<vector<char>>>
+      - nextType: vector<CellType>
+      + getScore(int player): int
+      + notify(Subject & s): void
   }
 
-  BoardDecorator o-- Board
-
-  class OriginalDecorator {
-          + left(): void
-          + right(): void
-          + rotate(bool isClockwise): void
-          + down(): void
-          + drop(): void
-          + levelUp(): void
-          + levelDown(): void
-          + display(): Vector<Vector<Character>>
-  }
-
-  class BlindDecorator {
-          + left(): void
-          + right(): void
-          + rotate(bool isClockwise): void
-          + down(): void
-          + drop(): void
-          + levelUp(): void
-          + levelDown(): void
-          + display(): Vector<Vector<Character>>
-  }
-
-  class HeavyDecorator {
-          + left(): void
-          + right(): void
-          + rotate(bool isClockwise): void
-          + down(): void
-          + drop(): void
-          + levelUp(): void
-          + levelDown(): void
-          + display(): Vector<Vector<Character>>
-  }
-
-  class ForceDecorator {
-          + left(): void
-          + right(): void
-          + rotate(bool isClockwise): void
-          + down(): void
-          + drop(): void
-          + levelUp(): void
-          + levelDown(): void
-          + display(): Vector<Vector<Character>>
-  }
-
-  Board <|-- BoardDecorator
-  BoardDecorator <|-- OriginalDecorator
-  BoardDecorator <|-- BlindDecorator
-  BoardDecorator <|-- HeavyDecorator
-  BoardDecorator <|-- ForceDecorator
-
-  class Level {
-          + levelNum: Integer
-          + {abstract} genBlock(): Block
-  }
-
-  Level *-- Block
-
-  class Level0 {
-          + genBlock(): Block
-  }
-
-  class Level1 {
-          + genBlock(): Block
-  }
-
-  class Level2 {
-          + genBlock(): Block
-  }
-
-  class Level3 {
-          + genBlock(): Block
-  }
-
-  class Level4 {
-          + genBlock(): Block
-  }
-
-  Level <|-- Level0
-  Level <|-- Level1
-  Level <|-- Level2
-  Level <|-- Level3
-  Level <|-- Level4
-
-  Board *-- Level
-
-  class Block {
-          + cells: Vector<Cell>
-          + init(): void
-  }
-
-  Board *-- Block
-
-  class Subject {
-          - state: State
-          + observers: Vector<Observer>
-          + attach(Observer): void
-          + detach(Observer): void
-          + notifyObservers(): void
-  }
-
-  Subject *-- State
-
-  class Observer{
-          + {abstract} notify(Subject): void
-  }
-
-  Subject o-- Observer
-
-  class Cell {
-          + blockLevel: Integer
-          + pos: Coordinate
-          + type: CellType
-          + squad: Vector<Coordinate>
-          + restore(): void
-          + set(): void
-          + notify(Subject): void
-  }
-
-  Board o-- Cell
-
-  Cell *-- Coordinate
-  Cell *-- CellType
-
-  Subject <|-- Cell
-  Observer <|-- Cell
-
-  Block *-- Cell
-
-  enum CellType << enumeration >> {
-          I
-          J
-          L
-          O
-          S
-          Z
-          T
-          Empty
-  }
-
-  object Coordinate {
-          row: Integer
-          col: Integer
-  }
-
-  enum Direction << enumeration >> {
-          Top
-          Right
-          Nil
-          Left
-          Bot
-  }
-
-  enum Status << enumeration >> {
-          AllDead
-          MeDead
-          Alive
-  }
-
-  object State {
-          direction: Direction
-          status: Status
-  }
-
-  State *-- Direction
-  State *-- Status
+  class Xwindow
 
   @enduml
 #+end_src

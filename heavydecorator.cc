@@ -21,6 +21,7 @@ int HeavyDecorator::right(int time) {
 }
 
 HeavyDecorator::HeavyDecorator(std::shared_ptr<Board> board): BoardDecorator { board }{
-	this->observers = board->observers;
-
+	for (auto &i : board->observers) {
+              attach(i);
+        }
 }
