@@ -2,7 +2,7 @@
 
 std::vector<std::vector<char>> BlindDecorator::display() {
 	std::vector<std::vector<char>> a = board->display();
-	for (int i = 2; i < 12; ++i) {
+	for (int i = 6; i < 16; ++i) {
 		for (int j = 0; j < 11; ++j) {
 			a[i][j] = '?';
 		}		
