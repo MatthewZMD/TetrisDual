@@ -2,7 +2,7 @@
 #include "window.h"
 
 GraphicsDisplay::GraphicsDisplay(int length, int width): length{length}, width{width}, xw{Xwindow(width, length)} {
-	xw.fillRectangle(0, 0, width, length, Xwindow::Magenta);
+	xw.fillRectangle(0, 0, width, length, Xwindow::Orange);
 	xw.fillRectangle(250, 0, 20, 590, Xwindow::Black);
 }
 
@@ -13,9 +13,9 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
 	std::string level = std::to_string(bi.level);
 	std::string score = std::to_string(bi.score);
 	if (player == 0) {
-		xw.fillRectangle(0, 13, 250, 27, Xwindow::Magenta);
+		xw.fillRectangle(0, 13, 250, 27, Xwindow::Orange);
 		xw.drawBigString(15, 40, "Level: " + level, Xwindow::Black);
-		xw.fillRectangle(0, 58, 250, 27, Xwindow::Magenta);
+		xw.fillRectangle(0, 58, 250, 27, Xwindow::Orange);
 		xw.drawBigString(15 ,85, "Score: " + score, Xwindow::Black);
 		for (int i = 0; i < 18; ++i) {
 			for (int j = 0; j < 11; ++j) {
@@ -30,9 +30,9 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
 				} else if (current == 'O') {
                                         xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::DarkGreen);
 				} else if (current == 'S') {
-					xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Yellow);
+					xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Magenta);
 				} else if (current == 'Z') {
-					xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Orange);
+					xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Blue);
 				} else if (current == 'T') {
                     xw.fillRectangle(15 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Green);
 				} else if (current == '*') {
@@ -52,7 +52,7 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
 		CellType type = bi.nextType;
 		for (int i = 0; i < 2; ++i) {
                    for (int j = 0; j < 4; ++j) {
-                        xw.fillRectangle(65 + 30 * j, 510 + 30 * i, 30, 30, Xwindow::Magenta);
+                        xw.fillRectangle(65 + 30 * j, 510 + 30 * i, 30, 30, Xwindow::Orange);
                    }
                 }
 
@@ -82,16 +82,16 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
                 xw.fillRectangle(95, 540, 30, 30, Xwindow::DarkGreen);
                 break;
 			case CellType::S:
-				xw.fillRectangle(65, 540, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(95, 510, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(95, 540, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(125, 510, 30, 30, Xwindow::Yellow);
+				xw.fillRectangle(65, 540, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(95, 510, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(95, 540, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(125, 510, 30, 30, Xwindow::Magenta);
                 break;
 			case CellType::Z:
-				xw.fillRectangle(65, 510, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(95, 510, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(95, 540, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(125, 540, 30, 30, Xwindow::Orange);
+				xw.fillRectangle(65, 510, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(95, 510, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(95, 540, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(125, 540, 30, 30, Xwindow::Blue);
                 break;
 			case CellType::T:
 				xw.fillRectangle(65, 510, 30, 30, Xwindow::Green);
@@ -116,9 +116,9 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
 
 		}
 	} else {
-		xw.fillRectangle(270, 13, 250, 27, Xwindow::Magenta);
+		xw.fillRectangle(270, 13, 250, 27, Xwindow::Orange);
 		xw.drawBigString(285, 40, "Level: " + level, Xwindow::Black);
-			xw.fillRectangle(270, 58, 250, 27, Xwindow::Magenta);
+			xw.fillRectangle(270, 58, 250, 27, Xwindow::Orange);
 		xw.drawBigString(285 ,85, "Score: " + score, Xwindow::Black);
         for (int i = 0; i < 18; ++i) {
             for (int j = 0; j < 11; ++j) {
@@ -133,9 +133,9 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
                 } else if (current == 'O') {
                     xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::DarkGreen);
                 } else if (current == 'S') {
-                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Yellow);
+                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Magenta);
                 } else if (current == 'Z') {
-                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Orange);
+                    xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Blue);
                 } else if (current == 'T') {
                     xw.fillRectangle(285 + 20 * j, 100 + 20 * i, 20, 20, Xwindow::Green);
                 } else if (current == '*') {
@@ -156,7 +156,7 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
         CellType type = bi.nextType;
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < 4; ++j) {
-			xw.fillRectangle(335 + 30 * j, 510 + 30 * i, 30, 30, Xwindow::Magenta);
+			xw.fillRectangle(335 + 30 * j, 510 + 30 * i, 30, 30, Xwindow::Orange);
 		}
 	}
         switch(type) {
@@ -185,16 +185,16 @@ void GraphicsDisplay::GraphicsDisplay::notify(Subject& s) {
                 xw.fillRectangle(365, 540, 30, 30, Xwindow::DarkGreen);
 		break;
             case CellType::S:
-                xw.fillRectangle(335, 540, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(365, 510, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(365, 540, 30, 30, Xwindow::Yellow);
-                xw.fillRectangle(395, 510, 30, 30, Xwindow::Yellow);
+                xw.fillRectangle(335, 540, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(365, 510, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(365, 540, 30, 30, Xwindow::Magenta);
+                xw.fillRectangle(395, 510, 30, 30, Xwindow::Magenta);
 		break;
             case CellType::Z:
-                xw.fillRectangle(335, 510, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(365, 510, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(365, 540, 30, 30, Xwindow::Orange);
-                xw.fillRectangle(395, 540, 30, 30, Xwindow::Orange);
+                xw.fillRectangle(335, 510, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(365, 510, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(365, 540, 30, 30, Xwindow::Blue);
+                xw.fillRectangle(395, 540, 30, 30, Xwindow::Blue);
                 break;
 	    case CellType::T:
                 xw.fillRectangle(335, 510, 30, 30, Xwindow::Green);

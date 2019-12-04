@@ -1,1 +1,32 @@
-#+TITLE: Multiplayer Tetris
+#+TITLE: Tetris Dual
+/Tetris Dual/, a multiplayer tetris game heavily utilizing *MVC*, *Observer*, *Factory*, and *Decorator* design patterns.
+* Design
+** MVC
+   /Tetris Dual/ follows the *model-view-controller*.
+   - Controller - the main function and the =Interface= class read and analyze the input commands
+   - Model - =Game=, =Board=, =Cell=, and =Block= take control of the underlying game state
+   - View - =TextDisplay= and =GraphicsDisplay= display the information to the user
+** Observer Pattern
+   *Observer pattern* is used to keep track of real-time changes to /Tetris Dual/.
+
+   The *Observer pattern* can be divided into two parts: between =Cell=, between =Cell= and =TextDisplay=, and between =GraphicsDisplay= and =Board=. The *Observer pattern* was implemented by an abstract =Subject= class and an abstract =Observer= class, together with concrete =Subject= classes and observer classes which are inherited from these two abstract classes.
+
+   For the first part, the =Board= objects are the subjects and the =TextDisplay= object and the =GraphicsDisplay= objects are the observers. For the second part, each =Cell= is both a =Subject= and an =Observer=. Because the types of information transferred by the *Observer pattern* in these two parts are with large differences, an abstract =Info= class is created together with concrete classes inherited from these two classes, to implement the information transfer between subjects and observers. This design not only prevented hard-coding two sets of similar functions to handle the information transfers in the two parts of the *Observer pattern* but also provided a more flexible way to adopt the *Observer pattern* to other parts of the code in the future, without changing and recompiling much code.
+** Factory Pattern
+   *Factory pattern* is used to implement different functionalities for different levels.
+
+   An abstract =Level= class is created along with five concrete classes from =Level0= to =Level4=, each inherited from the abstract =Level= class.
+
+   In the =Level= class, three pure virtual methods are declared, =genBlock()=, =levelDown()= and =levelUp()=. In each concrete class, different definitions were given to these three functions such that =genBlock()= generate different types of blocks according to the probability rules for each =Level=.
+
+   Moreover, two virtual functions =heavyOffset()= and =dropBrownBlock()= are created in the abstract =Level= class and some of the five concrete classes inherited these two functions such that no matter what the =Level= is, the program is able to know whether the =Block= should go one unit downwards after each movement based on the rules for level 3, or whether a brown block should be dropped to the middle based on the rules for level 4.
+
+   In addition, there are also two functions =setReadFromFile()= and =unsetReadFromFile()= defined in the abstract =Level= class to handle the functionalities for =random= and =norandom= commands for levels 3 and 4.
+** Decorator Pattern
+   *Decorator pattern* is used to implement the special actions for the board.
+
+   An abstract =Board= class is created with a subclass =ConcreteBoard= to take fields of a board (=Level=, score and player number) and implementation of all basic operations (=down=, =drop=, =left=, =right=, etc).
+
+   Also, a =BoardDecorator= class is created to be the =Decorator= used in *Decorator pattern*, which is a subclass of the =Board= and added a =Board= pointer as a field. Then =BlindDecorator=, =HeavyDecorator= and =ForceDecorator= override the specific =Board= methods to achieve the corresponding special action.
+
+   With this design, multiple decorators can be stacked on top of each other, each time adding a new functionality to the overridden methods, which will allow for multiple effects to applied simultaneously.
