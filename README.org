@@ -1,5 +1,5 @@
 #+TITLE: Tetris Dual
-/Tetris Dual/, a multiplayer tetris game heavily utilizing *MVC*, *Observer*, *Factory*, and *Decorator* design patterns.
+/Tetris Dual/, a multiplayer /Tetris/ utilizing *MVC*, *observer*, *factory*, and *decorator* design patterns.
 * Design
 ** MVC
    /Tetris Dual/ follows the *model-view-controller*.
